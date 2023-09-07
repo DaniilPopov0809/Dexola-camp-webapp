@@ -1,0 +1,31 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: $backgroundColor;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+td,
+tr {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+img,
+svg {
+  display: block;
+  height: auto;
+}
+
+a {
+  text-decoration: none;
+}
+
