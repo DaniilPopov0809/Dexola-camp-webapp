@@ -28,7 +28,7 @@ const InfoBlock = ({
       {showInfo && (
         <img
           src={helpIcon}
-          width="14px"
+          width="15px"
           height="15px"
           alt="About"
           className={styles.infoBlock__image}

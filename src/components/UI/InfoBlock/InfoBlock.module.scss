@@ -35,12 +35,13 @@
   grid-area: help;
 
   align-self: self-end;
+  justify-self: center;
   cursor: pointer;
   margin-bottom: 3px;
 
   @media screen and (min-width: $tablet) {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     margin-bottom: 9px;
   }
 
@@ -95,8 +96,9 @@
 
 .infoBlock__title {
   grid-area: title;
-
+   
   @include fontStyle(12px, $normalWeight, "normal", -0.24px);
+  white-space: nowrap;
 
   @media screen and (min-width: $tablet) {
     @include fontStyle(16px, $normalWeight, "normal", -0.32px);

@@ -1,20 +1,9 @@
-
-
-import Header from "./components/Header/Header";
-import Footer from "./components/Footer/Footer";
-import Info from "./components/Info/Info";
+import AppRoutes from "./routes/AppRoutes";
 
 function App() {
 
   return (
-    <>
-    <Header/>
-    <Info/>
-    <main>
-
-    </main>
-    <Footer/>
-    </>
+  <AppRoutes/>
   )
 }
 
