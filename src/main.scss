@@ -14,7 +14,17 @@
     font-display: swap;
 }
 
+@font-face {
+    font-family: "Inter"; 
+    src: url("./fonts/Inter-Regular.ttf");
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+}
+
 @import "./styles/common/variables";
+@import "./styles/common/mixins";
 @import "./styles/common/global";
+@import "./styles/common/mainFontSize";
 @import "./styles/common/container"; 
-@import "./styles/common/mixins"; 
+@import "./styles/common/titles";

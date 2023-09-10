@@ -1,0 +1,12 @@
+@import "../../../styles/common/variables";
+@import "../../../styles/common/mixins";
+
+.customTooltrip {
+font-family: 'Inter', sans-serif;
+@include fontStyle(14px, $normalWeight, 1.14);
+
+max-width: 200px !important;
+padding: 8px 12px !important;
+
+background-color: $whiteColor !important;
+}

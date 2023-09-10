@@ -6,27 +6,24 @@
   margin-top: auto; //for footer to bottom
   padding-top: 8px;
   padding-bottom: 17px;
- 
-  
-  font-family: $bodyFont;
-  @include fontStyle(11px, 400, 'normal', -0.22px);
-  color: $lightGreyColor;
 
+  font-family: $bodyFont;
+  @include fontStyle(11px, 400, "normal", -0.22px);
+  color: $lightGreyColor;
 
   border-top: 1px solid $accentBlueColor;
 
   @media screen and (min-width: $tablet) {
     padding: 16px 0;
 
-    @include fontStyle(14px, 400, 'normal', -0.28px);
+    @include fontStyle(14px, $normalWeight, 1.4, -0.28px);
   }
   @media screen and (min-width: $desktop) {
-  padding-bottom: 25px;
+    padding-bottom: 25px;
   }
 }
 
 .footer__wrap {
- display: flex;
- justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
-

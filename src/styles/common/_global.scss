@@ -1,9 +1,11 @@
 html {
   scroll-behavior: smooth;
+  @include customScrollbar($accentBlueColor, $backgroundColor);
 }
 
 body {
   background-color: $backgroundColor;
+  // background-color: red;
 }
 
 h1,
@@ -28,4 +30,3 @@ svg {
 a {
   text-decoration: none;
 }
-
