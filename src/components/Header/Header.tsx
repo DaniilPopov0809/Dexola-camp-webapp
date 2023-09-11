@@ -2,6 +2,7 @@ import { useWeb3Modal } from "@web3modal/react";
 import { useAccount } from "wagmi";
 
 import BalanceBar from "../UI/BalanceBar/BalanceBar";
+import MainButton from "../UI/MainButton/MainButton";
 import logo from "../../images/logo.svg";
 import styles from "./Header.module.scss";
 
@@ -18,7 +19,12 @@ const Header = () => {
         {isConnected ? (
           <BalanceBar />
         ) : (
-          <button onClick={() => open()}>Connect</button>
+          <MainButton
+            onClick={() => open()}
+            title={"Connect wallet"}
+            globalClassName={"linkButton"}
+            localClassName={"connectWallet"}
+          />
         )}
       </div>
     </header>

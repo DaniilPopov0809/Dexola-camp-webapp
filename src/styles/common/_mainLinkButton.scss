@@ -1,0 +1,27 @@
+.linkButton {
+  position: relative;
+
+  color: $whiteColor;
+  font-family: 'Roboto Mono', monospace;
+  @include fontStyle($bodyMobileFontsize, $mediumWeight, 1.71, 0.0175rem);
+  text-transform: uppercase;
+
+  @media screen and (min-width: $tablet) {
+    @include fontStyle($bodyTabletFontsize, $mediumWeight, 1.5, 0.2rem);
+  }
+
+  cursor: pointer;
+
+  background-color: $buttonColor;
+  border: none;
+
+  transition: background-color $animation;
+
+  &:hover {
+    background-color: $buttonHoverColor;
+  }
+
+  &:active {
+    scale: 1.05;
+  }
+}
