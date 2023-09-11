@@ -1,8 +1,8 @@
-import { ButtonHTMLAttributes } from "react";
+import  { ReactNode, ButtonHTMLAttributes  } from "react";
 import styles from "./MainButton.module.scss";
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  title: string;
+interface ButtonProps extends  ButtonHTMLAttributes<HTMLButtonElement> {
+  children: ReactNode;
   onClick?: () => void;
   globalClassName: string;
   localClassName?: string;
@@ -10,7 +10,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const MainButton = ({
-  title,                      //text in button
+  children,                      //text in button
   onClick, 
   globalClassName,            //the global class is styles/common
   localClassName="",             //class is MainButton.module.scss
@@ -23,7 +23,7 @@ const MainButton = ({
       onClick={onClick}
       {...props}
     >
-      <span className={styles[additionalClassName]}>{title}</span>
+      <span className={styles[additionalClassName]}>{children}</span>
     </button>
   );
 };

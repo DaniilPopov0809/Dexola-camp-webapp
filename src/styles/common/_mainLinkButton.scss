@@ -1,7 +1,7 @@
 .linkButton {
   position: relative;
 
-  color: $whiteColor;
+  
   font-family: 'Roboto Mono', monospace;
   @include fontStyle($bodyMobileFontsize, $mediumWeight, 1.71, 0.0175rem);
   text-transform: uppercase;
@@ -15,11 +15,11 @@
   background-color: $buttonColor;
   border: none;
 
-  transition: background-color $animation;
+  transition: color $animation,
+  background-color $animation,
+  scale $animation;
 
-  &:hover {
-    background-color: $buttonHoverColor;
-  }
+  
 
   &:active {
     scale: 1.05;

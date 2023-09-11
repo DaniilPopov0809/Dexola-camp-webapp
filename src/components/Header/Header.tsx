@@ -1,13 +1,13 @@
 import { useWeb3Modal } from "@web3modal/react";
 import { useAccount } from "wagmi";
-
-import BalanceBar from "../UI/BalanceBar/BalanceBar";
+import ButtonLoader from "../UI/ButtonLoader/ButtonLoader";
+import BalanceEth from "../UI/BalanceItem/BalanceItem";
 import MainButton from "../UI/MainButton/MainButton";
 import logo from "../../images/logo.svg";
 import styles from "./Header.module.scss";
 
 const Header = () => {
-  const { open } = useWeb3Modal();
+  const { open, isOpen } = useWeb3Modal();
   const { isConnected } = useAccount();
 
   return (
@@ -17,13 +17,21 @@ const Header = () => {
           <img src={logo} alt="logo" width={35} height={20} />
         </a>
         {isConnected ? (
-          <BalanceBar />
+          <MainButton
+            onClick={() => open()}
+            children={<BalanceEth />}
+            globalClassName={"linkButton"}
+            localClassName={"infoWallet"}
+            additionalClassName={"infoWalletWrap"}
+          />
         ) : (
           <MainButton
             onClick={() => open()}
-            title={"Connect wallet"}
+            children={<ButtonLoader text="Connect wallet" isLoading={isOpen} />}
             globalClassName={"linkButton"}
             localClassName={"connectWallet"}
+            additionalClassName={"connectWalletWrap"}
+            disabled={isOpen}
           />
         )}
       </div>

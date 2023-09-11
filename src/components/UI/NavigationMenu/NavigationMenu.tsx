@@ -5,17 +5,17 @@ const NavigationMenu = () => {
   return (
     <nav className={`container ${styles.navigation}`}>
       <ul className={styles.navigation__list}>
-        <li className={styles.navigation__item}>
+        <li>
           <NavLink className={`${styles.navigation__link}`} to="/">
             Stake
           </NavLink>
         </li>
-        <li className={styles.navigation__item}>
+        <li>
           <NavLink className={`${styles.navigation__link}`}  to="/withdraw">
             Withdraw
           </NavLink>
         </li>
-        <li className={styles.navigation__item}>
+        <li>
           <NavLink className={`${styles.navigation__link}`} to="/claim">
             Claim rewards
           </NavLink>
