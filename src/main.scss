@@ -1,3 +1,32 @@
-body {
-    background-color: red;
+@font-face {
+    font-family: "Kanit";
+    src: url("./fonts/Kanit-Regular.ttf");
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
 }
+
+@font-face {
+    font-family: "Roboto Mono"; 
+    src: url("./fonts/RobotoMono-Regular.ttf");
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Inter"; 
+    src: url("./fonts/Inter-Regular.ttf");
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+}
+
+@import "./styles/common/variables";
+@import "./styles/common/mixins";
+@import "./styles/common/global";
+@import "./styles/common/mainFontSize";
+@import "./styles/common/container"; 
+@import "./styles/common/titles";
+@import "./styles/common/navlinkActive";
+@import "./styles/common/mainLinkButton";

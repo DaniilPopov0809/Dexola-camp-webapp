@@ -1,0 +1,43 @@
+@import "../../../styles/common/variables";
+@import "../../../styles/common/mixins";
+
+.navigation {
+  @media screen and (max-width: $mobileEnd) {
+    border-bottom: 1px solid $accentBlueColor;
+  }
+}
+
+.navigation__list {
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+
+  @media screen and (min-width: $tablet) {
+    justify-content: start;
+  }
+}
+
+.navigation__link {
+  display: inline-block;
+  padding: 16px 0;
+  text-decoration: none;
+
+  color: $lightGreyColor;
+
+transition: color $animation;
+
+  &:hover {
+    color: $whiteColor;
+  }
+
+  @media screen and (min-width: $tablet) {
+    padding: 16px 32px;
+
+    @include fontStyle($bodyTabletFontsize, $mediumWeight, 1.4);
+  }
+}
+
+// .navigation__link.active {
+//     color: $whiteColor;
+//   }

@@ -1,0 +1,30 @@
+@import "../../styles/common/variables";
+
+.info {
+    padding-top: 22px;
+    padding-bottom: 24px;
+
+    @media screen and (min-width: $tablet) {
+        padding: 32px 0;
+    }
+
+    @media screen and (min-width: $desktop) {
+        padding-top: 24px;
+        padding-bottom: 47px;
+    }
+   
+}
+
+.info__wrap {
+    display: flex;
+    gap: 20px;
+
+    @media screen and (min-width: $tablet) {
+        gap: 24px;
+    }
+
+    @media screen and (min-width: $desktop) {
+        gap: 40px;
+    }
+
+}

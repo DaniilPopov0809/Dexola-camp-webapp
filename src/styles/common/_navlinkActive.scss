@@ -1,0 +1,7 @@
+.active {
+    border-bottom: 6px solid $accentBlueColor;
+
+    @media screen and (min-width: $tablet) {
+        border-width: 8px;
+    }
+}

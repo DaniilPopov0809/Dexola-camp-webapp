@@ -1,0 +1,21 @@
+.mainFontSize {
+  font-family: $bodyFont;
+  color: $lightGreyColor;
+  line-height: normal;
+  transition: font-size $animation;
+
+  @media screen and (min-width: $mobile) {
+    font-size: $bodyMobileFontsize;
+    letter-spacing: $letterSpacingMobile;
+  }
+
+  @media screen and (min-width: $tablet) {
+    font-size: $bodyTabletFontsize;
+    letter-spacing: $letterSpacingTablet;
+  }
+
+  @media (min-width: $desktop) {
+    font-size: $bodyDesktopFontsize;
+    letter-spacing: $letterSpacingDesktop;
+  }
+}
