@@ -7,12 +7,12 @@ import { BrowserRouter } from 'react-router-dom';
 import { store } from "./redux/store.ts";
 import { Provider } from "react-redux";
 import { WagmiConfig } from "wagmi";
-import { customConfig } from "../wagmiConfig.ts";
+import { wagmiConfig } from "./config/wagmiConfig.ts";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter basename="dexola-camp">
-    <WagmiConfig config={customConfig}>
+    <WagmiConfig config={wagmiConfig}>
       <Provider store={store}>
         <App />
       </Provider>
