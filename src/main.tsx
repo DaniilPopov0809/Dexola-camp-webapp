@@ -11,7 +11,7 @@ import { wagmiConfig } from "./config/wagmiConfig.ts";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <BrowserRouter basename="dexola-camp">
+    <BrowserRouter>
     <WagmiConfig config={wagmiConfig}>
       <Provider store={store}>
         <App />

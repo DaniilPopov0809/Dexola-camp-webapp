@@ -6,13 +6,15 @@ import styles from "./BalanceItem.module.scss";
 import struLogo from "../../../images/struLogo.jpg";
 import ethLogo from "../../../images/ethLogo.svg";
 
+const VITE_TOKEN_ADDRESS = import.meta.env.VITE_TOKEN_ADDRESS
+
 const BalanceEth = () => {
   const viewportWidth = useViewportWidth();
   const { address } = useAccount();
 
   const struBalance = useBalance({
     address: address,
-    token: "0x59Ec26901B19fDE7a96f6f7f328f12d8f682CB83",
+    token: VITE_TOKEN_ADDRESS,
     watch: true,
   });
 
@@ -45,7 +47,7 @@ const BalanceEth = () => {
       {ethBalance.data && (
         <span className={styles.ethBalance}>{`${roundUpBalance(
           ethBalance.data.formatted
-        )} ETH`}</span>
+        )} ${ethBalance.data.symbol}`}</span>
       )}
       {viewportWidth > 743 && <span className={styles.separator}>|</span>}
       {viewportWidth > 743 && address && (

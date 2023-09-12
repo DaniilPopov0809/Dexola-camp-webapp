@@ -17,6 +17,7 @@
 
 .info__wrap {
     display: flex;
+    flex-wrap: wrap;
     gap: 20px;
 
     @media screen and (min-width: $tablet) {
