@@ -7,8 +7,10 @@ import {
 import { configureChains, createConfig, sepolia} from "wagmi";
 import { arbitrum, mainnet, polygon } from "wagmi/chains";
 
+const VITE_PROJECT_ID = import.meta.env.VITE_PROJECT_ID;
+
 const chains = [arbitrum, mainnet, polygon, sepolia];
-export const projectId = import.meta.env.VITE_PROJECT_ID;
+export const projectId = VITE_PROJECT_ID;
 
 const { publicClient } = configureChains(chains, [w3mProvider({ projectId })]);
 export const wagmiConfig = createConfig({
