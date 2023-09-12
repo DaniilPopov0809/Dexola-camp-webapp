@@ -8,20 +8,23 @@ import {
   // usePrepareContractWrite,
   // useContractWrite,
 } from "wagmi";
-
+import {useStakeBalance} from "../../hooks/contractAbi";
 
 const VITE_CONTRACT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS;
 
 const Info = () => {
   const { address } = useAccount();
   // console.log("🚀 ~ file: Info.tsx:9 ~ Info ~ address:", address);
-  const stakeStruBalance = useContractRead({
-    address: VITE_CONTRACT_ADDRESS,
-    abi: contractAbi,
-    functionName: "balanceOf",
-    args: [address],
-    watch: true,
-  });
+  // const stakeStruBalance = useContractRead({
+  //   address: VITE_CONTRACT_ADDRESS,
+  //   abi: contractAbi,
+  //   functionName: "balanceOf",
+  //   args: [address],
+  //   watch: true,
+  // });
+
+  const stakeBalance = useStakeBalance();
+  console.log("🚀 ~ file: Info.tsx:27 ~ Info ~ stakeBalance:", stakeBalance)
 
   const rewardsForDuration = useContractRead({
     address: VITE_CONTRACT_ADDRESS,
@@ -36,6 +39,7 @@ const Info = () => {
     functionName: "totalSupply",
     watch: true,
   });
+  console.log("🚀 ~ file: Info.tsx:39 ~ Info ~ totalSupply:", totalSupply.data)
 
   const periodFinish = useContractRead({
     address: VITE_CONTRACT_ADDRESS,
@@ -52,7 +56,7 @@ const Info = () => {
     watch: true,
   });
 
-  const stakeStru =  Number(stakeStruBalance.data);
+  // const stakeStru =  Number(stakeStruBalance.data);
   const APR = Number(rewardsForDuration.data)*100/Number(totalSupply.data); 
   const Days = Number(periodFinish.data)/86400;
   const Rewards = Number(earned.data);
@@ -70,7 +74,7 @@ const Info = () => {
         <InfoBlock
           showInfo={true}
           showStru={true}
-          count={`${stakeStru}`}
+          count={`${stakeBalance}`}
           title={"Staked balance"}
           messageToolTip={"Staking rewards get allocated on this sum"}
           tooltipId={"toolTip1"}
