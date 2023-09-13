@@ -5,27 +5,39 @@
 }
 
 .header__wrap {
+  background-size: cover;
+  background-repeat: no-repeat;
+  
+  background-image: url("../../images/background_mob.jpg");
+
+  @media screen and (min-width: $tablet) {
+    background-position: center center;
+    background-image: url("../../images/background_tab.jpg");
+  }
+
+  @media screen and (min-width: $desktop) {
+    background-image: url("../../images/background_desk.jpg");
+  }
+}
+
+.header__links {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 11px 0;
-//   @media screen and (min-width: $tablet) {
-    
-//   }
 }
 
-// .header__linkLogo {
-//   display: inline-block;
-//   padding: 10px 0;
+.header__linkLogo {
+  display: inline-block;
 
-//   &:hover {
-//     scale: 1.02;
-//   }
+  &:hover {
+    scale: 1.02;
+  }
 
-//   &:active {
-//     scale: 1.04;
-//   }
-// }
+  &:active {
+    scale: 1.04;
+  }
+}
 
 // .header__nav {
 //   display: flex;

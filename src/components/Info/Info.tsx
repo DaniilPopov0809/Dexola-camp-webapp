@@ -26,7 +26,7 @@ const Info = () => {
   const days = isConnected ? calculateDays(periodFinish, 86400n) : 0;
 
   return (
-    <section className={`container ${styles.info}`}>
+    <section className={`${styles.info}`}>
       <Title
         text={"StarRunner Token staking"}
         globalClassName={"title__h1"}

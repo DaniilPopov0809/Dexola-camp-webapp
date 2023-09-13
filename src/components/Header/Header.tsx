@@ -1,5 +1,6 @@
 import { useWeb3Modal } from "@web3modal/react";
 import { useAccount } from "wagmi";
+import Info from "../Info/Info";
 import ButtonLoader from "../UI/ButtonLoader/ButtonLoader";
 import BalanceEth from "../UI/BalanceItem/BalanceItem";
 import MainButton from "../UI/MainButton/MainButton";
@@ -13,6 +14,7 @@ const Header = () => {
   return (
     <header className={styles.header}>
       <div className={`container ${styles.header__wrap}`}>
+        <div className={styles.header__links}>
         <a className={styles.header__linkLogo} href="/">
           <img src={logo} alt="logo" width={35} height={20} />
         </a>
@@ -34,6 +36,8 @@ const Header = () => {
             disabled={isOpen}
           />
         )}
+      </div>
+      <Info/>
       </div>
     </header>
   );

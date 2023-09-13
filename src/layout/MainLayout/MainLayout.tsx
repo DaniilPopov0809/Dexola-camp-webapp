@@ -1,5 +1,4 @@
 import Header from "../../components/Header/Header";
-import Info from "../../components/Info/Info";
 import NavigationMenu from "../../components/UI/NavigationMenu/NavigationMenu";
 import Footer from "../../components/Footer/Footer";
 import { Outlet } from "react-router-dom";
@@ -9,7 +8,6 @@ const MainLayout = () => {
         <>
         <Header/>
         <main>
-            <Info/>
             <NavigationMenu/>
             {/* <Suspense/>??????? */}
             <Outlet/>
