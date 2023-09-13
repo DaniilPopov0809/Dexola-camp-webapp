@@ -1,6 +1,15 @@
+import { useAccount } from "wagmi";
+import NoWalletConnect from "../../components/UI/NoWalletConnect/NoWalletConnect";
+import styles from "./Withdraw.module.scss";
+
 const Withdraw = () => {
+    const { isConnected } = useAccount();
     return (
-        <h1>Withdraw</h1>
+        <section className={`container ${styles.stake}`}>
+            {isConnected ? <h1>Hello</h1>  :<NoWalletConnect/>}
+          
+        </section>
+       
     )
 }
 

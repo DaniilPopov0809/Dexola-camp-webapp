@@ -1,21 +1,21 @@
 import {
   EthereumClient,
   w3mConnectors,
-  // w3mProvider,
+  w3mProvider,
 } from "@web3modal/ethereum";
 
 import { configureChains, createConfig } from "wagmi";
-import { mainnet, goerli, sepolia } from "wagmi/chains";
+import { sepolia } from "wagmi/chains";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 
-const VITE_PROJECT_ID = import.meta.env.VITE_PROJECT_ID;
+const {VITE_PROJECT_ID, VITE_API_KEY } = import.meta.env;
 
-const chains = [goerli, mainnet, sepolia];
+const chains = [sepolia];
 export const projectId = VITE_PROJECT_ID;
 
 const { publicClient } = configureChains(chains, [
-  alchemyProvider({ apiKey: "2SJ9OU6LOY_N4YH3cIhb8iOvdFPUsncg" }),
-  // w3mProvider({ projectId }),
+  alchemyProvider({ apiKey: VITE_API_KEY }),
+  w3mProvider({ projectId }),
 ]);
 export const wagmiConfig = createConfig({
   autoConnect: true,

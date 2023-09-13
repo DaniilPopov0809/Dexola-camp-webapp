@@ -1,6 +1,15 @@
+import { useAccount } from "wagmi";
+import NoWalletConnect from "../../components/UI/NoWalletConnect/NoWalletConnect";
+import styles from "./Stake.module.scss";
+
 const Stake = () => {
+    const { isConnected } = useAccount();
     return (
-        <h1 style={{fontFamily: "Inter"}}>Stake</h1>
+        <section className={`container ${styles.stake}`}>
+            {isConnected ? <h1>Hello</h1>  :<NoWalletConnect/>}
+          
+        </section>
+       
     )
 }
 
