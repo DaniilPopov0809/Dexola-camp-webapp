@@ -1,0 +1,41 @@
+@import "../../../styles/common//variables";
+
+.noWalletConnect {
+  padding-top: 149px;
+  padding-bottom: 65px;
+
+  text-align: center;
+
+  @media screen and (min-width: $tablet) {
+    padding: 63px 69px 62px 69px;
+    border: 1px solid $accentBlueColor;
+  }
+
+  @media screen and (min-width: $desktop) {
+    padding: 63px 345px 62px 345px;
+    border: 1px solid $accentBlueColor;
+  }
+}
+
+.noWalletConnect__imageWrap {
+  position: relative;
+  display: inline-block;
+  padding: 16px;
+  margin-bottom: 16px;
+  border-radius: 50%;
+  background-color: $backgroundColorImg;
+}
+
+.noWalletConnect__crossIcon {
+  position: absolute;
+  right: 16px;
+  bottom: 20px;
+}
+
+.noWalletConnect_description {
+  margin-bottom: 110px;
+
+  @media screen and (min-width: $tablet) {
+    margin-bottom: 32px;
+  }
+}

@@ -1,7 +1,8 @@
 @import "../../../styles/common/variables";
 @import "../../../styles/common/mixins";
 
-.connectWallet {
+.connectWallet,
+.noConnectWallet {
   padding: 10px 23px 6px 23px;
   color: $whiteColor;
   background-color: $buttonColor;
@@ -19,20 +20,28 @@
   }
 }
 
+.noConnectWallet {
+  width: 100%;
+  
+  @media screen and (min-width: $tablet) {
+    width: auto;
+  }
+}
+
 button.infoWallet {
   display: flex;
   color: $whiteColor;
   padding: 8px 0;
-  border-radius: 4px;
+  // border-radius: 4px;
 
   font-family: "Kanit", sans-serif;
   @include fontStyle(12px, $mediumWeight, "normal", 0.0075rem);
 
   background-color: transparent;
 
-  &:hover {
-    background-color: $darkGreyColor;
-  }
+  // &:hover {
+  //   background-color: $darkGreyColor;
+  // }
 
   @media screen and (min-width: $tablet) {
     padding: 8px 0;
