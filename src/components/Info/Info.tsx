@@ -1,65 +1,32 @@
 import styles from "./Info.module.scss";
 import Title from "../UI/Title/Title";
 import InfoBlock from "../UI/InfoBlock/InfoBlock";
-import contractAbi from "../../data/contractABI.json";
+import calculateApr from "../../helpers/calculateApr";
+import calculateDays from "../../helpers/calculateDays";
+import { useAccount } from "wagmi";
 import {
-  useAccount,
-  useContractRead,
-  // usePrepareContractWrite,
-  // useContractWrite,
-} from "wagmi";
-
-
-const VITE_CONTRACT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS;
+  useStakeBalance,
+  useForwardsDuration,
+  useTotalSupply,
+  usePeriodFinish,
+  useEarned,
+} from "../../hooks/contractAbi";
+import { formatEther } from "viem";
 
 const Info = () => {
-  const { address } = useAccount();
-  // console.log("🚀 ~ file: Info.tsx:9 ~ Info ~ address:", address);
-  const stakeStruBalance = useContractRead({
-    address: VITE_CONTRACT_ADDRESS,
-    abi: contractAbi,
-    functionName: "balanceOf",
-    args: [address],
-    watch: true,
-  });
+  const { isConnected } = useAccount();
 
-  const rewardsForDuration = useContractRead({
-    address: VITE_CONTRACT_ADDRESS,
-    abi: contractAbi,
-    functionName: "getRewardForDuration",
-    watch: true,
-  });
+  const stakeBalance = useStakeBalance();
+  const rewardsForDuration = useForwardsDuration();
+  const totalSupply = useTotalSupply();
+  const periodFinish = usePeriodFinish();
+  const earned = useEarned();
 
-  const totalSupply = useContractRead({
-    address: VITE_CONTRACT_ADDRESS,
-    abi: contractAbi,
-    functionName: "totalSupply",
-    watch: true,
-  });
-
-  const periodFinish = useContractRead({
-    address: VITE_CONTRACT_ADDRESS,
-    abi: contractAbi,
-    functionName: "periodFinish",
-    watch: true,
-  });
-
-  const earned = useContractRead({
-    address: VITE_CONTRACT_ADDRESS,
-    abi: contractAbi,
-    functionName: "earned",
-    args: [address],
-    watch: true,
-  });
-
-  const stakeStru =  Number(stakeStruBalance.data);
-  const APR = Number(rewardsForDuration.data)*100/Number(totalSupply.data); 
-  const Days = Number(periodFinish.data)/86400;
-  const Rewards = Number(earned.data);
-
+  const apr = isConnected ? calculateApr(rewardsForDuration, totalSupply) : 0;
+  const days = isConnected ? calculateDays(periodFinish, 86400n) : 0;
 
   return (
-    <section className={`container ${styles.info}`}>
+    <section className={`${styles.info}`}>
       <Title
         text={"StarRunner Token staking"}
         globalClassName={"title__h1"}
@@ -70,7 +37,7 @@ const Info = () => {
         <InfoBlock
           showInfo={true}
           showStru={true}
-          count={`${stakeStru}`}
+          count={`${stakeBalance ? formatEther(stakeBalance) : 0}`}
           title={"Staked balance"}
           messageToolTip={"Staking rewards get allocated on this sum"}
           tooltipId={"toolTip1"}
@@ -78,7 +45,7 @@ const Info = () => {
         <InfoBlock
           showInfo={true}
           showStru={false}
-          count={`≈${APR}%`}
+          count={`≈${apr}%`}
           title={"APR"}
           messageToolTip={
             "Displays the average for APR. Interest rate is calculated for each amount of tokens"
@@ -88,13 +55,13 @@ const Info = () => {
         <InfoBlock
           showInfo={false}
           showStru={false}
-          count={`${Days}`}
+          count={`${days}`}
           title={"Days"}
         />
         <InfoBlock
           showInfo={true}
           showStru={true}
-          count={`${Rewards}`}
+          count={`${earned ? formatEther(earned) : 0}`}
           title={"Rewards"}
           messageToolTip={"Rewards get allocated every second"}
           tooltipId={"toolTip3"}

@@ -20,6 +20,10 @@
     flex-wrap: wrap;
     gap: 20px;
 
+    @media screen and (max-width: $mobileEnd) {
+        width: 100%;
+    }
+
     @media screen and (min-width: $tablet) {
         gap: 24px;
     }
