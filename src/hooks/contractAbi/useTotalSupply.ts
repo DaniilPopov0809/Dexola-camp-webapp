@@ -10,7 +10,7 @@ const useTotalSupply = () => {
     functionName: "totalSupply",
     watch: true,
   });
-  return  (totalSupply as bigint);
+  return  BigInt(totalSupply as bigint);
 };
 
 export default useTotalSupply;

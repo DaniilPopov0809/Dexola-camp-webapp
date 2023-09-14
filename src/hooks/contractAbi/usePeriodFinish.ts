@@ -10,7 +10,7 @@ const usePeriodFinish = (): bigint => {
     functionName: isConnected?  "periodFinish": "",
     watch: true,
   });
-  return periodFinish as bigint;
+  return BigInt(periodFinish as bigint);
 };
 
 export default usePeriodFinish;

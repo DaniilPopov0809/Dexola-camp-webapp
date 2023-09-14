@@ -7,10 +7,15 @@ const calculateRewardRate = (
   rewardRate: bigint,
   totalSupply: bigint
 ) => {
+  console.log("🚀 ~ file: calculateRewardRate.ts:10 ~ totalSupply:", totalSupply)
+  console.log("🚀 ~ file: calculateRewardRate.ts:10 ~ rewardRate:", rewardRate)
+  console.log("🚀 ~ file: calculateRewardRate.ts:10 ~ periodFinish:", periodFinish)
+  console.log("🚀 ~ file: calculateRewardRate.ts:10 ~ stakedBalance:", stakedBalance)
   const currentTimeStamp = timeStamp();
+
   const totalAvailbleRewards = (Number(periodFinish) - currentTimeStamp) * Number(rewardRate);
   const result = (Number(stakedBalance) * totalAvailbleRewards) / Number(totalSupply) + Number(stakedBalance);
-  console.log("🚀 ~ file: calculateRewardRate.ts:13 ~ result:", result)
+  
   
   return result;
 };

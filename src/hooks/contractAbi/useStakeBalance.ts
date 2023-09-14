@@ -2,7 +2,7 @@ import { useAccount, useContractRead } from "wagmi";
 import contractAbi from "../../data/contractABI.json";
 const {VITE_CONTRACT_ADDRESS} = import.meta.env;
 
-const useStakeBalance = ():bigint => {
+const useStakeBalance = () => {
   const { address, isConnected } = useAccount();
   const { data: balance }  = useContractRead({
     address: VITE_CONTRACT_ADDRESS,
@@ -11,7 +11,7 @@ const useStakeBalance = ():bigint => {
     args: [address],
     watch: true,
   });
-  return balance as bigint;
+  return BigInt(balance as bigint);
 };
 
 export default useStakeBalance;

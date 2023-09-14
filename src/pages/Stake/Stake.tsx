@@ -17,9 +17,17 @@ const Stake = () => {
   let rate = null; 
 
   const stakedBalance = useStakeBalance();
+  console.log("🚀 ~ file: Stake.tsx:20 ~ Stake ~ stakedBalance:", stakedBalance)
+  console.log("🚀 ~ file: Stake.tsx:20 ~ Stake ~ stakedBalance:", typeof stakedBalance)
   const periodFinish = usePeriodFinish();
+  console.log("🚀 ~ file: Stake.tsx:22 ~ Stake ~ periodFinish:", periodFinish)
+  console.log("🚀 ~ file: Stake.tsx:22 ~ Stake ~ periodFinish:", typeof periodFinish)
   const rewardRate = useRewardRate();
+  console.log("🚀 ~ file: Stake.tsx:24 ~ Stake ~ rewardRate:", rewardRate)
+  console.log("🚀 ~ file: Stake.tsx:24 ~ Stake ~ rewardRate:", typeof rewardRate)
   const totalSupply = useTotalSupply();
+  console.log("🚀 ~ file: Stake.tsx:26 ~ Stake ~ totalSupply:", totalSupply)
+  console.log("🚀 ~ file: Stake.tsx:26 ~ Stake ~ totalSupply:", typeof totalSupply)
   
   if (isConnected){
    rate = calculateRewardRate(
@@ -30,7 +38,7 @@ const Stake = () => {
     totalSupply
   );
 }
-console.log("🚀 ~ file: Stake.tsx:26 ~ Stake ~ rate:", rate)
+
 
 
   return (
