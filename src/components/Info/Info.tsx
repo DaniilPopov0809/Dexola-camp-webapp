@@ -22,8 +22,8 @@ const Info = () => {
   const periodFinish = usePeriodFinish();
   const earned = useEarned();
 
-  const apr = isConnected ? calculateApr(rewardsForDuration, totalSupply) : 0;
-  const days = isConnected ? calculateDays(periodFinish, 86400n) : 0;
+  const apr =  calculateApr(rewardsForDuration, totalSupply);
+  const days = isConnected ? calculateDays(periodFinish) : 0;
 
   return (
     <section className={`${styles.info}`}>

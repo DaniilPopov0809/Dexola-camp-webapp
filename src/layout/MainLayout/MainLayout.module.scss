@@ -1,0 +1,8 @@
+@import "../../styles/common/variables";
+
+.main {
+  background-color: $backgroundColor;
+  @media screen and (max-width: $mobileEnd) {
+    border-radius: 16px 16px 0px 0px;
+  }
+}

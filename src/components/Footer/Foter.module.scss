@@ -9,7 +9,7 @@
 
   font-family: $bodyFont;
   @include fontStyle(11px, 400, "normal", -0.22px);
-  color: $lightGreyColor;
+  color: $lightGreyColor; 
 
   border-top: 1px solid $accentBlueColor;
 

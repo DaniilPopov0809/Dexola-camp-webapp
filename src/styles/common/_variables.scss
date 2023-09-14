@@ -6,6 +6,9 @@ $lightGreyColor: #b3b3b3;
 $backgroundColor: #000000;
 $backgroundColorImg: #080B27;
 
+$warrningRoseColor: #eb3795;
+$successGreenColor: #18f20d;
+
 $buttonColor: rgba(39, 42, 46, 1);
 $buttonHoverColor: rgba(39, 42, 46, 0.9);
 
@@ -17,18 +20,18 @@ $titleSubtitleFont: "Kanit", sans-serif;
 $normalWeight: 400;
 $mediumWeight: 500;
 
-$letterSpacingMobile: -0.0175rem;
-$letterSpacingTablet: -0.02rem;
-$letterSpacingDesktop: -0.0225rem;
+$letterSpacingMobile: -0.0175rem; //-0.28px
+$letterSpacingTablet: -0.02rem;    //-0.32px
+$letterSpacingDesktop: -0.0225rem; //-0.36px
 
 $bodyMobileFontsize: 0.875rem;          //14px;
 $bodyTabletFontsize: 1rem;              //16px;
 $bodyDesktopFontsize: 1rem;              //16px;
 
 
-// $subtitleMobileFontsize: 1rem;          //16px;
-// $subtitleTabletFontsize: 1.25rem;       //20px;
-// $subtitleDesktopFontsize: 1.5rem;       //24px;
+$subtitleMobileFontsize: 1.125rem;          //18px;
+$subtitleTabletFontsize: 1.25rem;       //20px;
+$subtitleDesktopFontsize: 1.5rem;       //24px;
 
 $titleMobileFontsize:  1.75rem;            //28px;
 $titleTabletFontsize: 2.5rem;             //40px;

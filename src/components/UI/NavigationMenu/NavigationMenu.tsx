@@ -6,17 +6,38 @@ const NavigationMenu = () => {
     <nav className={`container ${styles.navigation}`}>
       <ul className={styles.navigation__list}>
         <li>
-          <NavLink className={`${styles.navigation__link}`} to="/">
+          <NavLink
+            className={({ isActive }) =>
+              isActive
+                ? `${styles.navigation__link} ${styles.navigation__linkActive}`
+                : `${styles.navigation__link}`
+            }
+            to="/"
+          >
             Stake
           </NavLink>
         </li>
         <li>
-          <NavLink className={`${styles.navigation__link}`}  to="/withdraw">
+          <NavLink
+            className={({ isActive }) =>
+              isActive
+                ? `${styles.navigation__link} ${styles.navigation__linkActive}`
+                : `${styles.navigation__link}`
+            }
+            to="/withdraw"
+          >
             Withdraw
           </NavLink>
         </li>
         <li>
-          <NavLink className={`${styles.navigation__link}`} to="/claim">
+          <NavLink
+            className={({ isActive }) =>
+              isActive
+                ? `${styles.navigation__link} ${styles.navigation__linkActive}`
+                : `${styles.navigation__link}`
+            }
+            to="/claim"
+          >
             Claim rewards
           </NavLink>
         </li>

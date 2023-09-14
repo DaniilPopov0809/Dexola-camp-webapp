@@ -3,6 +3,7 @@
   color: $lightGreyColor;
   line-height: normal;
   transition: font-size $animation;
+  
 
   @media screen and (min-width: $mobile) {
     font-size: $bodyMobileFontsize;
