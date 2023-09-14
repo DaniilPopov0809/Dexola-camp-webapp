@@ -1,9 +1,9 @@
 import { useAccount } from "wagmi";
 import {
-  useStakeBalance,
+//   useStakeBalance,
   useTotalSupply,
-  usePeriodFinish,
-  useRewardRate,
+//   usePeriodFinish,
+//   useRewardRate,
 } from "../../hooks/contractAbi";
 import calculateRewardRate from "../../helpers/calculateRewardRate";
 import NoWalletConnect from "../../components/UI/NoWalletConnect/NoWalletConnect";
@@ -16,13 +16,13 @@ const Stake =  () => {
   const { isConnected } = useAccount();
   let rate = null; 
 
-  const stakedBalance =  useStakeBalance();
-  const periodFinish = usePeriodFinish();
-  const rewardRate = useRewardRate();
+//   const stakedBalance =  useStakeBalance();
+//   const periodFinish = usePeriodFinish();
+//   const rewardRate = useRewardRate();
   const totalSupply =  useTotalSupply();
  
   
-  if (stakedBalance && periodFinish && rewardRate && totalSupply){
+  if (totalSupply){
    rate = calculateRewardRate(
 
  

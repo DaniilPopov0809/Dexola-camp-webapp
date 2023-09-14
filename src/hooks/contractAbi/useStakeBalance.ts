@@ -11,7 +11,7 @@ const useStakeBalance = () => {
     args: [address],
     watch: true,
   });
-  return BigInt(balance as bigint);
+  return balance as bigint;
 };
 
 export default useStakeBalance;

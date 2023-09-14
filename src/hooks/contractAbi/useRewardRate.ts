@@ -9,7 +9,7 @@ const useRewardRate = () => {
     functionName: "rewardRate",
     watch: true,
   });
-  return  BigInt(rewardRate as bigint);
+  return  rewardRate as bigint;
 };
 
 export default useRewardRate;
