@@ -2,7 +2,8 @@
 @import "../../../styles/common/mixins";
 
 .connectWallet,
-.noConnectWallet {
+.noConnectWallet,
+.form__button {
   padding: 10px 23px 6px 23px;
   color: $whiteColor;
   background-color: $buttonColor;
@@ -17,6 +18,15 @@
 
   @media screen and (min-width: $tablet) {
     padding: 12px 40px;
+  }
+}
+
+.form__button {
+  width: 100%;
+  padding: 12px 40px;
+
+  @media screen and (min-width: $tablet) {
+    width: auto;
   }
 }
 
@@ -94,14 +104,6 @@ button.infoWallet {
 //   }
 // }
 
-// .form__button {
-//   padding: 11px 93px 13px 126px;
-
-//   @media screen and (min-width: $tablet) {
-//     padding-left: 89px;
-//     padding-right: 76px;
-//   }
-// }
 
 // .form__buttonTextWrap {
 //   position: relative;

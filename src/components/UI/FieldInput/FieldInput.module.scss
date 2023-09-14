@@ -1,0 +1,71 @@
+@import "../../../styles/common/variables";
+@import "../../../styles/common/mixins";
+
+.field__container {
+  margin-bottom: 12px;
+  height: 60px;
+
+  @media screen and (min-width: $tablet) {
+    margin-bottom: 16px;
+  }
+
+  @media screen and (min-width: $desktop) {
+    margin-bottom: 18px;
+  }
+}
+
+.field__input {
+  width: 100%;
+  padding: 8px 0;
+
+  color: $whiteColor;
+  font-family: 'Roboto Mono', monospace;
+  @include fontStyle(0.875rem, $mediumWeight, 1.71, 0.0175rem);
+
+
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid $whiteColor;
+
+  color: $whiteColor;
+
+  transition: border-color $animation;
+
+  &::placeholder {
+    color: $lightGreyColor;
+  }
+
+  &:hover,
+  &:focus {
+    border-color: $accentBlueColor;
+    outline: none;
+  }
+}
+
+.field__error {
+  font-size: 13px;
+  letter-spacing: 0.01625rem;
+  line-height: "normal";
+  color: $warrningRoseColor;
+  animation: errorAnimation 0.3s ease-in-out forwards;
+}
+
+@keyframes errorAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.error {
+  border-color: $warrningRoseColor;
+}
+
+.success {
+  border-color: $successGreenColor;
+}

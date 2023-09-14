@@ -1,0 +1,35 @@
+@import "../../../styles/common/variables";
+@import "../../../styles/common/mixins";
+
+.label,
+.unit {
+  color: rgba(255, 255, 255, 0.73);
+  font-family: 'Roboto Mono', monospace;
+  @include fontStyle($bodyMobileFontsize, $normalWeight, "normal", $letterSpacingMobile);
+  margin-right: 4px;
+
+  @media screen and (min-width: $tablet) {
+    @include fontStyle($bodyTabletFontsize, $normalWeight, "normal", $letterSpacingTablet);
+  }
+}
+
+.label {
+  color: rgba(255, 255, 255, 0.73);
+}
+
+.rate {
+    color: $whiteColor;
+    font-family: 'Roboto Mono', monospace;
+    @include fontStyle(1.125rem, 700, 1.4, "normal");
+    margin-right: 4px;
+
+    @media screen and (min-width: $tablet) {
+      font-size: 1.25rem;
+    }
+  }
+
+.unit {
+    color: $whiteColor;
+}
+
+

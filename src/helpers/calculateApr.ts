@@ -9,8 +9,7 @@ const calculateApr = (
   if (totalSupplyNumber === 0) {
     return 0;
   }
-  return (rewardsForDurationNumber * 100) / totalSupplyNumber;
-// return Number((rewardsForDuration/totalSupply))*100;
+  return Math.round((rewardsForDurationNumber * 100) / totalSupplyNumber);
 };
 
 export default calculateApr;

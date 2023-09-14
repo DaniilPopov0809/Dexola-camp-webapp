@@ -20,22 +20,14 @@
   }
 }
 
-// .title__h2 {
-//   font-size: $titleMobileFontsize;
-//   font-weight: $normalWeight;
-//   letter-spacing: normal;
-//   line-height: normal;
+.title__h2 {
 
-//   @media screen and (min-width: $tablet) {
-//     font-size: $titleTabletFontsize;
-//     line-height: 1.25;
-//   }
+  @include fontStyle($subtitleMobileFontsize, $mediumWeight, 'normal',  -0.0225rem);
 
-//   @media screen and (min-width: $desktop) {
-//     font-size: $titleDesktopFontsize;
-//     line-height: 1.4;
-//   }
-// }
+  @media screen and (min-width: $tablet) {
+    @include fontStyle($subtitleDesktopFontsize, $mediumWeight, 'normal', -0.03rem);
+  }
+}
 
 // .title__h3,
 // .title__h4 {
