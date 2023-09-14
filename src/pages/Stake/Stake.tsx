@@ -10,7 +10,7 @@ import NoWalletConnect from "../../components/UI/NoWalletConnect/NoWalletConnect
 // import AppForm from "../../components/UI/AppForm/AppForm";
 import styles from "./Stake.module.scss";
 import Title from "../../components/UI/Title/Title";
-// import Rate from "../../components/UI/Rate/Rate";
+import Rate from "../../components/UI/Rate/Rate";
 
 const Stake = () => {
   const { isConnected } = useAccount();
@@ -33,9 +33,9 @@ const Stake = () => {
    rate = calculateRewardRate(
 
  
-    stakedBalance,
-    periodFinish,
-    rewardRate,
+    // stakedBalance,
+    // periodFinish,
+    // rewardRate,
     totalSupply
   );
 }
@@ -51,9 +51,9 @@ console.log("🚀 ~ file: Stake.tsx:34 ~ Stake ~ rate:", rate)
             globalClassName={"title__h2"}
             titleTag={"h2"}
             localClassName={"appForm"}
-            // number={
-            //   <Rate label={"Reward rate:"} rate={`${rate? rate: 0}`} unit={"STRU/WEEK"} />
-            // }
+            number={
+              <Rate label={"Reward rate:"} rate={`${rate? rate: 0}`} unit={"STRU/WEEK"} />
+            }
           />
           {/* <AppForm /> */}
         </div>

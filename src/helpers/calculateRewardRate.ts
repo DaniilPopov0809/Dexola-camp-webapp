@@ -1,21 +1,18 @@
-import timeStamp from "./timeStamp";
+// import timeStamp from "./timeStamp";
 // import { formatEther } from "viem/utils";
 
 const calculateRewardRate = (
-  stakedBalance: bigint,
-  periodFinish: bigint,
-  rewardRate: bigint,
+//   stakedBalance: bigint,
+//   periodFinish: bigint,
+//   rewardRate: bigint,
   totalSupply: bigint
 ) => {
-  console.log("🚀 ~ file: calculateRewardRate.ts:10 ~ totalSupply:", totalSupply)
-  console.log("🚀 ~ file: calculateRewardRate.ts:10 ~ rewardRate:", rewardRate)
-  console.log("🚀 ~ file: calculateRewardRate.ts:10 ~ periodFinish:", periodFinish)
-  console.log("🚀 ~ file: calculateRewardRate.ts:10 ~ stakedBalance:", stakedBalance)
-  const currentTimeStamp = timeStamp();
 
-  const totalAvailbleRewards = (Number(periodFinish) - currentTimeStamp) * Number(rewardRate);
-  const result = (Number(stakedBalance) * totalAvailbleRewards) / Number(totalSupply) + Number(stakedBalance);
-  
+//   const currentTimeStamp = timeStamp();
+
+//   const totalAvailbleRewards = (Number(periodFinish) - currentTimeStamp) * Number(rewardRate);
+//   const result = (Number(stakedBalance) * totalAvailbleRewards) / Number(totalSupply) + Number(stakedBalance);
+  const result = Number(totalSupply);
   
   return result;
 };
