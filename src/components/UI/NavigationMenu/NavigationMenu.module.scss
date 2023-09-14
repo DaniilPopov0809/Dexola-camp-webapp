@@ -38,6 +38,10 @@ transition: color $animation;
   }
 }
 
-// .navigation__link.active {
-//     color: $whiteColor;
-//   }
+.navigation__linkActive {
+  border-bottom: 6px solid $accentBlueColor;
+
+  @media screen and (min-width: $tablet) {
+      border-width: 8px;
+  }
+}

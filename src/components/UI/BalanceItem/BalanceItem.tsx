@@ -6,13 +6,14 @@ import shortAddress from "../../../helpers/shortAddress";
 import styles from "./BalanceItem.module.scss";
 import struLogo from "../../../images/struLogo.jpg";
 import ethLogo from "../../../images/ethLogo.svg";
+import { TokenStatus } from "../../../types";
 
 const BalanceItem = () => {
   const viewportWidth = useViewportWidth();
   const { address } = useAccount();
 
-  const struBalance = useWalletBalance(true);
-  const ethBalance =  useWalletBalance(false);
+  const struBalance = useWalletBalance(TokenStatus.Token);
+  const ethBalance =  useWalletBalance(TokenStatus.NotToken);
 
   return (
     <>

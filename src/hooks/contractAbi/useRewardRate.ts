@@ -2,15 +2,14 @@ import { useContractRead } from "wagmi";
 import contractAbi from "../../data/contractABI.json";
 const {VITE_CONTRACT_ADDRESS} = import.meta.env;
 
-const useTotalSupply = () => {
-    // const { isConnected } = useAccount();
-  const { data: totalSupply }  = useContractRead({
+const useRewardRate = () => {
+  const { data: rewardRate }  = useContractRead({
     address: VITE_CONTRACT_ADDRESS,
     abi: contractAbi,
-    functionName: "totalSupply",
+    functionName: "rewardRate",
     watch: true,
   });
-  return  (totalSupply as bigint);
+  return  (rewardRate as bigint);
 };
 
-export default useTotalSupply;
+export default useRewardRate;

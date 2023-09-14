@@ -1,4 +1,11 @@
 import { useAccount } from "wagmi";
+import {
+  useStakeBalance,
+  useTotalSupply,
+  usePeriodFinish,
+  useRewardRate,
+} from "../../hooks/contractAbi";
+import calculateRewardRate from "../../helpers/calculateRewardRate";
 import NoWalletConnect from "../../components/UI/NoWalletConnect/NoWalletConnect";
 import AppForm from "../../components/UI/AppForm/AppForm";
 import styles from "./Stake.module.scss";
@@ -7,6 +14,19 @@ import Rate from "../../components/UI/Rate/Rate";
 
 const Stake = () => {
   const { isConnected } = useAccount();
+
+  const stakedBalance = useStakeBalance();
+  const periodFinish = usePeriodFinish();
+  const rewardRate = useRewardRate();
+  const totalSupply = useTotalSupply();
+
+  const rate = isConnected? calculateRewardRate(
+    stakedBalance,
+    periodFinish,
+    rewardRate,
+    totalSupply
+  ): 0;
+
   return (
     <section className={`container ${styles.stake}`}>
       {isConnected ? (
@@ -17,7 +37,7 @@ const Stake = () => {
             titleTag={"h2"}
             localClassName={"appForm"}
             number={
-              <Rate label={"Reward rate:"} rate={"1"} unit={"STRU/WEEK"} />
+              <Rate label={"Reward rate:"} rate={`${rate}`} unit={"STRU/WEEK"} />
             }
           />
           <AppForm />

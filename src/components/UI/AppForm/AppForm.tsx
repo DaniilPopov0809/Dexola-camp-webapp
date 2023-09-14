@@ -8,10 +8,14 @@ import { Formik, Form, Field, FormikHelpers, FieldProps } from "formik";
 import Rate from "../Rate/Rate";
 import MainButton from "../MainButton/MainButton";
 import FieldInput from "../FieldInput/FieldInput";
+import useWalletBalance from "../../../hooks/useWalletBalance";
+import { TokenStatus } from "../../../types";
 
 // import styles from "./RegistrationForm.module.scss";
 
 const AppForm = () => {
+    const struBalance = useWalletBalance(TokenStatus.Token);
+
   const initialValues: InitialValue = {
     count: "",
   };
@@ -54,7 +58,7 @@ const AppForm = () => {
             )}
           </Field>
           <div className={styles.rateWrap}>
-            <Rate label={"Available:"} rate={"354"} unit={"STRU"} />
+            <Rate label={"Available:"} rate={struBalance? struBalance.formatted: "0"} unit={"STRU"} />
           </div>
           <div className={styles.form__buttonWrap}>
             <MainButton

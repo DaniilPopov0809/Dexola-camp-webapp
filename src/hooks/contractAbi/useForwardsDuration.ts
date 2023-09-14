@@ -1,6 +1,6 @@
 import { useContractRead } from "wagmi";
 import contractAbi from "../../data/contractABI.json";
-const VITE_CONTRACT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS;
+const {VITE_CONTRACT_ADDRESS} = import.meta.env;
 
 const useForwardsDuration = (): bigint => {
   // const { isConnected } = useAccount();
