@@ -14,18 +14,22 @@ import Rate from "../../components/UI/Rate/Rate";
 
 const Stake = () => {
   const { isConnected } = useAccount();
+  let rate = null; 
 
   const stakedBalance = useStakeBalance();
   const periodFinish = usePeriodFinish();
   const rewardRate = useRewardRate();
   const totalSupply = useTotalSupply();
-
-  const rate = isConnected? calculateRewardRate(
+  
+  if (isConnected){
+   rate = calculateRewardRate(
     stakedBalance,
     periodFinish,
     rewardRate,
     totalSupply
-  ): 0;
+  );
+}
+
 
   return (
     <section className={`container ${styles.stake}`}>
@@ -37,7 +41,7 @@ const Stake = () => {
             titleTag={"h2"}
             localClassName={"appForm"}
             number={
-              <Rate label={"Reward rate:"} rate={`${rate}`} unit={"STRU/WEEK"} />
+              <Rate label={"Reward rate:"} rate={`${rate? rate: 0}`} unit={"STRU/WEEK"} />
             }
           />
           {/* <AppForm /> */}
