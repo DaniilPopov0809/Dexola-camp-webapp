@@ -1,4 +1,5 @@
-import { useAccount, useBalance } from "wagmi";
+import { useAccount} from "wagmi";
+import useWalletBalance from "../../../hooks/useWalletBalance";
 import useViewportWidth from "../../../hooks/useViewportWidth";
 import roundUpBalance from "../../../helpers/roundUpBalance";
 import shortAddress from "../../../helpers/shortAddress";
@@ -6,22 +7,12 @@ import styles from "./BalanceItem.module.scss";
 import struLogo from "../../../images/struLogo.jpg";
 import ethLogo from "../../../images/ethLogo.svg";
 
-const VITE_TOKEN_ADDRESS = import.meta.env.VITE_TOKEN_ADDRESS
-
-const BalanceEth = () => {
+const BalanceItem = () => {
   const viewportWidth = useViewportWidth();
   const { address } = useAccount();
 
-  const struBalance = useBalance({
-    address: address,
-    token: VITE_TOKEN_ADDRESS,
-    watch: true,
-  });
-
-  const ethBalance = useBalance({
-    address: address,
-    watch: true,
-  });
+  const struBalance = useWalletBalance(true);
+  const ethBalance =  useWalletBalance(false);
 
   return (
     <>
@@ -32,9 +23,9 @@ const BalanceEth = () => {
         alt="STRU logo"
         className={styles.struLogo}
       />
-      {struBalance.data && (
+      {struBalance && (
         <span className={styles.struBalance}>{`${roundUpBalance(
-          struBalance.data.formatted
+          struBalance.formatted
         )} STRU`}</span>
       )}
       <img
@@ -44,10 +35,10 @@ const BalanceEth = () => {
         alt="ETH logo"
         className={styles.ethLogo}
       />
-      {ethBalance.data && (
+      {ethBalance && (
         <span className={styles.ethBalance}>{`${roundUpBalance(
-          ethBalance.data.formatted
-        )} ${ethBalance.data.symbol}`}</span>
+          ethBalance.formatted
+        )} ${ethBalance.symbol}`}</span>
       )}
       {viewportWidth > 743 && <span className={styles.separator}>|</span>}
       {viewportWidth > 743 && address && (
@@ -57,4 +48,4 @@ const BalanceEth = () => {
   );
 };
 
-export default BalanceEth;
+export default BalanceItem;

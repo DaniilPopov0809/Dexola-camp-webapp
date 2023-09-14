@@ -1,8 +1,7 @@
-
 const calculateDays = (periodFinish: bigint): number => {
-    const currentTimeStamp = Date.now();
-    const currentTimeStampSeconds = BigInt(Math.floor(currentTimeStamp / 1000));
-  return Number((periodFinish-currentTimeStampSeconds) / 86400n);
+  const currentTimeStamp = Date.now();
+  const currentTimeStampSeconds = Math.floor(currentTimeStamp / 1000);
+  return Math.ceil((Number(periodFinish) - currentTimeStampSeconds) / 86400);
 };
 
 export default calculateDays;

@@ -11,6 +11,18 @@
 
   border-bottom: 1px solid $darkGreyColor;
 }
+
+.info {
+  margin-bottom: 26px;
+  @media screen and (min-width: $tablet) {
+    margin-bottom: 18px;
+  }
+
+  @media screen and (min-width: $desktop) {
+    margin-bottom: 16px;
+  }
+
+}
 // .hero {
 //   border: none;
 // }

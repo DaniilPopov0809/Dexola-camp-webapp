@@ -2,7 +2,7 @@ import { useWeb3Modal } from "@web3modal/react";
 import { useAccount } from "wagmi";
 import Info from "../Info/Info";
 import ButtonLoader from "../UI/ButtonLoader/ButtonLoader";
-import BalanceEth from "../UI/BalanceItem/BalanceItem";
+import BalanceItem from "../UI/BalanceItem/BalanceItem";
 import MainButton from "../UI/MainButton/MainButton";
 import logo from "../../images/logo.svg";
 import styles from "./Header.module.scss";
@@ -21,7 +21,7 @@ const Header = () => {
         {isConnected ? (
           <MainButton
             onClick={() => open()}
-            children={<BalanceEth />}
+            children={<BalanceItem />}
             globalClassName={"linkButton"}
             localClassName={"infoWallet"}
             additionalClassName={"infoWalletWrap"}
