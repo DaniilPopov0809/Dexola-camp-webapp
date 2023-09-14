@@ -1,6 +1,6 @@
 import { useWeb3Modal } from "@web3modal/react";
 import { useAccount } from "wagmi";
-import Info from "../Info/Info";
+// import Info from "../Info/Info";
 import ButtonLoader from "../UI/ButtonLoader/ButtonLoader";
 import BalanceItem from "../UI/BalanceItem/BalanceItem";
 import MainButton from "../UI/MainButton/MainButton";
@@ -37,7 +37,7 @@ const Header = () => {
           />
         )}
       </div>
-      <Info/>
+      {/* <Info/> */}
       </div>
     </header>
   );
