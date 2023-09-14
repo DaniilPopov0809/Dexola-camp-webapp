@@ -36,9 +36,9 @@ const Stake = () => {
             globalClassName={"title__h2"}
             titleTag={"h2"}
             localClassName={"appForm"}
-            number={
-              <Rate label={"Reward rate:"} rate={`${rate}`} unit={"STRU/WEEK"} />
-            }
+            // number={
+            //   <Rate label={"Reward rate:"} rate={`${rate}`} unit={"STRU/WEEK"} />
+            // }
           />
           {/* <AppForm /> */}
         </div>
