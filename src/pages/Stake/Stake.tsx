@@ -7,7 +7,7 @@ import {
 } from "../../hooks/contractAbi";
 import calculateRewardRate from "../../helpers/calculateRewardRate";
 import NoWalletConnect from "../../components/UI/NoWalletConnect/NoWalletConnect";
-// import AppForm from "../../components/UI/AppForm/AppForm";
+import AppForm from "../../components/UI/AppForm/AppForm";
 import styles from "./Stake.module.scss";
 import Title from "../../components/UI/Title/Title";
 import Rate from "../../components/UI/Rate/Rate";
@@ -47,7 +47,7 @@ const Stake = () => {
               />
             }
           />
-          {/* <AppForm /> */}
+          <AppForm />
         </div>
       ) : (
         <NoWalletConnect />
