@@ -1,31 +1,31 @@
 import { useAccount } from "wagmi";
-import {
-  useStakeBalance,
-  useTotalSupply,
-  usePeriodFinish,
-  useRewardRate,
-} from "../../hooks/contractAbi";
-import calculateRewardRate from "../../helpers/calculateRewardRate";
+// import {
+//   useStakeBalance,
+//   useTotalSupply,
+//   usePeriodFinish,
+//   useRewardRate,
+// } from "../../hooks/contractAbi";
+// import calculateRewardRate from "../../helpers/calculateRewardRate";
 import NoWalletConnect from "../../components/UI/NoWalletConnect/NoWalletConnect";
 // import AppForm from "../../components/UI/AppForm/AppForm";
 import styles from "./Stake.module.scss";
 import Title from "../../components/UI/Title/Title";
-import Rate from "../../components/UI/Rate/Rate";
+// import Rate from "../../components/UI/Rate/Rate";
 
 const Stake = () => {
   const { isConnected } = useAccount();
 
-  const stakedBalance = useStakeBalance();
-  const periodFinish = usePeriodFinish();
-  const rewardRate = useRewardRate();
-  const totalSupply = useTotalSupply();
+//   const stakedBalance = useStakeBalance();
+//   const periodFinish = usePeriodFinish();
+//   const rewardRate = useRewardRate();
+//   const totalSupply = useTotalSupply();
 
-  const rate = isConnected? calculateRewardRate(
-    stakedBalance,
-    periodFinish,
-    rewardRate,
-    totalSupply
-  ): 0;
+//   const rate = isConnected? calculateRewardRate(
+//     stakedBalance,
+//     periodFinish,
+//     rewardRate,
+//     totalSupply
+//   ): 0;
 
   return (
     <section className={`container ${styles.stake}`}>
