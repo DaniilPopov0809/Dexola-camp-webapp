@@ -17,6 +17,7 @@
 //   const { isConnected } = useAccount();
 
 //   const stakeBalance = useStakeBalance();
+//   console.log("🚀 ~ file: Info.tsx:20 ~ Info ~ stakeBalance:", stakeBalance)
 //   const rewardsForDuration = useForwardsDuration();
 //   const totalSupply = useTotalSupply();
 //   const periodFinish = usePeriodFinish();
