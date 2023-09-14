@@ -9,10 +9,9 @@ const calculateRewardRate = (
 ) => {
   const currentTimeStamp = BigInt(timeStamp());
   const totalAvailbleRewards = (periodFinish - currentTimeStamp) * rewardRate;
-  const formatted = formatEther(
-    (stakedBalance * totalAvailbleRewards) / totalSupply + stakedBalance
-  );
-  return Math.floor(+formatted);
+  const result = (stakedBalance * totalAvailbleRewards) / totalSupply + stakedBalance;
+  const formatted = formatEther(result);
+  return Math.floor(Number(formatted));
 };
 
 export default calculateRewardRate;
