@@ -23,12 +23,14 @@ const Stake = () => {
   
   if (isConnected){
    rate = calculateRewardRate(
+ 
     stakedBalance,
     periodFinish,
     rewardRate,
     totalSupply
   );
 }
+console.log("🚀 ~ file: Stake.tsx:26 ~ Stake ~ rate:", rate)
 
 
   return (
