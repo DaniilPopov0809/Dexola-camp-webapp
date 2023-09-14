@@ -4,15 +4,13 @@ const { VITE_CONTRACT_ADDRESS } = import.meta.env;
 
 const useTotalSupply = () => {
   // const { isConnected } = useAccount();
-  const { data: totalSupply, isSuccess } = useContractRead({
+  const { data: totalSupply} = useContractRead({
     address: VITE_CONTRACT_ADDRESS,
     abi: contractAbi,
     functionName: "totalSupply",
     watch: true,
   });
-  if (isSuccess) {
     return totalSupply as bigint;
-  }
 };
 
 export default useTotalSupply;
