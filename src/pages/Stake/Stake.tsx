@@ -14,7 +14,7 @@ import Rate from "../../components/UI/Rate/Rate";
 
 const Stake = () => {
   const { isConnected } = useAccount();
-  let rate = null;
+  let rate = 0;
 
   const stakedBalance = useStakeBalance();
   const periodFinish = usePeriodFinish();
@@ -42,7 +42,7 @@ const Stake = () => {
             number={
               <Rate
                 label={"Reward rate:"}
-                rate={`${rate ? rate : 0}`}
+                rate={`${rate}`}
                 unit={"STRU/WEEK"}
               />
             }
