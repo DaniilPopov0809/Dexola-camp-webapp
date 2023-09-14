@@ -12,24 +12,17 @@ import styles from "./Stake.module.scss";
 import Title from "../../components/UI/Title/Title";
 import Rate from "../../components/UI/Rate/Rate";
 
-const Stake = async () => {
+const Stake =  () => {
   const { isConnected } = useAccount();
   let rate = null; 
 
-  const stakedBalance = await useStakeBalance();
-  console.log("🚀 ~ file: Stake.tsx:20 ~ Stake ~ stakedBalance:", stakedBalance)
-  console.log("🚀 ~ file: Stake.tsx:20 ~ Stake ~ stakedBalance:", typeof stakedBalance)
-  const periodFinish = await usePeriodFinish();
-  console.log("🚀 ~ file: Stake.tsx:22 ~ Stake ~ periodFinish:", periodFinish)
-  console.log("🚀 ~ file: Stake.tsx:22 ~ Stake ~ periodFinish:", typeof periodFinish)
-  const rewardRate = await useRewardRate();
-  console.log("🚀 ~ file: Stake.tsx:24 ~ Stake ~ rewardRate:", rewardRate)
-  console.log("🚀 ~ file: Stake.tsx:24 ~ Stake ~ rewardRate:", typeof rewardRate)
-  const totalSupply =await useTotalSupply();
-  console.log("🚀 ~ file: Stake.tsx:26 ~ Stake ~ totalSupply:", totalSupply)
-  console.log("🚀 ~ file: Stake.tsx:26 ~ Stake ~ totalSupply:", typeof totalSupply)
+  const stakedBalance =  useStakeBalance();
+  const periodFinish = usePeriodFinish();
+  const rewardRate = useRewardRate();
+  const totalSupply =  useTotalSupply();
+ 
   
-  if (isConnected){
+  if (stakedBalance && periodFinish && rewardRate && totalSupply){
    rate = calculateRewardRate(
 
  
