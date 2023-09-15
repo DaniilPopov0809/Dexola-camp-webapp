@@ -19,9 +19,7 @@
   background-color $animation,
   scale $animation;
 
-  
-
-  &:active {
+  &:not(:disabled):active {
     scale: 1.03;
   }
 }

@@ -1,20 +1,28 @@
-import styles from "./AppForm.module.scss";
-
-export interface InitialValue {
-  count: string;
-}
-
+import { useEffect, useState } from "react";
 import { Formik, Form, Field, FormikHelpers, FieldProps } from "formik";
+import { formatEther, parseEther } from "viem";
+
 import Rate from "../Rate/Rate";
 import MainButton from "../MainButton/MainButton";
 import FieldInput from "../FieldInput/FieldInput";
 import useWalletBalance from "../../../hooks/useWalletBalance";
+import { approveTransaction, stakedTokens } from "../../../helpers/operations";
+import { useAllowance } from "../../../hooks/contractAbi";
 import { TokenStatus } from "../../../types";
-
-// import styles from "./RegistrationForm.module.scss";
+import styles from "./AppForm.module.scss";
+interface InitialValue {
+  count: string;
+}
 
 const AppForm = () => {
-    const struBalance = useWalletBalance(TokenStatus.Token);
+  const [allowance, setAllowance] = useState(0n);
+
+  const struBalance = useWalletBalance(TokenStatus.Token);
+  const getAllowance = useAllowance();
+
+  useEffect(() => {
+    setAllowance(getAllowance);
+  }, [getAllowance]);
 
   const initialValues: InitialValue = {
     count: "",
@@ -24,17 +32,27 @@ const AppForm = () => {
     values: InitialValue,
     { resetForm, setSubmitting }: FormikHelpers<InitialValue>
   ) => {
-    const sendData: InitialValue = {
-      count: values.count,
-    };
-    console.log("🚀 ~ file: AppForm.tsx:37 ~ AppForm ~ sendData:", sendData);
-
     setSubmitting(true);
 
-    //отправка формы
+    if (allowance === 0n) {
+      const isApprove = await approveTransaction(values.count);
+      if (!isApprove) {
+        alert("Not Aprove");
+        return;
+      }
+      setAllowance(BigInt(parseEther(values.count)));
+    }
+    const isStaked = await stakedTokens(values.count);
 
     setSubmitting(false);
-    resetForm();
+    if (isStaked) {
+      setAllowance(0n);
+      resetForm();
+      alert("Success steked!");
+    }
+    if (!isStaked) {
+      alert(`Not steked! transfer amount exceeds allowance don't ${formatEther(allowance)}`);
+    }
   };
   return (
     <Formik
@@ -58,7 +76,11 @@ const AppForm = () => {
             )}
           </Field>
           <div className={styles.rateWrap}>
-            <Rate label={"Available:"} rate={struBalance? struBalance.formatted: "0"} unit={"STRU"} />
+            <Rate
+              label={"Available:"}
+              rate={struBalance ? struBalance.formatted : "0"}
+              unit={"STRU"}
+            />
           </div>
           <div className={styles.form__buttonWrap}>
             <MainButton

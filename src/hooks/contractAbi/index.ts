@@ -4,7 +4,7 @@ import useTotalSupply from "./useTotalSupply";
 import usePeriodFinish from "./usePeriodFinish";
 import useEarned from "./useEarned";
 import useRewardRate from "./useRewardRate";
-import useStakePreWrite from "./useStakePreWrite";
+import useAllowance from "./useAllowance";
 
 export {
   useStakeBalance,
@@ -13,5 +13,5 @@ export {
   usePeriodFinish,
   useEarned,
   useRewardRate,
-  useStakePreWrite,
+  useAllowance,
 };
