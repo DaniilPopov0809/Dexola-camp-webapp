@@ -13,8 +13,8 @@ const Header = () => {
 
   return (
     <header className={styles.header}>
-      <div className={`container`}>
-        <div className={styles.header__links}>
+      {/* <div className={`container`}> */}
+        <div className={`additionalСontainer ${styles.header__links}`}>
         <a className={styles.header__linkLogo} href="/">
           <img src={logo} alt="logo" width={35} height={20} />
         </a>
@@ -38,7 +38,7 @@ const Header = () => {
         )}
       </div>
       <Info/>
-      </div>
+      {/* </div> */}
     </header>
   );
 };

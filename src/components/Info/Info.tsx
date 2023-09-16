@@ -1,8 +1,7 @@
 import styles from "./Info.module.scss";
 import Title from "../UI/Title/Title";
 import InfoBlock from "../UI/InfoBlock/InfoBlock";
-import calculateApr from "../../helpers/calculateApr";
-import calculateDays from "../../helpers/calculateDays";
+import { calculateDays, calculateApr, calculateRewards } from "../../helpers/utils";
 import { useAccount } from "wagmi";
 import {
   useStakeBalance,
@@ -10,7 +9,7 @@ import {
   useTotalSupply,
   usePeriodFinish,
   useEarned,
-} from "../../hooks/contractAbi";
+} from "../../hooks/Abi";
 import { formatEther } from "viem";
 
 const Info = () => {
@@ -37,7 +36,7 @@ const Info = () => {
   }
 
   return (
-    <section className={`${styles.info}`}>
+    <section className={`container ${styles.info}`}>
       <Title
         text={"StarRunner Token staking"}
         globalClassName={"title__h1"}
@@ -72,7 +71,7 @@ const Info = () => {
         <InfoBlock
           showInfo={true}
           showStru={true}
-          count={`${earned ? formatEther(earned) : 0}`}
+          count={`${earned ? calculateRewards(earned) : 0}`}
           title={"Rewards"}
           messageToolTip={"Rewards get allocated every second"}
           tooltipId={"toolTip3"}

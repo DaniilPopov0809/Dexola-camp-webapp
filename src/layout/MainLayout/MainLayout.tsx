@@ -8,7 +8,7 @@ const MainLayout = () => {
     return(
         <>
         <Header/>
-        <main className={styles.main}>
+        <main className={`${styles.main}`}>
             <NavigationMenu/>
             {/* <Suspense/>??????? */}
             <Outlet/>

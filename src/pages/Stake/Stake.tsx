@@ -4,8 +4,8 @@ import {
   useTotalSupply,
   usePeriodFinish,
   useRewardRate,
-} from "../../hooks/contractAbi";
-import calculateRewardRate from "../../helpers/calculateRewardRate";
+} from "../../hooks/Abi";
+import { calculateRewardRate } from "../../helpers/utils";
 import NoWalletConnect from "../../components/UI/NoWalletConnect/NoWalletConnect";
 import AppForm from "../../components/UI/AppForm/AppForm";
 import styles from "./Stake.module.scss";

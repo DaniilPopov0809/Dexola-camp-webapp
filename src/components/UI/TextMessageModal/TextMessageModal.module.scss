@@ -1,0 +1,27 @@
+@import "../../../styles/common/variables";
+@import "../../../styles/common/mixins";
+
+.message {
+  display: flex;
+  align-items: baseline;
+
+  color: $whiteColor;
+  @include fontStyle($bodyMobileFontsize, $normalWeight, 1.71);
+
+  @media screen and (min-width: $tablet) {
+    font-size: $bodyTabletFontsize;
+    line-height: 1.5;
+  }
+}
+
+.message__title {
+  margin-right: 8px;
+}
+
+.message__amount {
+  margin-right: 8px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+

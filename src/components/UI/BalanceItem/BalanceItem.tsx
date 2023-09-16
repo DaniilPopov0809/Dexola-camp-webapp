@@ -1,8 +1,7 @@
 import { useAccount} from "wagmi";
 import useWalletBalance from "../../../hooks/useWalletBalance";
 import useViewportWidth from "../../../hooks/useViewportWidth";
-import roundUpBalance from "../../../helpers/roundUpBalance";
-import shortAddress from "../../../helpers/shortAddress";
+import { roundUpBalance, shortAddress } from "../../../helpers/utils";
 import styles from "./BalanceItem.module.scss";
 import struLogo from "../../../images/struLogo.jpg";
 import ethLogo from "../../../images/ethLogo.svg";

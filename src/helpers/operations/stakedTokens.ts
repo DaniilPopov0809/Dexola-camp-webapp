@@ -23,7 +23,7 @@ const stakedTokens = async (
     });
     return true;
   } catch (error) {
-    console.error(error);
+    console.log(error);
     return false;
   }
 };

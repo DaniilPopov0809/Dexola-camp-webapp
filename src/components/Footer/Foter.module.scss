@@ -4,8 +4,9 @@
 .footer {
   min-width: 375px;
   margin-top: auto; //for footer to bottom
-  padding-top: 8px;
-  padding-bottom: 17px;
+  // padding-top: 8px;
+  // padding-bottom: 17px;
+  padding: 8px 24px 17px 24px;
 
   font-family: $bodyFont;
   @include fontStyle(11px, 400, "normal", -0.22px);
@@ -14,12 +15,13 @@
   border-top: 1px solid $accentBlueColor;
 
   @media screen and (min-width: $tablet) {
-    padding: 16px 0;
+    padding: 16px 48px;
 
     @include fontStyle(14px, $normalWeight, 1.4, -0.28px);
   }
   @media screen and (min-width: $desktop) {
-    padding-bottom: 25px;
+    // padding-bottom: 25px;
+    padding: 16px 40px 25px 40px;
   }
 }
 
