@@ -3,3 +3,6 @@ export enum TokenStatus {
   NotToken = "NOT_TOKEN",
 }
 
+export type InitialValueType = {
+    amount: string;
+  }

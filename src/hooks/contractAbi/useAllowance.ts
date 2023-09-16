@@ -8,7 +8,8 @@ const useAllowance = ():bigint => {
     address: VITE_TOKEN_ADDRESS,
     abi: tokenAbi,
     functionName: 'allowance',
-    args: [address, VITE_CONTRACT_ADDRESS]
+    args: [address, VITE_CONTRACT_ADDRESS],
+    watch: true,
   });
   return data as bigint;
 };

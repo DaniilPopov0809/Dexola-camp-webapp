@@ -1,3 +1,4 @@
+import React from "react";
 import { HTMLInputTypeAttribute } from "react";
 import { ErrorMessage, FieldProps } from "formik";
 import styles from "./FieldInput.module.scss";
@@ -20,6 +21,8 @@ const FieldInput = ({
 }: FieldInputProps) => {
   // eslint-disable-next-line
   const { form, ...inputProps } = props;
+
+
   return (
     <div className={styles.field__container}>
       <input
