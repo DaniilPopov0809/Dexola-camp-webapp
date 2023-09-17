@@ -20,11 +20,12 @@
   @media screen and (min-width: $tablet) {
     width: auto;
     right: 48px;
-    bottom: 70px;
+    // bottom: 70px;
+    bottom: 0;
   }
 
   @media screen and (min-width: $desktop) {
     right: 0;
-    bottom: 0;
+    // bottom: 0;
   }
 }

@@ -26,7 +26,7 @@ const FieldInput = ({
   return (
     <div className={styles.field__container}>
       <input
-        className={`${styles.field__input} ${
+        className={`mainFontSize ${styles.field__input} ${
           meta.touched && meta.error
             ? styles.error
             : meta.touched
