@@ -3,18 +3,20 @@ import { Formik, Form, Field, FormikHelpers, FieldProps } from "formik";
 import { formatEther } from "viem";
 import Rate from "../Rate/Rate";
 import MainButton from "../MainButton/MainButton";
+import ButtonLoader from "../ButtonLoader/ButtonLoader";
 import MessageModal from "../MessageModal/MessageModal";
 import TextMessageModall from "../TextMessageModal/TextMessageModal";
 import MessageIcon from "../MessageIcon/MessageIcon";
 import FieldInput from "../FieldInput/FieldInput";
 import useWalletBalance from "../../../hooks/useWalletBalance";
+import { waitForTransaction } from "@wagmi/core";
 import { approveTransaction, stakedTokens } from "../../../helpers/operations";
 import { useAllowance } from "../../../hooks/Abi";
 import { TokenStatus } from "../../../types";
-import styles from "./AppForm.module.scss";
-import { InitialValueType } from "../../../types";
 import validationForm from "../../../helpers/validationForm";
 import { Oval } from "react-loader-spinner";
+import styles from "./AppForm.module.scss";
+import { InitialValueType } from "../../../types";
 
 import errorCross from "../../../images/errorCross.svg";
 import successCheck from "../../../images/successCheck.svg";
@@ -26,6 +28,7 @@ const AppForm = () => {
     undefined
   );
   const [amountStru, setAmountStru] = useState("");
+  const [isSendingToken, setIsSendingToken] = useState(false);
 
   const struBalance = useWalletBalance(TokenStatus.Token);
   const getAllowance = useAllowance();
@@ -58,19 +61,36 @@ const AppForm = () => {
       }
       //   setAllowance(BigInt(parseEther(values.amount)));
     }
-    const isStaked = await stakedTokens(values.amount);
+    const staked = await stakedTokens(values.amount);
+    if (staked) {
+        setIsSendingToken(true);
+      const isSuccess = await waitForTransaction({
+        hash: staked,
+      });
+      if (isSuccess) {
+        setIsSendingToken(false);
+        resetForm();
+        setIsLoading(false);
+        setStatus("success");
+      }
+      if (!isSuccess) {
+        setIsSendingToken(false);
+        setIsLoading(false);
+        setStatus("error");
+      }
+    }
 
-    setSubmitting(false);
-    if (isStaked) {
-      //   setAllowance(0n);
-      resetForm();
-      setIsLoading(false);
-      setStatus("success");
-    }
-    if (!isStaked) {
-      setIsLoading(false);
-      setStatus("error");
-    }
+    // setSubmitting(false);
+    // if (staked) {
+    //   //   setAllowance(0n);
+    //   resetForm();
+    //   setIsLoading(false);
+    //   setStatus("success");
+    // }
+    // if (!staked) {
+    //   setIsLoading(false);
+    //   setStatus("error");
+    // }
   };
   return (
     <>
@@ -103,12 +123,12 @@ const AppForm = () => {
             </div>
             <div className={styles.form__buttonWrap}>
               <MainButton
-                children={"Stake"}
+                children={<ButtonLoader text={"Stake"} isLoading={isLoading}/>}
                 type="submit"
                 disabled={isSubmitting}
                 globalClassName={"linkButton"}
                 localClassName={"form__button"}
-                //   additionalClassName={"form__buttonTextWrap"}
+                  additionalClassName={"form__buttonTextWrap"}
               />
             </div>
           </Form>
@@ -128,7 +148,7 @@ const AppForm = () => {
             width={32}
             color="#20FE51"
             wrapperStyle={{ marginRight: "8px" }}
-            wrapperClass=""
+            wrapperClass={isSendingToken? "visibleSpinner" : "hiddenSpinner"}
             visible={true}
             ariaLabel="oval-loading"
             secondaryColor="#6E758B"
@@ -136,7 +156,7 @@ const AppForm = () => {
             strokeWidthSecondary={8}
           />
         }
-        isLoading={isLoading}
+        isSendingToken={isSendingToken}
       />
       <MessageModal
         text={

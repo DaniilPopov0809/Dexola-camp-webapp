@@ -4,24 +4,24 @@ import styles from "./MessageModal.module.scss";
 interface MessageModalProps {
   text: ReactNode;
   children: ReactNode;
-  isLoading?: boolean;
+  isSendingToken?: boolean;
   status?: "error" | "success" | string | undefined;
 }
 
 const MessageModal = ({
   text,
   children,
-  isLoading,
+  isSendingToken,
   status,
 }: MessageModalProps) => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     setVisible(false);
-    if (isLoading) {
+    if (isSendingToken) {
       setVisible(true);
     }
-  }, [isLoading]);
+  }, [isSendingToken]);
 
   useEffect(() => {
     setVisible(false);
@@ -36,12 +36,10 @@ const MessageModal = ({
   }, [status]);
 
   return (
-    visible && (
-      <div className={styles.messageModal}>
+      <div className={`${styles.messageModal} ${visible? "visibleSpinner" : "hiddenSpinner"}`}>
         {children}
         {text}
       </div>
-    )
   );
 };
 
