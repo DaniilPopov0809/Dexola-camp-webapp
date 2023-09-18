@@ -5,6 +5,7 @@ import roundUpBalance from "./roundUpBalance";
 import shortAddress from "./shortAddress";
 import calculateRewards from "./calculateRewards";
 import timeStamp from "./timeStamp";
+import calculateStakeBalance from "./calculateStakeBalance";
 
 export {
     calculateApr,
@@ -14,4 +15,5 @@ export {
     shortAddress,
     calculateRewards,
     timeStamp,
+    calculateStakeBalance,
 }

@@ -6,3 +6,5 @@ export enum TokenStatus {
 export type InitialValueType = {
     amount: string;
   }
+
+export  type TypeHash = `0x${string}`;

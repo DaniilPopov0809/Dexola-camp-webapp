@@ -3,92 +3,146 @@
 
 .infoBlock {
   display: grid;
-  
-  row-gap: 4px;
-  column-gap: 4px;
 
+  row-gap: 4px;
+  column-gap: 5px;
 
   grid-template-areas:
     "count help"
     "title title";
-  grid-template-columns: auto auto;
+  grid-template-columns: 1fr auto;
   grid-template-rows: auto;
 
   color: $whiteColor;
 
   @media screen and (min-width: $tablet) {
+    column-gap: 8px;
     row-gap: 0;
   }
 
   @media screen and (min-width: $desktop) {
     column-gap: 0;
 
-    grid-template-areas:
-    "count title help";
-    
-  grid-template-columns: auto auto auto;
-  grid-template-rows: auto;
+    grid-template-areas: "count title help";
+
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto;
   }
 }
 
-.infoBlock__image {
-  grid-area: help;
+// .infoBlock__image {
+//   grid-area: help;
 
-  align-self: self-end;
-  justify-self: center;
-  cursor: pointer;
+//   align-self: center;
+//   justify-self: center;
+//   cursor: pointer;
+//   // margin-bottom: 3px;
+
+//   @media screen and (min-width: $tablet) {
+//     width: 16px;
+//     height: 16px;
+//     // margin-bottom: 9px;
+//   }
+
+//   @media screen and (min-width: $desktop) {
+//     width: 24px;
+//     height: 24px;
+//     margin-bottom: 5px;
+//     align-self: self-end;
+//   }
+// }
+
+.infoBlock__button {
+  grid-area: help;
+  position: relative;
+  padding: 0;
+
+  align-self: end;
+
+  height: 11px;
+  width: 11px;
   margin-bottom: 3px;
 
-  @media screen and (min-width: $tablet) {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+
+ @media screen and (min-width: $tablet) {
+    width: 16px;
+    height: 16px;
+    margin-bottom: 9px;
+    
+  } 
+
+  @media screen and (min-width: $desktop) {
     width: 24px;
     height: 24px;
-    margin-bottom: 9px;
+    margin-bottom: 5px;
+  }
+}
+
+.infoBlock__button::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-image: url("../../../images/helpIconGrey.svg");
+  width: 11px;
+  height: 11px;
+  background-repeat: no-repeat;
+  // background-position: center;
+  background-size: cover;
+
+  @media screen and (min-width: $tablet) {
+    background-image: url("../../../images/helpIconWhite.svg");
+    width: 16px;
+    height: 16px;
+    
   }
 
   @media screen and (min-width: $desktop) {
-    width: 28px;
-    height: 28px;
-    align-self: self-end;
-    margin-bottom: 0;
+    width: 24px;
+    height: 24px;
   }
 }
 
 .infoBlock__wrap {
-  grid-area: count; 
+  grid-area: count;
 
   display: flex;
 
   @media screen and (min-width: $desktop) {
     margin-right: 12px;
-  } 
+  }
 }
 
 .infoBlock__count {
-    margin-right: 4px;
   @include fontStyle(18px, 700, "normal", -0.36px);
 
   @media screen and (min-width: $tablet) {
-    margin-right: 8px;
-   @include fontStyle(28px, 700, 1.71);
-}
+    @include fontStyle(28px, 700, 1.71);
+  }
 
-@media screen and (min-width: $desktop) {
+  @media screen and (min-width: $desktop) {
     // margin-right: 12px;
     @include fontStyle(36px, 700, 1.33);
-  }  
+  }
 }
 
 .infoBlock__stru {
+  margin-left: 4px;
   @include fontStyle(12px, $normalWeight, 1.66);
   text-transform: uppercase;
   align-self: self-end;
 
   @media screen and (min-width: $tablet) {
+    margin-left: 8px;
     @include fontStyle(16px, $normalWeight, 1.25);
     margin-bottom: 9px;
- }
+  }
 
- @media screen and (min-width: $desktop) {
+  @media screen and (min-width: $desktop) {
     @include fontStyle(16px, $normalWeight, 2);
     margin-bottom: 0;
   }
@@ -96,17 +150,17 @@
 
 .infoBlock__title {
   grid-area: title;
-   
+
   @include fontStyle(12px, $normalWeight, "normal", -0.24px);
   white-space: nowrap;
 
   @media screen and (min-width: $tablet) {
     @include fontStyle(16px, $normalWeight, "normal", -0.32px);
- }
+  }
 
- @media screen and (min-width: $tablet) {
+  @media screen and (min-width: $tablet) {
     align-self: end;
     margin-bottom: 5px;
     margin-right: 8px;
- }
+  }
 }

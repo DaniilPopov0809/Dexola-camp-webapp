@@ -9,8 +9,11 @@ import TextMessageModall from "../TextMessageModal/TextMessageModal";
 import MessageIcon from "../MessageIcon/MessageIcon";
 import FieldInput from "../FieldInput/FieldInput";
 import useWalletBalance from "../../../hooks/useWalletBalance";
-import { waitForTransaction } from "@wagmi/core";
-import { approveTransaction, stakedTokens } from "../../../helpers/operations";
+import {
+  approveTransaction,
+  stakedTokens,
+  waitForOperation,
+} from "../../../helpers/operations";
 import { useAllowance } from "../../../hooks/Abi";
 import { TokenStatus } from "../../../types";
 import validationForm from "../../../helpers/validationForm";
@@ -61,35 +64,27 @@ const AppForm = () => {
       }
       //   setAllowance(BigInt(parseEther(values.amount)));
     }
-    const staked = await stakedTokens(values.amount);
-    if (staked) {
-        setIsSendingToken(true);
-      const isSuccess = await waitForTransaction({
-        hash: staked,
-      });
-      if (isSuccess) {
-        setIsSendingToken(false);
-        resetForm();
-        setIsLoading(false);
-        setStatus("success");
-      }
-      if (!isSuccess) {
-        setIsSendingToken(false);
-        setIsLoading(false);
-        setStatus("error");
-      }
+    const stakeHash = await stakedTokens(values.amount);
+    if (!stakeHash) {
+      setIsSendingToken(false);
+      setIsLoading(false);
+      setStatus("error");
+      return;
     }
+    // if (stakeHash) {
+    setIsSendingToken(true);
+    const isSuccess = await waitForOperation(stakeHash);
+    if (!isSuccess) {
+      setIsSendingToken(false);
+      setIsLoading(false);
+      setStatus("error");
+      return;
+    }
+    setIsSendingToken(false);
+    resetForm();
+    setIsLoading(false);
+    setStatus("success");
 
-    // setSubmitting(false);
-    // if (staked) {
-    //   //   setAllowance(0n);
-    //   resetForm();
-    //   setIsLoading(false);
-    //   setStatus("success");
-    // }
-    // if (!staked) {
-    //   setIsLoading(false);
-    //   setStatus("error");
     // }
   };
   return (
@@ -123,12 +118,12 @@ const AppForm = () => {
             </div>
             <div className={styles.form__buttonWrap}>
               <MainButton
-                children={<ButtonLoader text={"Stake"} isLoading={isLoading}/>}
+                children={<ButtonLoader text={"Stake"} isLoading={isLoading} />}
                 type="submit"
                 disabled={isSubmitting}
                 globalClassName={"linkButton"}
                 localClassName={"form__button"}
-                  additionalClassName={"form__buttonTextWrap"}
+                additionalClassName={"form__buttonTextWrap"}
               />
             </div>
           </Form>
@@ -148,7 +143,7 @@ const AppForm = () => {
             width={32}
             color="#20FE51"
             wrapperStyle={{ marginRight: "8px" }}
-            wrapperClass={isSendingToken? "visibleSpinner" : "hiddenSpinner"}
+            wrapperClass={isSendingToken ? "visibleSpinner" : "hiddenSpinner"}
             visible={true}
             ariaLabel="oval-loading"
             secondaryColor="#6E758B"
