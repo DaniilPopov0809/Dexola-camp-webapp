@@ -1,8 +1,8 @@
 import * as Yup from "yup";
-import { InitialValueType } from "../types";
-import { fetchedBalance } from "./operations";
+import { InitialValueType } from "../../types";
+import { fetchedBalance } from "../operations";
 
-const validationForm: Yup.Schema<InitialValueType> = Yup.object({
+const validationStakeForm: Yup.Schema<InitialValueType> = Yup.object({
   amount: Yup.string()
     .matches(/^[1-9][0-9]*$/, "Amount must be a non-zero, positive, integer")
     .required("Please enter stake amount")
@@ -26,4 +26,4 @@ const validationForm: Yup.Schema<InitialValueType> = Yup.object({
     ),
 });
 
-export default validationForm;
+export default validationStakeForm;

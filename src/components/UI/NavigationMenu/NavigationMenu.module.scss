@@ -2,9 +2,22 @@
 @import "../../../styles/common/mixins";
 
 .navigation {
+   
+  background-color: $backgroundColor;
+
   @media screen and (max-width: $mobileEnd) {
+    padding-top: 16px;
     border-bottom: 1px solid $accentBlueColor;
+    border-radius: 16px 16px 0px 0px;
   }
+
+  @media screen and (min-width: $tablet) {
+    padding-top: 40px;
+  }
+
+  // @media screen and (min-width: $desktop) {
+  //   padding-top: 40px;
+  // }
 }
 
 .navigation__list {

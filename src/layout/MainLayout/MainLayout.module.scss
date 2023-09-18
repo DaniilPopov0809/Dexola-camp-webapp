@@ -1,8 +1,27 @@
 @import "../../styles/common/variables";
 
 .main {
+  position: relative;
   background-color: $backgroundColor;
+  z-index: 2;
   @media screen and (max-width: $mobileEnd) {
     border-radius: 16px 16px 0px 0px;
   }
 }
+
+// .main__backgroundGradient {
+//   // display: none;
+//   // @media screen and (max-width: $desktop) {
+//     display: block;
+//     position: absolute;
+//     top: 57vh;
+//     width: 100%;
+   
+
+//     z-index: 0;
+//     border-radius: 2193px;
+// background: radial-gradient(42.93% 42.93% at 50% 50%, #2F4BC9 0%, #080808 100%);
+// background-position: center top;
+// back
+//   // }
+// }

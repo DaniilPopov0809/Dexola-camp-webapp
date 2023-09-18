@@ -24,11 +24,11 @@ const Info = () => {
   const earned = useEarned();
 
   if (
-    stakeBalance &&
+    // stakeBalance &&
     rewardsForDuration &&
     totalSupply &&
-    periodFinish &&
-    earned
+    periodFinish 
+    //&& earned
   ) {
     apr = calculateApr(rewardsForDuration, totalSupply);
     days = isConnected ? calculateDays(periodFinish) : 0;

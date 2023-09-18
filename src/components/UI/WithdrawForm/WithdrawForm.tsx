@@ -1,95 +1,55 @@
-import { useEffect, useState } from "react";
+// import { useState } from "react";
 import { Formik, Form, Field, FormikHelpers, FieldProps } from "formik";
-import { formatEther } from "viem";
-import Rate from "../Rate/Rate";
+// import { formatEther } from "viem";
+// import Rate from "../Rate/Rate";
 import MainButton from "../MainButton/MainButton";
 import ButtonLoader from "../ButtonLoader/ButtonLoader";
-import MessageModal from "../MessageModal/MessageModal";
-import TextMessageModall from "../TextMessageModal/TextMessageModal";
-import MessageIcon from "../MessageIcon/MessageIcon";
+// import MessageModal from "../MessageModal/MessageModal";
+// import TextMessageModall from "../TextMessageModal/TextMessageModal";
+// import MessageIcon from "../MessageIcon/MessageIcon";
 import FieldInput from "../FieldInput/FieldInput";
-import useWalletBalance from "../../../hooks/useWalletBalance";
-import {
-  approveTransaction,
-  stakedTokens,
-  waitForOperation,
-} from "../../../helpers/operations";
-import { useAllowance } from "../../../hooks/Abi";
-import { TokenStatus } from "../../../types";
-import { validationStakeForm } from "../../../helpers/validation";
-import { Oval } from "react-loader-spinner";
-import styles from "./AppForm.module.scss";
+// import useWalletBalance from "../../../hooks/useWalletBalance";
+// import {
+//   approveTransaction,
+//   stakedTokens,
+//   waitForOperation,
+// } from "../../../helpers/operations";
+// import { useAllowance } from "../../../hooks/Abi";
+// import { TokenStatus } from "../../../types";
+import { baseValidationForm } from "../../../helpers/validation";
+// import { Oval } from "react-loader-spinner";
+import styles from "../AppForm/AppForm.module.scss";
 import { InitialValueType } from "../../../types";
 
-import errorCross from "../../../images/errorCross.svg";
-import successCheck from "../../../images/successCheck.svg";
+// import errorCross from "../../../images/errorCross.svg";
+// import successCheck from "../../../images/successCheck.svg";
 
-const AppForm = () => {
-  const [allowance, setAllowance] = useState(0n);
-  const [isLoading, setIsLoading] = useState(false);
-  const [status, setStatus] = useState<"success" | "error" | undefined>(
-    undefined
-  );
-  const [amountStru, setAmountStru] = useState("");
-  const [isSendingToken, setIsSendingToken] = useState(false);
-
-  const struBalance = useWalletBalance(TokenStatus.Token);
-  const getAllowance = useAllowance();
-
-  useEffect(() => {
-    setAllowance(getAllowance);
-  }, [getAllowance]);
-
-  const initialValues: InitialValueType = {
+const initialValues: InitialValueType = {
     amount: "",
   };
 
-  const handleError = () => {
-    setIsLoading(false);
-    setStatus("error");
-  };
+const WithdrawForm = () => {
+    // const [isLoading, setIsLoading] = useState(false);
+ 
+
+    const isLoading= false;
 
   const handleSubmit = async (
     values: InitialValueType,
     { resetForm, setSubmitting }: FormikHelpers<InitialValueType>
   ) => {
-    setAmountStru(values.amount);
-    setIsLoading(true);
-    setStatus(undefined);
+   
     setSubmitting(true);
-
-    const allowanceToNumber = +formatEther(allowance);
-
-    if (allowanceToNumber < +values.amount) {
-      const isApprove = await approveTransaction(values.amount);
-      if (!isApprove) {
-        handleError();
-        return;
-      }
-    }
-    const stakeHash = await stakedTokens(values.amount);
-    if (!stakeHash) {
-      setIsSendingToken(false);
-      handleError();
-      return;
-    }
-    setIsSendingToken(true);
-    const isSuccess = await waitForOperation(stakeHash);
-    if (!isSuccess) {
-      setIsSendingToken(false);
-      handleError();
-      return;
-    }
-    setIsSendingToken(false);
+    console.log(values.amount);
+    setSubmitting(false);
     resetForm();
-    setIsLoading(false);
-    setStatus("success");
+ 
   };
   return (
     <>
       <Formik
         initialValues={initialValues}
-        validationSchema={validationStakeForm}
+        validationSchema={baseValidationForm}
         onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (
@@ -100,24 +60,32 @@ const AppForm = () => {
                   field={field}
                   meta={meta}
                   form={form}
-                  placeholder="Enter stake amount"
+                  placeholder="Enter withdraw amount"
                   type="text"
                   name={"amount"}
-                  aria-label="Stake amount"
+                  aria-label="Withdraw"
                 />
               )}
             </Field>
             <div className={styles.rateWrap}>
-              <Rate
+              {/* <Rate
                 label={"Available:"}
                 rate={struBalance ? struBalance.formatted : "0"}
                 unit={"STRU"}
-              />
+              /> */}
             </div>
             <div className={styles.form__buttonWrap}>
               <MainButton
-                children={<ButtonLoader text={"Stake"} isLoading={isLoading} />}
+                children={<ButtonLoader text={"Withdraw"} isLoading={isLoading} />}
                 type="submit"
+                disabled={isSubmitting}
+                globalClassName={"linkButton"}
+                localClassName={"form__button"}
+                additionalClassName={"form__buttonTextWrap"}
+              />
+              <MainButton
+                children={<ButtonLoader text={"withdraw all & Claim rewards"} isLoading={isLoading} />}
+                type="button"
                 disabled={isSubmitting}
                 globalClassName={"linkButton"}
                 localClassName={"form__button"}
@@ -127,7 +95,7 @@ const AppForm = () => {
           </Form>
         )}
       </Formik>
-      <MessageModal
+      {/* <MessageModal
         text={
           <TextMessageModall
             title={"Adding"}
@@ -173,9 +141,9 @@ const AppForm = () => {
           )
         }
         status={status}
-      />
+      /> */}
     </>
   );
 };
 
-export default AppForm;
+export default WithdrawForm;

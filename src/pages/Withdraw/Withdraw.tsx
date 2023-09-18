@@ -1,16 +1,29 @@
 import { useAccount } from "wagmi";
 import NoWalletConnect from "../../components/UI/NoWalletConnect/NoWalletConnect";
-import styles from "./Withdraw.module.scss";
+import WithdrawForm from "../../components/UI/WithdrawForm/WithdrawForm";
+import Title from "../../components/UI/Title/Title";
+// import styles from "./Withdraw.module.scss";
 
 const Withdraw = () => {
     const { isConnected } = useAccount();
-    return (
-        <section className={`container ${styles.stake}`}>
-            {isConnected ? <h1>Hello</h1>  :<NoWalletConnect/>}
-          
-        </section>
-       
+    return(
+        <section className="container mainSection">
+        {isConnected ? (
+          <div className="mainSection__formWrap">
+            <Title
+              text={"Withdraw"}
+              globalClassName={"title__h2"}
+              titleTag={"h2"}
+              localClassName={"appForm"}
+            />
+            <WithdrawForm />
+          </div>
+        ) : (
+          <NoWalletConnect />
+        )}
+      </section>
     )
+   
 }
 
 export default Withdraw;

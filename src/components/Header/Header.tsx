@@ -4,6 +4,7 @@ import Info from "../Info/Info";
 import ButtonLoader from "../UI/ButtonLoader/ButtonLoader";
 import BalanceItem from "../UI/BalanceItem/BalanceItem";
 import MainButton from "../UI/MainButton/MainButton";
+import NavigationMenu from "../../components/UI/NavigationMenu/NavigationMenu";
 import logo from "../../images/logo.svg";
 import styles from "./Header.module.scss";
 
@@ -38,6 +39,7 @@ const Header = () => {
         )}
       </div>
       <Info/>
+      <NavigationMenu/>
       {/* </div> */}
     </header>
   );

@@ -8,7 +8,7 @@ import {
 import { calculateRewardRate } from "../../helpers/utils";
 import NoWalletConnect from "../../components/UI/NoWalletConnect/NoWalletConnect";
 import AppForm from "../../components/UI/AppForm/AppForm";
-import styles from "./Stake.module.scss";
+// import styles from "./Stake.module.scss";
 import Title from "../../components/UI/Title/Title";
 import Rate from "../../components/UI/Rate/Rate";
 
@@ -31,9 +31,9 @@ const Stake = () => {
   }
 
   return (
-    <section className={`container ${styles.stake}`}>
+    <section className="container mainSection">
       {isConnected ? (
-        <div className={styles.stake__formWrap}>
+        <div className="mainSection__formWrap">
           <Title
             text={"Stake"}
             globalClassName={"title__h2"}
