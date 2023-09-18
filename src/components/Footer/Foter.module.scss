@@ -6,7 +6,7 @@
   margin-top: auto; //for footer to bottom
   // padding-top: 8px;
   // padding-bottom: 17px;
-  padding: 8px 24px 17px 24px;
+ 
 
   font-family: $bodyFont;
   @include fontStyle(11px, 400, "normal", -0.22px);
@@ -28,4 +28,5 @@
 .footer__wrap {
   display: flex;
   justify-content: space-between;
+  padding: 8px 24px 17px 24px;
 }
