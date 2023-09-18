@@ -1,8 +1,7 @@
-import baseValidationForm from "./baseValidationForm";
+import validationWithdrawForm from "./validationWithdrawForm";
 import validationStakeForm from "./validationStakeForm";
 
-export {
-    baseValidationForm,
-    validationStakeForm,
-
-}
+export { 
+    validationWithdrawForm,
+    validationStakeForm 
+};

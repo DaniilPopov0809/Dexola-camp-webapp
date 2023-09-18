@@ -4,7 +4,7 @@ import { fetchedBalance } from "../operations";
 
 const validationStakeForm: Yup.Schema<InitialValueType> = Yup.object({
   amount: Yup.string()
-    .matches(/^[1-9][0-9]*$/, "Amount must be a non-zero, positive, integer")
+    .matches(/^[1-9][0-9]*$/, "Amount must be a positive integer")
     .required("Please enter stake amount")
     .test(
       "maxAmount",

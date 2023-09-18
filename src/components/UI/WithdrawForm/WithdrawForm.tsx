@@ -16,9 +16,9 @@ import FieldInput from "../FieldInput/FieldInput";
 // } from "../../../helpers/operations";
 // import { useAllowance } from "../../../hooks/Abi";
 // import { TokenStatus } from "../../../types";
-import { baseValidationForm } from "../../../helpers/validation";
+import { validationWithdrawForm } from "../../../helpers/validation";
 // import { Oval } from "react-loader-spinner";
-import styles from "../AppForm/AppForm.module.scss";
+import styles from "../StakeForm/StakeForm.module.scss";
 import { InitialValueType } from "../../../types";
 
 // import errorCross from "../../../images/errorCross.svg";
@@ -49,7 +49,7 @@ const WithdrawForm = () => {
     <>
       <Formik
         initialValues={initialValues}
-        validationSchema={baseValidationForm}
+        validationSchema={validationWithdrawForm}
         onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (

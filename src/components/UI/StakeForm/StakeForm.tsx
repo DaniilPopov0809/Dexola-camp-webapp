@@ -18,7 +18,7 @@ import { useAllowance } from "../../../hooks/Abi";
 import { TokenStatus } from "../../../types";
 import { validationStakeForm } from "../../../helpers/validation";
 import { Oval } from "react-loader-spinner";
-import styles from "./AppForm.module.scss";
+import styles from "./StakeForm.module.scss";
 import { InitialValueType } from "../../../types";
 
 import errorCross from "../../../images/errorCross.svg";

@@ -7,7 +7,7 @@ import {
 } from "../../hooks/Abi";
 import { calculateRewardRate } from "../../helpers/utils";
 import NoWalletConnect from "../../components/UI/NoWalletConnect/NoWalletConnect";
-import AppForm from "../../components/UI/AppForm/AppForm";
+import AppForm from "../../components/UI/StakeForm/StakeForm";
 // import styles from "./Stake.module.scss";
 import Title from "../../components/UI/Title/Title";
 import Rate from "../../components/UI/Rate/Rate";
