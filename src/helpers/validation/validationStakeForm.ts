@@ -4,8 +4,18 @@ import { fetchedBalance } from "../operations";
 
 const validationStakeForm: Yup.Schema<InitialValueType> = Yup.object({
   amount: Yup.string()
-    .matches(/^[1-9][0-9]*$/, "Amount must be a positive integer")
     .required("Please enter stake amount")
+    .test("isValidAmount", "Please enter a positive number (min:0.000000000000000001)", (value) => {
+      const valueToNumber = +value;
+      if (
+        isNaN(valueToNumber) ||
+        valueToNumber < 0.000000000000000001 ||
+        valueToNumber === 0
+      ) {
+        return false;
+      }
+      return true;
+    })
     .test(
       "maxAmount",
       "The amount must not exceed the wallet balance",

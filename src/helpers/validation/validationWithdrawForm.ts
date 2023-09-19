@@ -5,8 +5,8 @@ import { formatEther } from "viem";
 
 const validationWithdrawForm: Yup.Schema<InitialValueType> = Yup.object({
   amount: Yup.string()
-    .required("Please enter stake amount")
-    .test("isValidAmount", "Please enter a valid amount", (value) => {
+    .required("Please enter withdraw amount")
+    .test("isValidAmount", "Please enter a positive number (min:0.000000000000000001)", (value) => {
       const valueToNumber = +value;
       if (
         isNaN(valueToNumber) ||
