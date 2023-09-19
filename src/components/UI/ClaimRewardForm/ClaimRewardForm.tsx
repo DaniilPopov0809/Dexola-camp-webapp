@@ -12,6 +12,7 @@ import { reduceDecimals } from "../../../helpers/utils";
 import { useEarned } from "../../../hooks/Abi";
 import { Oval } from "react-loader-spinner";
 import { InitialValueType } from "../../../types";
+import styles from "./ClaimRewardForm.module.scss";
 
 import errorCross from "../../../images/errorCross.svg";
 import successCheck from "../../../images/successCheck.svg";
@@ -62,11 +63,12 @@ const ClaimRewardForm = () => {
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
         {({ isSubmitting }) => (
           <Form autoComplete="off">
-            <div className="form__rateWrap">
+            <div className={`form__rateWrap ${styles.rewards__reteWrap}`}>
               <Rate
                 label={"Available:"}
                 rate={earned ? reduceDecimals(formatEther(earned), 2) : "0.00"}
                 unit={"STRU"}
+                isTitle={false}
               />
             </div>
             <div className="form__buttonWrap">

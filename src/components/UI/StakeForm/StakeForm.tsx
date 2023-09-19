@@ -112,6 +112,7 @@ const AppForm = () => {
                 label={"Available:"}
                 rate={struBalance ? reduceDecimals(struBalance.formatted,2) : "0.00"}
                 unit={"STRU"}
+                isTitle={false}
               />
             </div>
             <div className="form__buttonWrap">
