@@ -1,18 +1,20 @@
-import timeStamp from "./timeStamp";
+
 import { formatEther } from "viem/utils";
+import { timeStamp, reduceDecimals } from ".";
 
 const calculateRewardRate = (
   stakedBalance: bigint,
   periodFinish: bigint,
   rewardRate: bigint,
   totalSupply: bigint
-) => {
+):string => {
   const currentTimeStamp = BigInt(timeStamp());
   const totalAvailbleRewards = (periodFinish - currentTimeStamp) * rewardRate;
   const formatted = formatEther(
     (stakedBalance * totalAvailbleRewards) / totalSupply + stakedBalance
   );
-  return Math.floor(+formatted);
+
+  return reduceDecimals(formatted, 2);
 };
 
 export default calculateRewardRate;

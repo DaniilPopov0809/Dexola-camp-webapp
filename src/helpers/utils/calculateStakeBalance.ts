@@ -1,8 +1,8 @@
 import { formatEther } from "viem";
+import { reduceDecimals } from ".";
 
 const calculateStakeBalance = (balance:bigint):string => {
-    const formatedBalabce = +formatEther(balance);
-    return formatedBalabce.toFixed(2);
+    return  reduceDecimals(formatEther(balance), 2);
 }
 
 export default calculateStakeBalance;

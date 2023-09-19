@@ -1,7 +1,7 @@
-// import { useState } from "react";
+import { useState } from "react";
 import { Formik, Form, Field, FormikHelpers, FieldProps } from "formik";
-// import { formatEther } from "viem";
-// import Rate from "../Rate/Rate";
+import { formatEther } from "viem";
+import Rate from "../Rate/Rate";
 import MainButton from "../MainButton/MainButton";
 import ButtonLoader from "../ButtonLoader/ButtonLoader";
 // import MessageModal from "../MessageModal/MessageModal";
@@ -9,12 +9,8 @@ import ButtonLoader from "../ButtonLoader/ButtonLoader";
 // import MessageIcon from "../MessageIcon/MessageIcon";
 import FieldInput from "../FieldInput/FieldInput";
 // import useWalletBalance from "../../../hooks/useWalletBalance";
-// import {
-//   approveTransaction,
-//   stakedTokens,
-//   waitForOperation,
-// } from "../../../helpers/operations";
-// import { useAllowance } from "../../../hooks/Abi";
+import { withdrawTokens, waitForOperation, exit } from "../../../helpers/operations";
+import { useStakeBalance } from "../../../hooks/Abi";
 // import { TokenStatus } from "../../../types";
 import { validationWithdrawForm } from "../../../helpers/validation";
 // import { Oval } from "react-loader-spinner";
@@ -25,25 +21,65 @@ import { InitialValueType } from "../../../types";
 // import successCheck from "../../../images/successCheck.svg";
 
 const initialValues: InitialValueType = {
-    amount: "",
-  };
+  amount: "",
+};
 
 const WithdrawForm = () => {
-    // const [isLoading, setIsLoading] = useState(false);
- 
+  const [isLoadingWithdraw, setIsLoadingWithdraw] = useState(false);
+  const [isLoadingWithdrawAll, setIsLoadingWithdrawALL] = useState(false);
+  const [status, setStatus] = useState<"success" | "error" | undefined>(
+    undefined
+  );
+  console.log(
+    "🚀 ~ file: WithdrawForm.tsx:35 ~ WithdrawForm ~ status:",
+    status
+  );
 
-    const isLoading= false;
+  const stakeBalance = useStakeBalance();
+
+  const handleClick = async () => { 
+    setStatus(undefined);
+    setIsLoadingWithdrawALL(true);
+    const exitHash = await exit();
+    if (!exitHash) {
+      setIsLoadingWithdrawALL(false);
+      setStatus("error");
+      return;
+    }
+    const isSuccess = await waitForOperation(exitHash);
+    if (!isSuccess) {
+      setIsLoadingWithdraw(false);
+      setStatus("error");
+      return;
+    }
+    setStatus("success");
+    setIsLoadingWithdrawALL(false);
+  };
 
   const handleSubmit = async (
     values: InitialValueType,
     { resetForm, setSubmitting }: FormikHelpers<InitialValueType>
   ) => {
-   
+    setStatus(undefined);
+    setIsLoadingWithdraw(true);
     setSubmitting(true);
-    console.log(values.amount);
+
+    const withdrawHash = await withdrawTokens(values.amount);
+    if (!withdrawHash) {
+      setIsLoadingWithdraw(false);
+      setStatus("error");
+      return;
+    }
+    const isSuccess = await waitForOperation(withdrawHash);
+    if (!isSuccess) {
+      setIsLoadingWithdraw(false);
+      setStatus("error");
+      return;
+    }
     setSubmitting(false);
+    setIsLoadingWithdraw(false);
+    setStatus("success");
     resetForm();
- 
   };
   return (
     <>
@@ -68,28 +104,36 @@ const WithdrawForm = () => {
               )}
             </Field>
             <div className={styles.rateWrap}>
-              {/* <Rate
+              <Rate
                 label={"Available:"}
-                rate={struBalance ? struBalance.formatted : "0"}
+                rate={stakeBalance ? formatEther(stakeBalance) : "0"}
                 unit={"STRU"}
-              /> */}
+              />
             </div>
             <div className={styles.form__buttonWrap}>
               <MainButton
-                children={<ButtonLoader text={"Withdraw"} isLoading={isLoading} />}
+                children={
+                  <ButtonLoader text={"Withdraw"} isLoading={isLoadingWithdraw} />
+                }
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isSubmitting|| isLoadingWithdraw || isLoadingWithdrawAll}
                 globalClassName={"linkButton"}
                 localClassName={"form__button"}
                 additionalClassName={"form__buttonTextWrap"}
               />
               <MainButton
-                children={<ButtonLoader text={"withdraw all & Claim rewards"} isLoading={isLoading} />}
+                children={
+                  <ButtonLoader
+                    text={"withdraw all & Claim rewards"}
+                    isLoading={isLoadingWithdrawAll}
+                  />
+                }
                 type="button"
-                disabled={isSubmitting}
+                disabled={ isLoadingWithdraw || isLoadingWithdrawAll}
                 globalClassName={"linkButton"}
-                localClassName={"form__button"}
+                localClassName={"form__aditionalButton"}
                 additionalClassName={"form__buttonTextWrap"}
+                onClick={handleClick}
               />
             </div>
           </Form>

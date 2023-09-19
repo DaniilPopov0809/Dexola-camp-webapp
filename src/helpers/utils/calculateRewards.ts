@@ -1,8 +1,9 @@
 import { formatEther } from "viem";
+import { reduceDecimals } from ".";
 
-const calculateRewards = (stru: bigint): number => {
-  const struToNumber = Number(formatEther(stru));
-  return parseFloat(struToNumber.toFixed(0));
+const calculateRewards = (stru: bigint): string => {
+  const formated = formatEther(stru);
+  return reduceDecimals(formated, 2);
 };
 
 export default calculateRewards;

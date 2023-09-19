@@ -81,9 +81,9 @@ const AppForm = () => {
       return;
     }
     setIsSendingToken(false);
-    resetForm();
     setIsLoading(false);
     setStatus("success");
+    resetForm();
   };
   return (
     <>

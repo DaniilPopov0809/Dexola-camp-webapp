@@ -19,6 +19,12 @@
   background-color $animation,
   scale $animation;
 
+  &:disabled {
+    color: $lightGreyColor;
+    cursor: not-allowed;
+    scale: 1;
+  }
+
   &:not(:disabled):active {
     scale: 1.03;
   }

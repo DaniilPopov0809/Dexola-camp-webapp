@@ -12,23 +12,33 @@
     background-color: $buttonHoverColor;
   }
 
-  &:disabled {
-    color: $lightGreyColor;
-    cursor: not-allowed;
-    scale: 1;
-  }
+  
 
   @media screen and (min-width: $tablet) {
     padding: 12px 40px;
   }
 }
 
-.form__button {
+.form__button,
+.form__aditionalButton {
   width: 100%;
   padding: 12px 40px;
 
   @media screen and (min-width: $tablet) {
     width: auto;
+  }
+}
+
+button.form__aditionalButton {
+  background-color: transparent;
+  color: $whiteColor;
+
+  // &:hover {
+  //   scale: 1.01;
+  // }
+
+  @media screen and (max-width: $mobileEnd) {
+    display: none;
   }
 }
 
