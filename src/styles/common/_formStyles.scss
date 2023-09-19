@@ -1,13 +1,5 @@
-@import "../../../styles/common/variables";
 
-// .form {
-//     // @media screen and (min-width: $tablet) {
-//     //     max-width: 391px;
-//     //   }
-// }
-
-
-.rateWrap {
+.form__rateWrap {
     padding-bottom: 224px;
 
     @media screen and (min-width: $tablet) {

@@ -8,17 +8,14 @@ import MessageModal from "../MessageModal/MessageModal";
 import TextMessageModall from "../TextMessageModal/TextMessageModal";
 import MessageIcon from "../MessageIcon/MessageIcon";
 import FieldInput from "../FieldInput/FieldInput";
-// import useWalletBalance from "../../../hooks/useWalletBalance";
 import {
   withdrawTokens,
   waitForOperation,
   exit,
 } from "../../../helpers/operations";
 import { useStakeBalance } from "../../../hooks/Abi";
-// import { TokenStatus } from "../../../types";
 import { validationWithdrawForm } from "../../../helpers/validation";
 import { Oval } from "react-loader-spinner";
-import styles from "../StakeForm/StakeForm.module.scss";
 import { InitialValueType } from "../../../types";
 import { reduceDecimals } from "../../../helpers/utils";
 
@@ -100,7 +97,7 @@ const WithdrawForm = () => {
         onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (
-          <Form className={styles.form} autoComplete="off">
+          <Form autoComplete="off">
             <Field name="amount">
               {({ field, meta, form }: FieldProps) => (
                 <FieldInput
@@ -114,7 +111,7 @@ const WithdrawForm = () => {
                 />
               )}
             </Field>
-            <div className={styles.rateWrap}>
+            <div className="form__rateWrap">
               <Rate
                 label={"Available:"}
                 rate={
@@ -125,7 +122,7 @@ const WithdrawForm = () => {
                 unit={"STRU"}
               />
             </div>
-            <div className={styles.form__buttonWrap}>
+            <div className="form__buttonWrap">
               <MainButton
                 children={
                   <ButtonLoader

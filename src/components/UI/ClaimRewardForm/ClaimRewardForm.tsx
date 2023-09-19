@@ -7,15 +7,11 @@ import ButtonLoader from "../ButtonLoader/ButtonLoader";
 import MessageModal from "../MessageModal/MessageModal";
 import TextMessageModall from "../TextMessageModal/TextMessageModal";
 import MessageIcon from "../MessageIcon/MessageIcon";
-// import FieldInput from "../FieldInput/FieldInput";
-// import useWalletBalance from "../../../hooks/useWalletBalance";
 import { claimReward, waitForOperation } from "../../../helpers/operations";
-import { useEarned } from "../../../hooks/Abi";
-// import { TokenStatus } from "../../../types";
-import { Oval } from "react-loader-spinner";
-import styles from "../StakeForm/StakeForm.module.scss";
-import { InitialValueType } from "../../../types";
 import { reduceDecimals } from "../../../helpers/utils";
+import { useEarned } from "../../../hooks/Abi";
+import { Oval } from "react-loader-spinner";
+import { InitialValueType } from "../../../types";
 
 import errorCross from "../../../images/errorCross.svg";
 import successCheck from "../../../images/successCheck.svg";
@@ -65,23 +61,21 @@ const ClaimRewardForm = () => {
     <>
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
         {({ isSubmitting }) => (
-          <Form className={styles.form} autoComplete="off">
-            <div className={styles.rateWrap}>
+          <Form autoComplete="off">
+            <div className="form__rateWrap">
               <Rate
                 label={"Available:"}
                 rate={earned ? reduceDecimals(formatEther(earned), 2) : "0.00"}
                 unit={"STRU"}
               />
             </div>
-            <div className={styles.form__buttonWrap}>
+            <div className="form__buttonWrap">
               <MainButton
                 children={
                   <ButtonLoader text={"Claim Rewards"} isLoading={isLoading} />
                 }
                 type="submit"
-                disabled={
-                  isSubmitting || !earned || +formatEther(earned) === 0
-                }
+                disabled={isSubmitting || !earned || +formatEther(earned) === 0}
                 globalClassName={"linkButton"}
                 localClassName={"form__button"}
                 additionalClassName={"form__buttonTextWrap"}

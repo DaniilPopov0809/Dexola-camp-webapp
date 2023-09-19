@@ -19,7 +19,6 @@ import { useAllowance } from "../../../hooks/Abi";
 import { TokenStatus } from "../../../types";
 import { validationStakeForm } from "../../../helpers/validation";
 import { Oval } from "react-loader-spinner";
-import styles from "./StakeForm.module.scss";
 import { InitialValueType } from "../../../types";
 
 import errorCross from "../../../images/errorCross.svg";
@@ -94,7 +93,7 @@ const AppForm = () => {
         onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (
-          <Form className={styles.form} autoComplete="off">
+          <Form autoComplete="off">
             <Field name="amount">
               {({ field, meta, form }: FieldProps) => (
                 <FieldInput
@@ -108,14 +107,14 @@ const AppForm = () => {
                 />
               )}
             </Field>
-            <div className={styles.rateWrap}>
+            <div className="form__rateWrap">
               <Rate
                 label={"Available:"}
                 rate={struBalance ? reduceDecimals(struBalance.formatted,2) : "0.00"}
                 unit={"STRU"}
               />
             </div>
-            <div className={styles.form__buttonWrap}>
+            <div className="form__buttonWrap">
               <MainButton
                 children={<ButtonLoader text={"Stake"} isLoading={isLoading} />}
                 type="submit"
