@@ -1,0 +1,13 @@
+
+.form__rateWrap {
+    margin-bottom: 224px;
+
+    @media screen and (min-width: $tablet) {
+        margin-bottom: 62px;
+      }
+}
+
+.form__buttonWrap {
+  display: flex;
+  align-items: center;
+}

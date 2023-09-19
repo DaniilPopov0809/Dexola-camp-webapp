@@ -1,4 +1,5 @@
-.container {
+.container,
+.additionalСontainer {
   margin-right: auto;
   margin-left: auto;
 
@@ -17,5 +18,12 @@
     width: 1440px;
     padding-right: 120px;
     padding-left: 120px;
+  }
+}
+
+.additionalСontainer {
+  @media screen and (min-width: $desktop) {
+    padding-right: 40px;
+    padding-left: 40px;
   }
 }

@@ -1,0 +1,28 @@
+.mainSection {
+    position: relative;
+    padding-bottom: 20px;
+
+
+
+  @media screen and (min-width: $tablet) {
+    // position: relative;
+    padding-bottom: 70px;
+    margin-bottom: 30px;
+ }
+
+ // @media screen and (min-width: $desktop) {
+ //    // position: relative;
+ //    padding-bottom: 72px;
+ //    margin-bottom: 30px;
+ // }
+
+ 
+}
+
+.mainSection__formWrap {
+ padding-top: 29px;
+ @media screen and (min-width: $tablet) {
+    border: solid 1px $accentBlueColor;
+    padding: 32px 24px;
+ }
+}

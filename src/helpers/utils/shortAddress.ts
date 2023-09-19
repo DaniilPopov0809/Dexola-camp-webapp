@@ -1,4 +1,4 @@
-const shortAddress = (str: string) => {
+const shortAddress = (str: string):string => {
     return `${str.slice(0, 16)}...`;
 }
 

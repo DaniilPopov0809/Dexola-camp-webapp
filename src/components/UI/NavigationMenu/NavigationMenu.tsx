@@ -3,8 +3,8 @@ import styles from "./NavigationMenu.module.scss";
 
 const NavigationMenu = () => {
   return (
-    <nav className={`container ${styles.navigation}`}>
-      <ul className={styles.navigation__list}>
+    <nav className={`${styles.navigation}`}>
+      <ul className={`container ${styles.navigation__list}`}>
         <li>
           <NavLink
             className={({ isActive }) =>

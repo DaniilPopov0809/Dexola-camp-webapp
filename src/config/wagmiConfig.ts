@@ -4,13 +4,13 @@ import {
   w3mProvider,
 } from "@web3modal/ethereum";
 
-import { configureChains, createConfig } from "wagmi";
+import { configureChains, createConfig, mainnet } from "wagmi";
 import { sepolia } from "wagmi/chains";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 
 const {VITE_PROJECT_ID, VITE_API_KEY } = import.meta.env;
 
-const chains = [sepolia];
+const chains = [sepolia, mainnet];
 export const projectId = VITE_PROJECT_ID;
 
 const { publicClient } = configureChains(chains, [

@@ -2,10 +2,11 @@
 @import "../../../styles/common/mixins";
 
 .field__container {
-  margin-bottom: 12px;
+  margin-bottom: 14px;
   height: 60px;
 
   @media screen and (min-width: $tablet) {
+    max-width: 391px;
     margin-bottom: 16px;
   }
 
@@ -55,7 +56,7 @@
     transform: scale(1);
   }
   50% {
-    transform: scale(1.1);
+    transform: scale(1.05);
   }
   100% {
     transform: scale(1);

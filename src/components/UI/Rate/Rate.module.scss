@@ -2,34 +2,57 @@
 @import "../../../styles/common/mixins";
 
 .label,
-.unit {
-  color: rgba(255, 255, 255, 0.73);
-  font-family: 'Roboto Mono', monospace;
-  @include fontStyle($bodyMobileFontsize, $normalWeight, "normal", $letterSpacingMobile);
+.unitTitle {
+  color: $secondLightGreyColor;
+  font-family: "Roboto Mono", monospace;
+  @include fontStyle(
+    $bodyMobileFontsize,
+    $normalWeight,
+    "normal",
+    $letterSpacingMobile
+  );
   margin-right: 4px;
 
   @media screen and (min-width: $tablet) {
-    @include fontStyle($bodyTabletFontsize, $normalWeight, "normal", $letterSpacingTablet);
+    @include fontStyle(
+      $bodyTabletFontsize,
+      $normalWeight,
+      "normal",
+      $letterSpacingTablet
+    );
   }
 }
 
-.label {
-  color: rgba(255, 255, 255, 0.73);
-}
+.rateTitle,
+.rateForm {
+  color: $whiteColor;
+  font-family: "Roboto Mono", monospace;
+  @include fontStyle(1.125rem, 700, 1.4, "normal");
+  margin-right: 4px;
 
-.rate {
-    color: $whiteColor;
-    font-family: 'Roboto Mono', monospace;
-    @include fontStyle(1.125rem, 700, 1.4, "normal");
-    margin-right: 4px;
-
-    @media screen and (min-width: $tablet) {
-      font-size: 1.25rem;
-    }
+  @media screen and (min-width: $tablet) {
+    font-size: 1.25rem;
   }
-
-.unit {
-    color: $whiteColor;
 }
 
+.unitTitle,
+.unitForm {
+  color: $whiteColor;
+}
 
+.unitTitle {
+  font-size: 0.75rem;
+  margin-right: 0;
+
+  @media screen and (min-width: $tablet) {
+    font-size: 1rem;
+  }
+}
+
+.rateForm {
+  font-size: 0.875rem;
+
+  @media screen and (min-width: $tablet) {
+    font-size: 1rem;
+  }
+}

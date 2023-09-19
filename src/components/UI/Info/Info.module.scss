@@ -1,4 +1,4 @@
-@import "../../styles/common/variables";
+@import "../../../styles/common/variables";
 
 .info {
     padding-top: 22px;
@@ -18,9 +18,10 @@
 .info__wrap {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    // gap: 20px;
 
     @media screen and (max-width: $mobileEnd) {
+        justify-content: space-between;
         width: 100%;
     }
 

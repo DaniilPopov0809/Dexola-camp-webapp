@@ -3,14 +3,15 @@ import styles from "./Rate.module.scss";
 label: string,
 rate: string,
 unit: string,
+isTitle: boolean,
 }
-const Rate =({label, rate, unit}:RateProps) => {
+const Rate =({label, rate, unit, isTitle}:RateProps) => {
 
     return (
         <>
         <label className={styles.label}>{label}</label>
-        <span className={styles.rate}>{rate}</span>
-        <span className={styles.unit}>{unit}</span>
+        <span className={isTitle? styles.rateTitle : styles.rateForm }>{rate}</span>
+        <span className={isTitle? styles.unitTitle : styles.unitForm}>{unit}</span>
         </>
     )
 }

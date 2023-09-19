@@ -1,0 +1,7 @@
+@import "../../../styles/common/variables";
+
+div.rewards__reteWrap {
+    @media screen and (min-width: $tablet) {
+        margin-bottom: 138px;
+    }
+}

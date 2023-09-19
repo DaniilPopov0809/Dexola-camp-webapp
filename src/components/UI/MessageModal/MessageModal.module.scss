@@ -1,0 +1,31 @@
+@import "../../../styles/common/variables";
+@import "../../../styles/common/mixins";
+
+.messageModal {
+  position: absolute;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 8px 0;
+
+  @media screen and (max-width: $mobileEnd) {
+    width: 100%;
+    left: 50%;
+    bottom: 104px;
+    transform: translate(-50%, 0);
+  }
+
+  @media screen and (min-width: $tablet) {
+    width: auto;
+    right: 48px;
+    // bottom: 70px;
+    bottom: 0;
+  }
+
+  @media screen and (min-width: $desktop) {
+    right: 0;
+    // bottom: 0;
+  }
+}

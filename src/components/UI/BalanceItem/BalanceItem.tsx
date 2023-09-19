@@ -1,8 +1,7 @@
-import { useAccount} from "wagmi";
+import { useAccount } from "wagmi";
 import useWalletBalance from "../../../hooks/useWalletBalance";
 import useViewportWidth from "../../../hooks/useViewportWidth";
-import roundUpBalance from "../../../helpers/roundUpBalance";
-import shortAddress from "../../../helpers/shortAddress";
+import { reduceDecimals, shortAddress } from "../../../helpers/utils";
 import styles from "./BalanceItem.module.scss";
 import struLogo from "../../../images/struLogo.jpg";
 import ethLogo from "../../../images/ethLogo.svg";
@@ -13,7 +12,7 @@ const BalanceItem = () => {
   const { address } = useAccount();
 
   const struBalance = useWalletBalance(TokenStatus.Token);
-  const ethBalance =  useWalletBalance(TokenStatus.NotToken);
+  const ethBalance = useWalletBalance(TokenStatus.NotToken);
 
   return (
     <>
@@ -24,11 +23,11 @@ const BalanceItem = () => {
         alt="STRU logo"
         className={styles.struLogo}
       />
-      {struBalance && (
-        <span className={styles.struBalance}>{`${roundUpBalance(
-          struBalance.formatted
-        )} STRU`}</span>
-      )}
+      
+        <span className={styles.struBalance}>{struBalance ?`${reduceDecimals(
+          struBalance.formatted,
+          3
+        )} STRU`: "STRU not found"}</span>
       <img
         src={ethLogo}
         width={24}
@@ -37,8 +36,9 @@ const BalanceItem = () => {
         className={styles.ethLogo}
       />
       {ethBalance && (
-        <span className={styles.ethBalance}>{`${roundUpBalance(
-          ethBalance.formatted
+        <span className={styles.ethBalance}>{`${reduceDecimals(
+          ethBalance.formatted,
+          3
         )} ${ethBalance.symbol}`}</span>
       )}
       {viewportWidth > 743 && <span className={styles.separator}>|</span>}
