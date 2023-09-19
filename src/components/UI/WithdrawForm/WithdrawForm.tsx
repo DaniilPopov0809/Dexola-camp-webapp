@@ -16,6 +16,7 @@ import { validationWithdrawForm } from "../../../helpers/validation";
 // import { Oval } from "react-loader-spinner";
 import styles from "../StakeForm/StakeForm.module.scss";
 import { InitialValueType } from "../../../types";
+import { reduceDecimals } from "../../../helpers/utils";
 
 // import errorCross from "../../../images/errorCross.svg";
 // import successCheck from "../../../images/successCheck.svg";
@@ -106,7 +107,7 @@ const WithdrawForm = () => {
             <div className={styles.rateWrap}>
               <Rate
                 label={"Available:"}
-                rate={stakeBalance ? formatEther(stakeBalance) : "0"}
+                rate={stakeBalance ? reduceDecimals(formatEther(stakeBalance), 2) : "0.00"}
                 unit={"STRU"}
               />
             </div>

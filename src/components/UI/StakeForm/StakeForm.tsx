@@ -8,6 +8,7 @@ import MessageModal from "../MessageModal/MessageModal";
 import TextMessageModall from "../TextMessageModal/TextMessageModal";
 import MessageIcon from "../MessageIcon/MessageIcon";
 import FieldInput from "../FieldInput/FieldInput";
+import { reduceDecimals } from "../../../helpers/utils";
 import useWalletBalance from "../../../hooks/useWalletBalance";
 import {
   approveTransaction,
@@ -110,7 +111,7 @@ const AppForm = () => {
             <div className={styles.rateWrap}>
               <Rate
                 label={"Available:"}
-                rate={struBalance ? struBalance.formatted : "0"}
+                rate={struBalance ? reduceDecimals(struBalance.formatted,2) : "0.00"}
                 unit={"STRU"}
               />
             </div>
