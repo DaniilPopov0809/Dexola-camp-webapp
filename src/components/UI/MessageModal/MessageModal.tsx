@@ -4,24 +4,24 @@ import styles from "./MessageModal.module.scss";
 interface MessageModalProps {
   text: ReactNode;
   children: ReactNode;
-  isSendingToken?: boolean;
+  isLoading?: boolean;
   status?: "error" | "success" | string | undefined;
 }
 
 const MessageModal = ({
   text,
   children,
-  isSendingToken,
+  isLoading,
   status,
 }: MessageModalProps) => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     setVisible(false);
-    if (isSendingToken) {
+    if (isLoading) {
       setVisible(true);
     }
-  }, [isSendingToken]);
+  }, [isLoading]);
 
   useEffect(() => {
     setVisible(false);

@@ -119,7 +119,7 @@ const AppForm = () => {
               <MainButton
                 children={<ButtonLoader text={"Stake"} isLoading={isLoading} />}
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isSubmitting || !struBalance}
                 globalClassName={"linkButton"}
                 localClassName={"form__button"}
                 additionalClassName={"form__buttonTextWrap"}
@@ -150,7 +150,7 @@ const AppForm = () => {
             strokeWidthSecondary={8}
           />
         }
-        isSendingToken={isSendingToken}
+        isLoading={isSendingToken}
       />
       <MessageModal
         text={

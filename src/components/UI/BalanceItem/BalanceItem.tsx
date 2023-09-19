@@ -23,12 +23,11 @@ const BalanceItem = () => {
         alt="STRU logo"
         className={styles.struLogo}
       />
-      {struBalance && (
-        <span className={styles.struBalance}>{`${reduceDecimals(
+      
+        <span className={styles.struBalance}>{struBalance ?`${reduceDecimals(
           struBalance.formatted,
           3
-        )} STRU`}</span>
-      )}
+        )} STRU`: "STRU not found"}</span>
       <img
         src={ethLogo}
         width={24}

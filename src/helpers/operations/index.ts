@@ -5,13 +5,15 @@ import waitForOperation from "./waitForOperation";
 import withdrawTokens from "./withdrawTokens";
 import fetchedStakeBalance from "./fetchedStakeBalance";
 import exit from "./exit";
+import claimReward from "./claimReward";
 
 export {
-    approveTransaction,
-    stakedTokens,
-    fetchedBalance,
-    waitForOperation,
-    withdrawTokens,
-    fetchedStakeBalance,
-    exit,
-}
+  approveTransaction,
+  stakedTokens,
+  fetchedBalance,
+  waitForOperation,
+  withdrawTokens,
+  fetchedStakeBalance,
+  exit,
+  claimReward,
+};

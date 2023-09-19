@@ -4,22 +4,26 @@ import { formatEther } from "viem";
 import Rate from "../Rate/Rate";
 import MainButton from "../MainButton/MainButton";
 import ButtonLoader from "../ButtonLoader/ButtonLoader";
-// import MessageModal from "../MessageModal/MessageModal";
-// import TextMessageModall from "../TextMessageModal/TextMessageModal";
-// import MessageIcon from "../MessageIcon/MessageIcon";
+import MessageModal from "../MessageModal/MessageModal";
+import TextMessageModall from "../TextMessageModal/TextMessageModal";
+import MessageIcon from "../MessageIcon/MessageIcon";
 import FieldInput from "../FieldInput/FieldInput";
 // import useWalletBalance from "../../../hooks/useWalletBalance";
-import { withdrawTokens, waitForOperation, exit } from "../../../helpers/operations";
+import {
+  withdrawTokens,
+  waitForOperation,
+  exit,
+} from "../../../helpers/operations";
 import { useStakeBalance } from "../../../hooks/Abi";
 // import { TokenStatus } from "../../../types";
 import { validationWithdrawForm } from "../../../helpers/validation";
-// import { Oval } from "react-loader-spinner";
+import { Oval } from "react-loader-spinner";
 import styles from "../StakeForm/StakeForm.module.scss";
 import { InitialValueType } from "../../../types";
 import { reduceDecimals } from "../../../helpers/utils";
 
-// import errorCross from "../../../images/errorCross.svg";
-// import successCheck from "../../../images/successCheck.svg";
+import errorCross from "../../../images/errorCross.svg";
+import successCheck from "../../../images/successCheck.svg";
 
 const initialValues: InitialValueType = {
   amount: "",
@@ -27,40 +31,43 @@ const initialValues: InitialValueType = {
 
 const WithdrawForm = () => {
   const [isLoadingWithdraw, setIsLoadingWithdraw] = useState(false);
-  const [isLoadingWithdrawAll, setIsLoadingWithdrawALL] = useState(false);
+  const [isLoadingWithdrawAll, setIsLoadingWithdrawAll] = useState(false);
+  const [isGetting, setIsGetting] = useState(false);
   const [status, setStatus] = useState<"success" | "error" | undefined>(
     undefined
   );
-  console.log(
-    "🚀 ~ file: WithdrawForm.tsx:35 ~ WithdrawForm ~ status:",
-    status
-  );
+  const [amountStru, setAmountStru] = useState("");
 
   const stakeBalance = useStakeBalance();
 
-  const handleClick = async () => { 
+  const handleClick = async () => {
     setStatus(undefined);
-    setIsLoadingWithdrawALL(true);
+    setAmountStru("")
+    setIsLoadingWithdrawAll(true);
     const exitHash = await exit();
     if (!exitHash) {
-      setIsLoadingWithdrawALL(false);
+      setIsLoadingWithdrawAll(false);
       setStatus("error");
       return;
     }
+    setIsGetting(true);
     const isSuccess = await waitForOperation(exitHash);
     if (!isSuccess) {
-      setIsLoadingWithdraw(false);
+      setIsLoadingWithdrawAll(false);
+      setIsGetting(false);
       setStatus("error");
       return;
     }
-    setStatus("success");
-    setIsLoadingWithdrawALL(false);
+    setIsGetting(false);
+    setStatus("success"); 
+    setIsLoadingWithdrawAll(false);
   };
 
   const handleSubmit = async (
     values: InitialValueType,
     { resetForm, setSubmitting }: FormikHelpers<InitialValueType>
   ) => {
+    setAmountStru(values.amount);
     setStatus(undefined);
     setIsLoadingWithdraw(true);
     setSubmitting(true);
@@ -71,14 +78,17 @@ const WithdrawForm = () => {
       setStatus("error");
       return;
     }
+    setIsGetting(true);
     const isSuccess = await waitForOperation(withdrawHash);
     if (!isSuccess) {
       setIsLoadingWithdraw(false);
+      setIsGetting(false);
       setStatus("error");
       return;
     }
     setSubmitting(false);
     setIsLoadingWithdraw(false);
+    setIsGetting(false);
     setStatus("success");
     resetForm();
   };
@@ -107,17 +117,26 @@ const WithdrawForm = () => {
             <div className={styles.rateWrap}>
               <Rate
                 label={"Available:"}
-                rate={stakeBalance ? reduceDecimals(formatEther(stakeBalance), 2) : "0.00"}
+                rate={
+                  stakeBalance
+                    ? reduceDecimals(formatEther(stakeBalance), 2)
+                    : "0.00"
+                }
                 unit={"STRU"}
               />
             </div>
             <div className={styles.form__buttonWrap}>
               <MainButton
                 children={
-                  <ButtonLoader text={"Withdraw"} isLoading={isLoadingWithdraw} />
+                  <ButtonLoader
+                    text={"Withdraw"}
+                    isLoading={isLoadingWithdraw}
+                  />
                 }
                 type="submit"
-                disabled={isSubmitting|| isLoadingWithdraw || isLoadingWithdrawAll}
+                disabled={
+                  isSubmitting || isLoadingWithdraw || isLoadingWithdrawAll || !stakeBalance
+                }
                 globalClassName={"linkButton"}
                 localClassName={"form__button"}
                 additionalClassName={"form__buttonTextWrap"}
@@ -130,7 +149,7 @@ const WithdrawForm = () => {
                   />
                 }
                 type="button"
-                disabled={ isLoadingWithdraw || isLoadingWithdrawAll}
+                disabled={isLoadingWithdraw || isLoadingWithdrawAll || !stakeBalance}
                 globalClassName={"linkButton"}
                 localClassName={"form__aditionalButton"}
                 additionalClassName={"form__buttonTextWrap"}
@@ -140,12 +159,12 @@ const WithdrawForm = () => {
           </Form>
         )}
       </Formik>
-      {/* <MessageModal
+      <MessageModal
         text={
           <TextMessageModall
-            title={"Adding"}
-            amount={`${amountStru} STRU`}
-            text={"to Staking"}
+            title={"Withdrawing"}
+            amount={amountStru? `${amountStru} STRU`: "all STRU"}
+            text={"without Stake"}
           />
         }
         children={
@@ -154,7 +173,9 @@ const WithdrawForm = () => {
             width={32}
             color="#20FE51"
             wrapperStyle={{ marginRight: "8px" }}
-            wrapperClass={isSendingToken ? "visibleSpinner" : "hiddenSpinner"}
+            wrapperClass={
+              isGetting ? "visibleSpinner" : "hiddenSpinner"
+            }
             visible={true}
             ariaLabel="oval-loading"
             secondaryColor="#6E758B"
@@ -162,14 +183,14 @@ const WithdrawForm = () => {
             strokeWidthSecondary={8}
           />
         }
-        isSendingToken={isSendingToken}
+        isLoading={isGetting}
       />
       <MessageModal
         text={
           status === "success" ? (
             <TextMessageModall
-              title={`${amountStru} STRU`}
-              text={"successfully added to Staking"}
+              title={amountStru ?`${amountStru} STRU`: "All STRU"}
+              text={"successfully withdrawed"}
             />
           ) : (
             <TextMessageModall
@@ -186,7 +207,7 @@ const WithdrawForm = () => {
           )
         }
         status={status}
-      /> */}
+      />
     </>
   );
 };

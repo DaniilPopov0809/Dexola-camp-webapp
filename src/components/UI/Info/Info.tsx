@@ -1,7 +1,12 @@
 import styles from "./Info.module.scss";
-import Title from "../UI/Title/Title";
-import InfoBlock from "../UI/InfoBlock/InfoBlock";
-import { calculateDays, calculateApr, calculateRewards, calculateStakeBalance } from "../../helpers/utils";
+import Title from "../Title/Title";
+import InfoBlock from "../InfoBlock/InfoBlock";
+import {
+  calculateDays,
+  calculateApr,
+  calculateRewards,
+  calculateStakeBalance,
+} from "../../../helpers/utils";
 import { useAccount } from "wagmi";
 import {
   useStakeBalance,
@@ -9,7 +14,7 @@ import {
   useTotalSupply,
   usePeriodFinish,
   useEarned,
-} from "../../hooks/Abi";
+} from "../../../hooks/Abi";
 
 const Info = () => {
   const { isConnected } = useAccount();
@@ -27,7 +32,7 @@ const Info = () => {
     // stakeBalance &&
     rewardsForDuration &&
     totalSupply &&
-    periodFinish 
+    periodFinish
     //&& earned
   ) {
     apr = calculateApr(rewardsForDuration, totalSupply);
@@ -46,7 +51,9 @@ const Info = () => {
         <InfoBlock
           showInfo={true}
           showStru={true}
-          count={`${stakeBalance ? calculateStakeBalance(stakeBalance) : '0.00'}`}
+          count={`${
+            stakeBalance ? calculateStakeBalance(stakeBalance) : "0.00"
+          }`}
           title={"Staked balance"}
           messageToolTip={"Staking rewards get allocated on this sum"}
           tooltipId={"toolTip1"}
