@@ -36,10 +36,8 @@ const AppForm = () => {
   // const [isApprove, setIsApprove] = useState(false);
 
   // const struBalance = useWalletBalance(TokenStatus.Token);
-  const getStruBalance = useContext(AppContext)
-  const struBalance = getStruBalance?.struBalance;
-  console.log("🚀 ~ file: StakeForm.tsx:40 ~ AppForm ~ struBalance:", struBalance)
-  // console.log("🚀 ~ file: StakeForm.tsx:40 ~ AppForm ~ balance:", balance)
+  
+  const struBalance = useContext(AppContext)?.struBalance;
   const getAllowance = useAllowance();
   
   useEffect(() => {
@@ -121,7 +119,7 @@ const AppForm = () => {
             <div className="form__rateWrap">
               <Rate
                 label={"Available:"}
-                rate={struBalance ? reduceDecimals(struBalance, 2) : "0.00"}
+                rate={struBalance ? reduceDecimals(struBalance.formatted, 2) : "0.00"}
                 unit={"STRU"}
                 isTitle={false}
               />

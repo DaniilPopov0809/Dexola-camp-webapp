@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Formik, Form, FormikHelpers } from "formik";
 import { formatEther } from "viem";
+import { AppContext } from "../../../context/AppContext";
 import Rate from "../Rate/Rate";
 import MainButton from "../MainButton/MainButton";
 import ButtonLoader from "../ButtonLoader/ButtonLoader";
@@ -9,7 +10,6 @@ import TextMessageModall from "../TextMessageModal/TextMessageModal";
 import MessageIcon from "../MessageIcon/MessageIcon";
 import { claimReward, waitForOperation } from "../../../helpers/operations";
 import { reduceDecimals } from "../../../helpers/utils";
-import { useEarned } from "../../../hooks/Abi";
 import { Oval } from "react-loader-spinner";
 import { InitialValueType } from "../../../types";
 import styles from "./ClaimRewardForm.module.scss";
@@ -27,7 +27,9 @@ const ClaimRewardForm = () => {
     undefined
   );
   const [isGettingReward, setIsGettingReward] = useState(false);
-  const earned = useEarned();
+
+  const earned = useContext(AppContext)?.earned;
+
 
   const handleSubmit = async (
     _values: InitialValueType,

@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Formik, Form, Field, FormikHelpers, FieldProps } from "formik";
 import { formatEther } from "viem";
+import { AppContext } from "../../../context/AppContext";
 import Rate from "../Rate/Rate";
 import MainButton from "../MainButton/MainButton";
 import ButtonLoader from "../ButtonLoader/ButtonLoader";
@@ -13,7 +14,6 @@ import {
   waitForOperation,
   exit,
 } from "../../../helpers/operations";
-import { useStakeBalance } from "../../../hooks/Abi";
 import { validationWithdrawForm } from "../../../helpers/validation";
 import { Oval } from "react-loader-spinner";
 import { InitialValueType } from "../../../types";
@@ -35,7 +35,7 @@ const WithdrawForm = () => {
   );
   const [amountStru, setAmountStru] = useState("");
 
-  const stakeBalance = useStakeBalance();
+  const stakeBalance = useContext(AppContext)?.stakeBalance;
 
   const handleClick = async () => {
     setStatus(undefined);
