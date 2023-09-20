@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Formik, Form, Field, FormikHelpers, FieldProps } from "formik";
 import { formatEther } from "viem";
+import { AppContext } from "../../../context/AppContext";
 import Rate from "../Rate/Rate";
 import MainButton from "../MainButton/MainButton";
 import ButtonLoader from "../ButtonLoader/ButtonLoader";
@@ -9,14 +10,14 @@ import TextMessageModall from "../TextMessageModal/TextMessageModal";
 import MessageIcon from "../MessageIcon/MessageIcon";
 import FieldInput from "../FieldInput/FieldInput";
 import { reduceDecimals } from "../../../helpers/utils";
-import useWalletBalance from "../../../hooks/useWalletBalance";
+// import useWalletBalance from "../../../hooks/useWalletBalance";
 import {
   approveTransaction,
   stakedTokens,
   waitForOperation,
 } from "../../../helpers/operations";
 import { useAllowance } from "../../../hooks/Abi";
-import { TokenStatus } from "../../../types";
+// import { TokenStatus } from "../../../types";
 import { validationStakeForm } from "../../../helpers/validation";
 import { Oval } from "react-loader-spinner";
 import { InitialValueType } from "../../../types";
@@ -32,10 +33,15 @@ const AppForm = () => {
   );
   const [amountStru, setAmountStru] = useState("");
   const [isSendingToken, setIsSendingToken] = useState(false);
+  // const [isApprove, setIsApprove] = useState(false);
 
-  const struBalance = useWalletBalance(TokenStatus.Token);
+  // const struBalance = useWalletBalance(TokenStatus.Token);
+  const getStruBalance = useContext(AppContext)
+  const struBalance = getStruBalance?.struBalance;
+  console.log("🚀 ~ file: StakeForm.tsx:40 ~ AppForm ~ struBalance:", struBalance)
+  // console.log("🚀 ~ file: StakeForm.tsx:40 ~ AppForm ~ balance:", balance)
   const getAllowance = useAllowance();
-
+  
   useEffect(() => {
     setAllowance(getAllowance);
   }, [getAllowance]);
@@ -61,13 +67,18 @@ const AppForm = () => {
     const allowanceToNumber = +formatEther(allowance);
 
     if (allowanceToNumber < +values.amount) {
+      // setIsApprove(true);
       const isApprove = await approveTransaction(values.amount);
       if (!isApprove) {
+        setIsSendingToken(false);
         handleError();
         return;
       }
     }
+    // setIsApprove(false);
+    setStatus("success");
     const stakeHash = await stakedTokens(values.amount);
+    setStatus(undefined);
     if (!stakeHash) {
       setIsSendingToken(false);
       handleError();
@@ -110,7 +121,7 @@ const AppForm = () => {
             <div className="form__rateWrap">
               <Rate
                 label={"Available:"}
-                rate={struBalance ? reduceDecimals(struBalance.formatted,2) : "0.00"}
+                rate={struBalance ? reduceDecimals(struBalance, 2) : "0.00"}
                 unit={"STRU"}
                 isTitle={false}
               />

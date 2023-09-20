@@ -8,7 +8,6 @@ const MainLayout = () => {
         <>
         <Header/>
         <main className={`${styles.main}`}>
-             {/* <div className={styles.main__backgroundGradient}></div> */}
             {/* <Suspense/>??????? */}
             <Outlet/>
 
