@@ -1,8 +1,8 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
+import { useContextValue } from "../../../hooks/useContextValue";
 // import { Formik, Form, Field, FormikHelpers, FieldProps } from "formik";
 import { FormikHelpers } from "formik";
 import { formatEther } from "viem";
-import { AppContext } from "../../../context/AppContext";
 import CommonForm from "../CommonForm/CommonForm";
 import OperationFeedbackSection from "../OperationFeedbackSection/OperationFeedbackSection";
 // import Rate from "../Rate/Rate";
@@ -38,7 +38,10 @@ const StakeForm = () => {
     "stake" | "approve" | undefined
   >(undefined);
 
-  const struBalance = useContext(AppContext)?.struBalance;
+  const context = useContextValue();
+
+  const struBalance = context?.struBalance;
+  const setInputValue = context.setInputValue;
   const getAllowance = useAllowance();
 
   useEffect(() => {
@@ -56,7 +59,7 @@ const StakeForm = () => {
 
   const handleSubmit = async (
     values: InitialValueType,
-    { resetForm, setSubmitting }: FormikHelpers<InitialValueType>
+    { setSubmitting }: FormikHelpers<InitialValueType>
   ) => {
     setAmountStru(values.amount);
     setEndOperation(undefined);
@@ -84,7 +87,6 @@ const StakeForm = () => {
         handleError();
         return;
       }
-      setIsLoading(false);
       setStatus("success");
       setIsApproving(false);
       setEndOperation("approve");
@@ -108,7 +110,7 @@ const StakeForm = () => {
     setIsLoading(false);
     setStatus("success");
     setEndOperation("stake");
-    resetForm();
+    setInputValue("");
   };
   return (
     <>
@@ -121,6 +123,7 @@ const StakeForm = () => {
         isLoading={isLoading}
         isDisable={!struBalance || struBalance.value === 0n}
         isShowInput={true}
+        formName="stake"
       />
       <OperationFeedbackSection
         title={!isSendingToken ? "Approving" : "Adding"}

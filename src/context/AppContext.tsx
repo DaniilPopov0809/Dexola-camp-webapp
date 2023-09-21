@@ -1,4 +1,10 @@
-import { createContext, ReactNode } from "react";
+import {
+  createContext,
+  ReactNode,
+  useState,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import useWalletBalance from "../hooks/useWalletBalance";
 import {
   useEarned,
@@ -18,6 +24,8 @@ type AppContextType = {
   periodFinish: bigint | undefined;
   totalSupply: bigint | undefined;
   stakeBalance: bigint | undefined;
+  inputValue: string | undefined;
+  setInputValue: Dispatch<SetStateAction<string>>;
 };
 
 export const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -30,6 +38,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const periodFinish = usePeriodFinish();
   const totalSupply = useTotalSupply();
   const stakeBalance = useStakeBalance();
+  const [inputValue, setInputValue] = useState<string>("");
 
   return (
     <AppContext.Provider
@@ -41,6 +50,8 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         periodFinish,
         totalSupply,
         stakeBalance,
+        inputValue,
+        setInputValue,
       }}
     >
       {children}

@@ -1,12 +1,14 @@
 import React from "react";
 import { HTMLInputTypeAttribute } from "react";
 import { ErrorMessage, FieldProps } from "formik";
+import { useContextValue } from "../../../hooks/useContextValue";
 import styles from "./FieldInput.module.scss";
 
 interface FieldInputProps extends FieldProps {
   placeholder: string;
   type: HTMLInputTypeAttribute;
   name: string;
+  formName?: string;
   children?: React.ReactNode;
 }
 
@@ -16,12 +18,23 @@ const FieldInput = ({
   placeholder,
   name,
   type,
+  formName,
   children,
   ...props
 }: FieldInputProps) => {
   // eslint-disable-next-line
   const { form, ...inputProps } = props;
 
+  const context = useContextValue();
+  const setInputValue = context.setInputValue;
+  const inputValue = context.inputValue;
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (formName === "stake") {
+      setInputValue(e.target.value);
+    }
+    field.onChange(e);
+  };
 
   return (
     <div className={styles.field__container}>
@@ -37,6 +50,8 @@ const FieldInput = ({
         placeholder={placeholder}
         {...field}
         {...inputProps}
+        value={formName === "stake" ? inputValue : field.value}
+        onChange={handleChange}
       />
       {children}
       <ErrorMessage
