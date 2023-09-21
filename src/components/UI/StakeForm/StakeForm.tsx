@@ -1,15 +1,16 @@
 import { useEffect, useState, useContext } from "react";
 // import { Formik, Form, Field, FormikHelpers, FieldProps } from "formik";
-import {FormikHelpers } from "formik";
+import { FormikHelpers } from "formik";
 import { formatEther } from "viem";
 import { AppContext } from "../../../context/AppContext";
 import AppForm from "../AppForm/AppForm";
+import OperationFeedbackSection from "../OperationFeedbackSection/OperationFeedbackSection";
 // import Rate from "../Rate/Rate";
 // import MainButton from "../MainButton/MainButton";
 // import ButtonLoader from "../ButtonLoader/ButtonLoader";
-import MessageModal from "../MessageModal/MessageModal";
-import TextMessageModall from "../TextMessageModal/TextMessageModal";
-import MessageIcon from "../MessageIcon/MessageIcon";
+// import MessageModal from "../MessageModal/MessageModal";
+// import TextMessageModall from "../TextMessageModal/TextMessageModal";
+// import MessageIcon from "../MessageIcon/MessageIcon";
 // import FieldInput from "../FieldInput/FieldInput";
 // import { reduceDecimals } from "../../../helpers/utils";
 import {
@@ -19,10 +20,10 @@ import {
 } from "../../../helpers/operations";
 import { useAllowance } from "../../../hooks/Abi";
 import { validationStakeForm } from "../../../helpers/validation";
-import { Oval } from "react-loader-spinner";
+// import { Oval } from "react-loader-spinner";
 import { InitialValueType } from "../../../types";
-import errorCross from "../../../images/errorCross.svg";
-import successCheck from "../../../images/successCheck.svg";
+// import errorCross from "../../../images/errorCross.svg";
+// import successCheck from "../../../images/successCheck.svg";
 
 const StakeForm = () => {
   const [allowance, setAllowance] = useState(0n);
@@ -38,7 +39,6 @@ const StakeForm = () => {
   >(undefined);
 
   const struBalance = useContext(AppContext)?.struBalance;
-  console.log("🚀 ~ file: StakeForm.tsx:41 ~ StakeForm ~ struBalance:", struBalance)
   const getAllowance = useAllowance();
 
   useEffect(() => {
@@ -112,16 +112,32 @@ const StakeForm = () => {
   };
   return (
     <>
-     <AppForm  
-  initialValues = {initialValues}
-  handleSubmit={handleSubmit}
-  validationForm={validationStakeForm}
-  text={"stake"}
-  struBalance={struBalance?.formatted}
-  isLoading={isLoading}
-  isDisable={!struBalance || struBalance.value === 0n }
-  isShowInput={true}
-/>
+      <AppForm
+        initialValues={initialValues}
+        handleSubmit={handleSubmit}
+        validationForm={validationStakeForm}
+        text={"stake"}
+        struBalance={struBalance?.formatted}
+        isLoading={isLoading}
+        isDisable={!struBalance || struBalance.value === 0n}
+        isShowInput={true}
+      />
+      <OperationFeedbackSection
+        title={!isSendingToken ? "Approving" : "Adding"}
+        amount={!isSendingToken ? "" : `${amountStru} STRU`}
+        text={!isSendingToken ? "" : "to Staking"}
+        isVisible={isSendingToken || isApproving}
+        titleStatus={
+          endOperation === "stake" ? `${amountStru} STRU` : "Approve"
+        }
+        textStatus={
+          endOperation === "stake"
+            ? "successfully added to Staking"
+            : "successfully"
+        }
+        status={status}
+      />
+
       {/* <Formik
         initialValues={initialValues}
         validationSchema={validationStakeForm}
@@ -167,7 +183,7 @@ const StakeForm = () => {
           </Form>
         )}
       </Formik> */}
-      <MessageModal
+      {/* <MessageModal
         text={
           <TextMessageModall
             title={!isSendingToken ? "Approving" : "Adding"}
@@ -221,7 +237,7 @@ const StakeForm = () => {
           )
         }
         status={status}
-      />
+      /> */}
     </>
   );
 };

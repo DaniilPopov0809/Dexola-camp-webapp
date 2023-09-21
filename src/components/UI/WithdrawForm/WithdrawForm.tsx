@@ -7,9 +7,10 @@ import { AppContext } from "../../../context/AppContext";
 import MainButton from "../MainButton/MainButton";
 import ButtonLoader from "../ButtonLoader/ButtonLoader";
 import AppForm from "../AppForm/AppForm";
-import MessageModal from "../MessageModal/MessageModal";
-import TextMessageModall from "../TextMessageModal/TextMessageModal";
-import MessageIcon from "../MessageIcon/MessageIcon";
+import OperationFeedbackSection from "../OperationFeedbackSection/OperationFeedbackSection";
+// import MessageModal from "../MessageModal/MessageModal";
+// import TextMessageModall from "../TextMessageModal/TextMessageModal";
+// import MessageIcon from "../MessageIcon/MessageIcon";
 // import FieldInput from "../FieldInput/FieldInput";
 import {
   withdrawTokens,
@@ -17,12 +18,12 @@ import {
   exit,
 } from "../../../helpers/operations";
 import { validationWithdrawForm } from "../../../helpers/validation";
-import { Oval } from "react-loader-spinner";
+// import { Oval } from "react-loader-spinner";
 import { InitialValueType } from "../../../types";
 // import { reduceDecimals } from "../../../helpers/utils";
 
-import errorCross from "../../../images/errorCross.svg";
-import successCheck from "../../../images/successCheck.svg";
+// import errorCross from "../../../images/errorCross.svg";
+// import successCheck from "../../../images/successCheck.svg";
 
 const initialValues: InitialValueType = {
   amount: "",
@@ -31,7 +32,7 @@ const initialValues: InitialValueType = {
 const WithdrawForm = () => {
   const [isLoadingWithdraw, setIsLoadingWithdraw] = useState(false);
   const [isLoadingWithdrawAll, setIsLoadingWithdrawAll] = useState(false);
-  const [isGetting, setIsGetting] = useState(false);
+  const [isGettingWithdraw, setIsGettingWithdraw] = useState(false);
   const [status, setStatus] = useState<"success" | "error" | undefined>(
     undefined
   );
@@ -49,15 +50,15 @@ const WithdrawForm = () => {
       setStatus("error");
       return;
     }
-    setIsGetting(true);
+    setIsGettingWithdraw(true);
     const isSuccess = await waitForOperation(exitHash);
     if (!isSuccess) {
       setIsLoadingWithdrawAll(false);
-      setIsGetting(false);
+      setIsGettingWithdraw(false);
       setStatus("error");
       return;
     }
-    setIsGetting(false);
+    setIsGettingWithdraw(false);
     setStatus("success");
     setIsLoadingWithdrawAll(false);
   };
@@ -77,17 +78,17 @@ const WithdrawForm = () => {
       setStatus("error");
       return;
     }
-    setIsGetting(true);
+    setIsGettingWithdraw(true);
     const isSuccess = await waitForOperation(withdrawHash);
     if (!isSuccess) {
       setIsLoadingWithdraw(false);
-      setIsGetting(false);
+      setIsGettingWithdraw(false);
       setStatus("error");
       return;
     }
     setSubmitting(false);
     setIsLoadingWithdraw(false);
-    setIsGetting(false);
+    setIsGettingWithdraw(false);
     setStatus("success");
     resetForm();
   };
@@ -112,7 +113,10 @@ const WithdrawForm = () => {
             }
             type="button"
             disabled={
-              isLoadingWithdraw || isLoadingWithdrawAll || !stakeBalance || stakeBalance === 0n
+              isLoadingWithdraw ||
+              isLoadingWithdrawAll ||
+              !stakeBalance ||
+              stakeBalance === 0n
             }
             globalClassName={"linkButton"}
             localClassName={"form__aditionalButton"}
@@ -120,6 +124,15 @@ const WithdrawForm = () => {
             onClick={handleClick}
           />
         }
+      />
+      <OperationFeedbackSection
+        title={"Withdrawing"}
+        amount={amountStru ? `${amountStru} STRU` : "all STRU"}
+        text={"without Stake"}
+        isVisible={isGettingWithdraw}
+        titleStatus={amountStru ? `${amountStru} STRU` : "All STRU"}
+        textStatus={"successfully withdrawed"}
+        status={status}
       />
 
       {/* <Formik
@@ -188,7 +201,7 @@ const WithdrawForm = () => {
           </Form>
         )}
       </Formik> */}
-      <MessageModal
+      {/* <MessageModal
         text={
           <TextMessageModall
             title={"Withdrawing"}
@@ -234,7 +247,7 @@ const WithdrawForm = () => {
           )
         }
         status={status}
-      />
+      /> */}
     </>
   );
 };

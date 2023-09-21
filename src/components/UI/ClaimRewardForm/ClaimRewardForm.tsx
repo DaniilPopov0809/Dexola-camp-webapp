@@ -7,17 +7,18 @@ import { AppContext } from "../../../context/AppContext";
 // import MainButton from "../MainButton/MainButton";
 // import ButtonLoader from "../ButtonLoader/ButtonLoader";
 import AppForm from "../AppForm/AppForm";
-import MessageModal from "../MessageModal/MessageModal";
-import TextMessageModall from "../TextMessageModal/TextMessageModal";
-import MessageIcon from "../MessageIcon/MessageIcon";
+import OperationFeedbackSection from "../OperationFeedbackSection/OperationFeedbackSection";
+// import MessageModal from "../MessageModal/MessageModal";
+// import TextMessageModall from "../TextMessageModal/TextMessageModal";
+// import MessageIcon from "../MessageIcon/MessageIcon";
 import { claimReward, waitForOperation } from "../../../helpers/operations";
 // import { reduceDecimals } from "../../../helpers/utils";
-import { Oval } from "react-loader-spinner";
+// import { Oval } from "react-loader-spinner";
 import { InitialValueType } from "../../../types";
 // import styles from "./ClaimRewardForm.module.scss";
 
-import errorCross from "../../../images/errorCross.svg";
-import successCheck from "../../../images/successCheck.svg";
+// import errorCross from "../../../images/errorCross.svg";
+// import successCheck from "../../../images/successCheck.svg";
 
 const initialValues: InitialValueType = {
   amount: "",
@@ -31,7 +32,6 @@ const ClaimRewardForm = () => {
   const [isGettingReward, setIsGettingReward] = useState(false);
 
   const earned = useContext(AppContext)?.earned;
-
 
   const handleSubmit = async (
     _values: InitialValueType,
@@ -64,17 +64,25 @@ const ClaimRewardForm = () => {
 
   return (
     <>
-      <AppForm  
-  initialValues = {initialValues}
-  handleSubmit={handleSubmit}
-  validationForm={false}
-  text={"claim rewards"}
-  struBalance={earned ? formatEther(earned) : undefined}
-  isLoading={isLoading}
-  isDisable={!earned || +formatEther(earned) === 0}
-  isShowInput={false}
-  cls={"rewards__reteWrap"}
-/>
+      <AppForm
+        initialValues={initialValues}
+        handleSubmit={handleSubmit}
+        validationForm={false}
+        text={"claim rewards"}
+        struBalance={earned ? formatEther(earned) : undefined}
+        isLoading={isLoading}
+        isDisable={!earned || +formatEther(earned) === 0}
+        isShowInput={false}
+        cls={"rewards__reteWrap"}
+      />
+      <OperationFeedbackSection
+        title={"Claiming"}
+        text={"without Stake"}
+        isVisible={isGettingReward}
+        titleStatus={"Successfully"}
+        textStatus={"climed reward"}
+        status={status}
+      />
       {/* <Formik initialValues={initialValues} onSubmit={handleSubmit}>
         {({ isSubmitting }) => (
           <Form autoComplete="off">
@@ -101,7 +109,7 @@ const ClaimRewardForm = () => {
           </Form>
         )}
       </Formik> */}
-      <MessageModal
+      {/* <MessageModal
         text={<TextMessageModall title={"Claiming"} text={"rewards"} />}
         children={
           <Oval
@@ -138,7 +146,7 @@ const ClaimRewardForm = () => {
           )
         }
         status={status}
-      />
+      /> */}
     </>
   );
 };
