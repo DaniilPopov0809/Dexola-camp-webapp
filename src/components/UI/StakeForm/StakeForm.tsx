@@ -3,7 +3,7 @@ import { useEffect, useState, useContext } from "react";
 import { FormikHelpers } from "formik";
 import { formatEther } from "viem";
 import { AppContext } from "../../../context/AppContext";
-import AppForm from "../AppForm/AppForm";
+import CommonForm from "../CommonForm/CommonForm";
 import OperationFeedbackSection from "../OperationFeedbackSection/OperationFeedbackSection";
 // import Rate from "../Rate/Rate";
 // import MainButton from "../MainButton/MainButton";
@@ -112,7 +112,7 @@ const StakeForm = () => {
   };
   return (
     <>
-      <AppForm
+      <CommonForm
         initialValues={initialValues}
         handleSubmit={handleSubmit}
         validationForm={validationStakeForm}

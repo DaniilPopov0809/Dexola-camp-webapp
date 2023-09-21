@@ -8,9 +8,9 @@ import { reduceDecimals } from "../../../helpers/utils";
 import MainButton from "../MainButton/MainButton";
 import ButtonLoader from "../ButtonLoader/ButtonLoader";
 import { InitialValueType } from "../../../types";
-import styles from "./AppForm.module.scss";
+import styles from "./CommonForm.module.scss";
 
-interface AppFormProps {
+interface CommonFormProps {
   initialValues: InitialValueType;
   handleSubmit: (
     values: InitialValueType,
@@ -26,7 +26,7 @@ interface AppFormProps {
   children?: ReactNode;
 }
 
-const AppForm = ({
+const CommonForm = ({
   initialValues,
   handleSubmit,
   validationForm,
@@ -37,7 +37,7 @@ const AppForm = ({
   isShowInput,
   cls,
   children,
-}: AppFormProps) => {
+}: CommonFormProps) => {
   return (
     <Formik
       initialValues={initialValues}
@@ -87,4 +87,4 @@ const AppForm = ({
   );
 };
 
-export default AppForm;
+export default CommonForm;

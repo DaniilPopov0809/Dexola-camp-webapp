@@ -6,7 +6,7 @@ import { AppContext } from "../../../context/AppContext";
 // import Rate from "../Rate/Rate";
 // import MainButton from "../MainButton/MainButton";
 // import ButtonLoader from "../ButtonLoader/ButtonLoader";
-import AppForm from "../AppForm/AppForm";
+import CommonForm from "../CommonForm/CommonForm";
 import OperationFeedbackSection from "../OperationFeedbackSection/OperationFeedbackSection";
 // import MessageModal from "../MessageModal/MessageModal";
 // import TextMessageModall from "../TextMessageModal/TextMessageModal";
@@ -64,7 +64,7 @@ const ClaimRewardForm = () => {
 
   return (
     <>
-      <AppForm
+      <CommonForm
         initialValues={initialValues}
         handleSubmit={handleSubmit}
         validationForm={false}
