@@ -1,31 +1,30 @@
 import { useEffect, useState, useContext } from "react";
-import { Formik, Form, Field, FormikHelpers, FieldProps } from "formik";
+// import { Formik, Form, Field, FormikHelpers, FieldProps } from "formik";
+import {FormikHelpers } from "formik";
 import { formatEther } from "viem";
 import { AppContext } from "../../../context/AppContext";
-import Rate from "../Rate/Rate";
-import MainButton from "../MainButton/MainButton";
-import ButtonLoader from "../ButtonLoader/ButtonLoader";
+import AppForm from "../AppForm/AppForm";
+// import Rate from "../Rate/Rate";
+// import MainButton from "../MainButton/MainButton";
+// import ButtonLoader from "../ButtonLoader/ButtonLoader";
 import MessageModal from "../MessageModal/MessageModal";
 import TextMessageModall from "../TextMessageModal/TextMessageModal";
 import MessageIcon from "../MessageIcon/MessageIcon";
-import FieldInput from "../FieldInput/FieldInput";
-import { reduceDecimals } from "../../../helpers/utils";
-// import useWalletBalance from "../../../hooks/useWalletBalance";
+// import FieldInput from "../FieldInput/FieldInput";
+// import { reduceDecimals } from "../../../helpers/utils";
 import {
   approveTransaction,
   stakedTokens,
   waitForOperation,
 } from "../../../helpers/operations";
 import { useAllowance } from "../../../hooks/Abi";
-// import { TokenStatus } from "../../../types";
 import { validationStakeForm } from "../../../helpers/validation";
 import { Oval } from "react-loader-spinner";
 import { InitialValueType } from "../../../types";
-
 import errorCross from "../../../images/errorCross.svg";
 import successCheck from "../../../images/successCheck.svg";
 
-const AppForm = () => {
+const StakeForm = () => {
   const [allowance, setAllowance] = useState(0n);
   const [isLoading, setIsLoading] = useState(false);
   const [status, setStatus] = useState<"success" | "error" | undefined>(
@@ -33,13 +32,14 @@ const AppForm = () => {
   );
   const [amountStru, setAmountStru] = useState("");
   const [isSendingToken, setIsSendingToken] = useState(false);
-  // const [isApprove, setIsApprove] = useState(false);
+  const [isApproving, setIsApproving] = useState(false);
+  const [endOperation, setEndOperation] = useState<
+    "stake" | "approve" | undefined
+  >(undefined);
 
-  // const struBalance = useWalletBalance(TokenStatus.Token);
-  
   const struBalance = useContext(AppContext)?.struBalance;
   const getAllowance = useAllowance();
-  
+
   useEffect(() => {
     setAllowance(getAllowance);
   }, [getAllowance]);
@@ -58,23 +58,37 @@ const AppForm = () => {
     { resetForm, setSubmitting }: FormikHelpers<InitialValueType>
   ) => {
     setAmountStru(values.amount);
+    setEndOperation(undefined);
     setIsLoading(true);
     setStatus(undefined);
+    setIsApproving(false);
+    setIsSendingToken(false);
     setSubmitting(true);
 
     const allowanceToNumber = +formatEther(allowance);
 
     if (allowanceToNumber < +values.amount) {
-      // setIsApprove(true);
-      const isApprove = await approveTransaction(values.amount);
-      if (!isApprove) {
+      const approveHash = await approveTransaction(values.amount);
+
+      if (!approveHash) {
         setIsSendingToken(false);
         handleError();
         return;
       }
+      setIsApproving(true);
+      const isSuccessApprove = await waitForOperation(approveHash);
+
+      if (!isSuccessApprove) {
+        setIsApproving(false);
+        handleError();
+        return;
+      }
+      setIsLoading(false);
+      setStatus("success");
+      setIsApproving(false);
+      setEndOperation("approve");
     }
-    // setIsApprove(false);
-    setStatus("success");
+
     const stakeHash = await stakedTokens(values.amount);
     setStatus(undefined);
     if (!stakeHash) {
@@ -83,8 +97,8 @@ const AppForm = () => {
       return;
     }
     setIsSendingToken(true);
-    const isSuccess = await waitForOperation(stakeHash);
-    if (!isSuccess) {
+    const isSuccessStake = await waitForOperation(stakeHash);
+    if (!isSuccessStake) {
       setIsSendingToken(false);
       handleError();
       return;
@@ -92,11 +106,22 @@ const AppForm = () => {
     setIsSendingToken(false);
     setIsLoading(false);
     setStatus("success");
+    setEndOperation("stake");
     resetForm();
   };
   return (
     <>
-      <Formik
+     <AppForm  
+  initialValues = {initialValues}
+  handleSubmit={handleSubmit}
+  validationForm={validationStakeForm}
+  text={"stake"}
+  struBalance={struBalance?.formatted}
+  isLoading={isLoading}
+  isDisable={!struBalance}
+  isShowInput={true}
+/>
+      {/* <Formik
         initialValues={initialValues}
         validationSchema={validationStakeForm}
         onSubmit={handleSubmit}
@@ -119,7 +144,11 @@ const AppForm = () => {
             <div className="form__rateWrap">
               <Rate
                 label={"Available:"}
-                rate={struBalance ? reduceDecimals(struBalance.formatted, 2) : "0.00"}
+                rate={
+                  struBalance
+                    ? reduceDecimals(struBalance.formatted, 2)
+                    : "0.00"
+                }
                 unit={"STRU"}
                 isTitle={false}
               />
@@ -136,13 +165,13 @@ const AppForm = () => {
             </div>
           </Form>
         )}
-      </Formik>
+      </Formik> */}
       <MessageModal
         text={
           <TextMessageModall
-            title={"Adding"}
-            amount={`${amountStru} STRU`}
-            text={"to Staking"}
+            title={!isSendingToken ? "Approving" : "Adding"}
+            amount={!isSendingToken ? "" : `${amountStru} STRU`}
+            text={!isSendingToken ? "" : "to Staking"}
           />
         }
         children={
@@ -151,7 +180,9 @@ const AppForm = () => {
             width={32}
             color="#20FE51"
             wrapperStyle={{ marginRight: "8px" }}
-            wrapperClass={isSendingToken ? "visibleSpinner" : "hiddenSpinner"}
+            wrapperClass={
+              isSendingToken || isApproving ? "visibleSpinner" : "hiddenSpinner"
+            }
             visible={true}
             ariaLabel="oval-loading"
             secondaryColor="#6E758B"
@@ -159,14 +190,20 @@ const AppForm = () => {
             strokeWidthSecondary={8}
           />
         }
-        isLoading={isSendingToken}
+        isLoading={isSendingToken || isApproving}
       />
       <MessageModal
         text={
           status === "success" ? (
             <TextMessageModall
-              title={`${amountStru} STRU`}
-              text={"successfully added to Staking"}
+              title={
+                endOperation === "stake" ? `${amountStru} STRU` : "Approve"
+              }
+              text={
+                endOperation === "stake"
+                  ? "successfully added to Staking"
+                  : "successfully"
+              }
             />
           ) : (
             <TextMessageModall
@@ -188,4 +225,4 @@ const AppForm = () => {
   );
 };
 
-export default AppForm;
+export default StakeForm;

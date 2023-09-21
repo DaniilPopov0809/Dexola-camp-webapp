@@ -1,14 +1,16 @@
 import { useState, useContext } from "react";
-import { Formik, Form, Field, FormikHelpers, FieldProps } from "formik";
+// import { Formik, Form, Field, FormikHelpers, FieldProps } from "formik";
+import { FormikHelpers } from "formik";
 import { formatEther } from "viem";
 import { AppContext } from "../../../context/AppContext";
-import Rate from "../Rate/Rate";
+// import Rate from "../Rate/Rate";
 import MainButton from "../MainButton/MainButton";
 import ButtonLoader from "../ButtonLoader/ButtonLoader";
+import AppForm from "../AppForm/AppForm";
 import MessageModal from "../MessageModal/MessageModal";
 import TextMessageModall from "../TextMessageModal/TextMessageModal";
 import MessageIcon from "../MessageIcon/MessageIcon";
-import FieldInput from "../FieldInput/FieldInput";
+// import FieldInput from "../FieldInput/FieldInput";
 import {
   withdrawTokens,
   waitForOperation,
@@ -17,7 +19,7 @@ import {
 import { validationWithdrawForm } from "../../../helpers/validation";
 import { Oval } from "react-loader-spinner";
 import { InitialValueType } from "../../../types";
-import { reduceDecimals } from "../../../helpers/utils";
+// import { reduceDecimals } from "../../../helpers/utils";
 
 import errorCross from "../../../images/errorCross.svg";
 import successCheck from "../../../images/successCheck.svg";
@@ -39,7 +41,7 @@ const WithdrawForm = () => {
 
   const handleClick = async () => {
     setStatus(undefined);
-    setAmountStru("")
+    setAmountStru("");
     setIsLoadingWithdrawAll(true);
     const exitHash = await exit();
     if (!exitHash) {
@@ -56,7 +58,7 @@ const WithdrawForm = () => {
       return;
     }
     setIsGetting(false);
-    setStatus("success"); 
+    setStatus("success");
     setIsLoadingWithdrawAll(false);
   };
 
@@ -91,7 +93,36 @@ const WithdrawForm = () => {
   };
   return (
     <>
-      <Formik
+      <AppForm
+        initialValues={initialValues}
+        handleSubmit={handleSubmit}
+        validationForm={validationWithdrawForm}
+        text={"withdraw"}
+        struBalance={stakeBalance ? formatEther(stakeBalance) : undefined}
+        isLoading={isLoadingWithdraw}
+        isDisable={isLoadingWithdraw || isLoadingWithdrawAll || !stakeBalance}
+        isShowInput={true}
+        children={
+          <MainButton
+            children={
+              <ButtonLoader
+                text={"withdraw all & Claim rewards"}
+                isLoading={isLoadingWithdrawAll}
+              />
+            }
+            type="button"
+            disabled={
+              isLoadingWithdraw || isLoadingWithdrawAll || !stakeBalance
+            }
+            globalClassName={"linkButton"}
+            localClassName={"form__aditionalButton"}
+            additionalClassName={"form__buttonTextWrap"}
+            onClick={handleClick}
+          />
+        }
+      />
+
+      {/* <Formik
         initialValues={initialValues}
         validationSchema={validationWithdrawForm}
         onSubmit={handleSubmit}
@@ -156,12 +187,12 @@ const WithdrawForm = () => {
             </div>
           </Form>
         )}
-      </Formik>
+      </Formik> */}
       <MessageModal
         text={
           <TextMessageModall
             title={"Withdrawing"}
-            amount={amountStru? `${amountStru} STRU`: "all STRU"}
+            amount={amountStru ? `${amountStru} STRU` : "all STRU"}
             text={"without Stake"}
           />
         }
@@ -171,9 +202,7 @@ const WithdrawForm = () => {
             width={32}
             color="#20FE51"
             wrapperStyle={{ marginRight: "8px" }}
-            wrapperClass={
-              isGetting ? "visibleSpinner" : "hiddenSpinner"
-            }
+            wrapperClass={isGetting ? "visibleSpinner" : "hiddenSpinner"}
             visible={true}
             ariaLabel="oval-loading"
             secondaryColor="#6E758B"
@@ -187,7 +216,7 @@ const WithdrawForm = () => {
         text={
           status === "success" ? (
             <TextMessageModall
-              title={amountStru ?`${amountStru} STRU`: "All STRU"}
+              title={amountStru ? `${amountStru} STRU` : "All STRU"}
               text={"successfully withdrawed"}
             />
           ) : (
