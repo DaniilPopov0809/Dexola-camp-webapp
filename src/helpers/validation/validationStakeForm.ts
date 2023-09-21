@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 import { InitialValueType } from "../../types";
-import { checkMinValue, checkMaxValue } from "../utils";
+import { checkMinValue, checkMaxValue, isValidDecimal } from "../utils";
 
 const validationStakeForm: Yup.Schema<InitialValueType> = Yup.object({
   amount: Yup.string()
@@ -12,6 +12,10 @@ const validationStakeForm: Yup.Schema<InitialValueType> = Yup.object({
         return checkMinValue(value);
       }
     )
+    .test("maxDemicalPlace", "Incorect value",
+    (value) => {
+      return isValidDecimal(value);
+    })
     .test(
       "maxAmount",
       "The amount must not exceed the wallet balance",

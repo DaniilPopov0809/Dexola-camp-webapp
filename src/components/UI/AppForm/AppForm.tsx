@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { Formik, Form, Field, FormikHelpers, FieldProps } from "formik";
 import FieldInput from "../FieldInput/FieldInput";
+import ToolTipMes from "../ToolTipMes/ToolTipMes";
 import Rate from "../Rate/Rate";
 import * as Yup from "yup";
 import { reduceDecimals } from "../../../helpers/utils";
@@ -64,7 +65,10 @@ const AppForm = ({
               rate={struBalance ? reduceDecimals(struBalance, 2) : "0.00"}
               unit={"STRU"}
               isTitle={false}
+              tooltipId={"fullAmount"}
+
             />
+            <ToolTipMes id={"fullAmount"} position={"bottom"} content={`Full amount: ${struBalance} STRU`} />
           </div>
           <div className="form__buttonWrap">
             <MainButton

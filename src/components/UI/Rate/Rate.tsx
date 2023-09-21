@@ -4,15 +4,16 @@ label: string,
 rate: string,
 unit: string,
 isTitle: boolean,
+tooltipId:string,
 }
-const Rate =({label, rate, unit, isTitle}:RateProps) => {
+const Rate =({label, rate, unit, isTitle, tooltipId}:RateProps) => {
 
     return (
-        <>
+        <div className={styles.rateContainer} data-tooltip-id={tooltipId}>
         <label className={styles.label}>{label}</label>
         <span className={isTitle? styles.rateTitle : styles.rateForm }>{rate}</span>
         <span className={isTitle? styles.unitTitle : styles.unitForm}>{unit}</span>
-        </>
+        </div>
     )
 }
 

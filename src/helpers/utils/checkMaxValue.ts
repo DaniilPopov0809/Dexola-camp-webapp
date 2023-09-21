@@ -1,11 +1,12 @@
 import { fetchedBalance } from "../operations";
+import { parseEther } from "viem";
 
 const checkMaxValue = async (value:string) :Promise<boolean>=> {
   try {
     const balance = await fetchedBalance();
     if (balance) {
-      const balanceValue = +balance.formatted;
-      const enteredValue = +value;
+      const balanceValue = balance.value;
+      const enteredValue = parseEther(value);
       return enteredValue <= balanceValue;
     }
     return true;

@@ -38,6 +38,7 @@ const StakeForm = () => {
   >(undefined);
 
   const struBalance = useContext(AppContext)?.struBalance;
+  console.log("🚀 ~ file: StakeForm.tsx:41 ~ StakeForm ~ struBalance:", struBalance)
   const getAllowance = useAllowance();
 
   useEffect(() => {
@@ -118,7 +119,7 @@ const StakeForm = () => {
   text={"stake"}
   struBalance={struBalance?.formatted}
   isLoading={isLoading}
-  isDisable={!struBalance}
+  isDisable={!struBalance || struBalance.value === 0n }
   isShowInput={true}
 />
       {/* <Formik

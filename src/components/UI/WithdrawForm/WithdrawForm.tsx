@@ -112,7 +112,7 @@ const WithdrawForm = () => {
             }
             type="button"
             disabled={
-              isLoadingWithdraw || isLoadingWithdrawAll || !stakeBalance
+              isLoadingWithdraw || isLoadingWithdrawAll || !stakeBalance || stakeBalance === 0n
             }
             globalClassName={"linkButton"}
             localClassName={"form__aditionalButton"}

@@ -8,6 +8,7 @@ import timeStamp from "./timeStamp";
 import calculateStakeBalance from "./calculateStakeBalance";
 import checkMinValue from "./checkMinValue";
 import checkMaxValue from "./checkMaxValue";
+import isValidDecimal from "./isValidDecimal";
 
 export {
   calculateApr,
@@ -20,4 +21,5 @@ export {
   calculateStakeBalance,
   checkMinValue,
   checkMaxValue,
+  isValidDecimal,
 };
