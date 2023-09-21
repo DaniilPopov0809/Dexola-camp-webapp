@@ -1,18 +1,19 @@
-import { useAccount } from "wagmi";
-import useWalletBalance from "../../../hooks/useWalletBalance";
+import { useContext } from "react";
+import { AppContext } from "../../../context/AppContext";
 import useViewportWidth from "../../../hooks/useViewportWidth";
 import { reduceDecimals, shortAddress } from "../../../helpers/utils";
 import styles from "./BalanceItem.module.scss";
 import struLogo from "../../../images/struLogo.jpg";
 import ethLogo from "../../../images/ethLogo.svg";
-import { TokenStatus } from "../../../types";
 
 const BalanceItem = () => {
   const viewportWidth = useViewportWidth();
-  const { address } = useAccount();
 
-  const struBalance = useWalletBalance(TokenStatus.Token);
-  const ethBalance = useWalletBalance(TokenStatus.NotToken);
+  const context = useContext(AppContext);
+  const struBalance = context?.struBalance;
+  const ethBalance = context?.ethBalance;
+
+  const account = context?.account;
 
   return (
     <>
@@ -23,11 +24,12 @@ const BalanceItem = () => {
         alt="STRU logo"
         className={styles.struLogo}
       />
-      
-        <span className={styles.struBalance}>{struBalance ?`${reduceDecimals(
-          struBalance.formatted,
-          3
-        )} STRU`: "STRU not found"}</span>
+
+      <span className={styles.struBalance}>
+        {struBalance
+          ? `${reduceDecimals(struBalance.formatted, 3)} STRU`
+          : "STRU not found"}
+      </span>
       <img
         src={ethLogo}
         width={24}
@@ -39,11 +41,13 @@ const BalanceItem = () => {
         <span className={styles.ethBalance}>{`${reduceDecimals(
           ethBalance.formatted,
           3
-        )} ${ethBalance.symbol}`}</span>
+        )} ${ethBalance ? ethBalance.symbol : "ETH"}`}</span>
       )}
       {viewportWidth > 743 && <span className={styles.separator}>|</span>}
-      {viewportWidth > 743 && address && (
-        <span className={styles.address}>{`${shortAddress(address)}`}</span>
+      {viewportWidth > 743 && account?.address && (
+        <span className={styles.address}>{`${shortAddress(
+          account.address
+        )}`}</span>
       )}
     </>
   );

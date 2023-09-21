@@ -1,4 +1,5 @@
-import styles from "./Info.module.scss";
+import { useContext } from "react";
+import { AppContext } from "../../../context/AppContext";
 import Title from "../Title/Title";
 import InfoBlock from "../InfoBlock/InfoBlock";
 import {
@@ -7,26 +8,20 @@ import {
   calculateRewards,
   calculateStakeBalance,
 } from "../../../helpers/utils";
-import { useAccount } from "wagmi";
-import {
-  useStakeBalance,
-  useForwardsDuration,
-  useTotalSupply,
-  usePeriodFinish,
-  useEarned,
-} from "../../../hooks/Abi";
+import { useForwardsDuration } from "../../../hooks/Abi";
+import styles from "./Info.module.scss";
 
 const Info = () => {
-  const { isConnected } = useAccount();
+  const context = useContext(AppContext);
+  const isConnected = context?.account?.isConnected;
+  const stakeBalance = context?.stakeBalance;
+  const totalSupply = context?.totalSupply;
+  const periodFinish = context?.periodFinish;
+  const earned = context?.earned;
+  const rewardsForDuration = useForwardsDuration();
 
   let days = 0;
   let apr = 0;
-
-  const stakeBalance = useStakeBalance();
-  const rewardsForDuration = useForwardsDuration();
-  const totalSupply = useTotalSupply();
-  const periodFinish = usePeriodFinish();
-  const earned = useEarned();
 
   if (
     // stakeBalance &&

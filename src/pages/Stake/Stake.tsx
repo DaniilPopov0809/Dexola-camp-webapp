@@ -1,33 +1,40 @@
-import { useAccount } from "wagmi";
-import {
-  useStakeBalance,
-  useTotalSupply,
-  usePeriodFinish,
-  useRewardRate,
-} from "../../hooks/Abi";
+import { useState, useEffect } from "react";
+import { useContextValue } from "../../hooks/useContextValue";
+import { useRewardRate } from "../../hooks/Abi";
 import { calculateRewardRate } from "../../helpers/utils";
 import NoWalletConnect from "../../components/UI/NoWalletConnect/NoWalletConnect";
-import AppForm from "../../components/UI/StakeForm/StakeForm";
+import StakeForm from "../../components/UI/StakeForm/StakeForm";
 import Title from "../../components/UI/Title/Title";
 import Rate from "../../components/UI/Rate/Rate";
 
 const Stake = () => {
-  const { isConnected } = useAccount();
-  let rate = "0";
-
-  const stakedBalance = useStakeBalance();
-  const periodFinish = usePeriodFinish();
+  const context = useContextValue();
+  const isConnected = context?.account?.isConnected;
+  const stakedBalance = context?.stakeBalance;
+  const periodFinish = context?.periodFinish;
+  const totalSupply = context?.totalSupply;
+  const userInputValue = context.inputValue;
   const rewardRate = useRewardRate();
-  const totalSupply = useTotalSupply();
 
-  if (totalSupply && stakedBalance && periodFinish && rewardRate) {
-    rate = calculateRewardRate(
-      stakedBalance,
-      periodFinish,
-      rewardRate,
-      totalSupply
-    );
-  }
+  const [rate, setRate] = useState("0.00");
+
+  useEffect(() => {
+    if (
+      totalSupply !== undefined &&
+      stakedBalance !== undefined &&
+      periodFinish !== undefined &&
+      rewardRate !== undefined
+    ) {
+      const currentRate = calculateRewardRate(
+        stakedBalance,
+        periodFinish,
+        rewardRate,
+        totalSupply,
+        userInputValue
+      );
+      setRate(currentRate);
+    }
+  }, [stakedBalance, periodFinish, rewardRate, totalSupply, userInputValue]);
 
   return (
     <section className="container mainSection">
@@ -47,7 +54,7 @@ const Stake = () => {
               />
             }
           />
-          <AppForm />
+          <StakeForm />
         </div>
       ) : (
         <NoWalletConnect />

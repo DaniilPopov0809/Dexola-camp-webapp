@@ -1,26 +1,29 @@
-import { useState } from "react";
-import { Formik, Form, Field, FormikHelpers, FieldProps } from "formik";
+import { useState, useContext } from "react";
+// import { Formik, Form, Field, FormikHelpers, FieldProps } from "formik";
+import { FormikHelpers } from "formik";
 import { formatEther } from "viem";
-import Rate from "../Rate/Rate";
+import { AppContext } from "../../../context/AppContext";
+// import Rate from "../Rate/Rate";
 import MainButton from "../MainButton/MainButton";
 import ButtonLoader from "../ButtonLoader/ButtonLoader";
-import MessageModal from "../MessageModal/MessageModal";
-import TextMessageModall from "../TextMessageModal/TextMessageModal";
-import MessageIcon from "../MessageIcon/MessageIcon";
-import FieldInput from "../FieldInput/FieldInput";
+import CommonForm from "../CommonForm/CommonForm";
+import OperationFeedbackSection from "../OperationFeedbackSection/OperationFeedbackSection";
+// import MessageModal from "../MessageModal/MessageModal";
+// import TextMessageModall from "../TextMessageModal/TextMessageModal";
+// import MessageIcon from "../MessageIcon/MessageIcon";
+// import FieldInput from "../FieldInput/FieldInput";
 import {
   withdrawTokens,
   waitForOperation,
   exit,
 } from "../../../helpers/operations";
-import { useStakeBalance } from "../../../hooks/Abi";
 import { validationWithdrawForm } from "../../../helpers/validation";
-import { Oval } from "react-loader-spinner";
+// import { Oval } from "react-loader-spinner";
 import { InitialValueType } from "../../../types";
-import { reduceDecimals } from "../../../helpers/utils";
+// import { reduceDecimals } from "../../../helpers/utils";
 
-import errorCross from "../../../images/errorCross.svg";
-import successCheck from "../../../images/successCheck.svg";
+// import errorCross from "../../../images/errorCross.svg";
+// import successCheck from "../../../images/successCheck.svg";
 
 const initialValues: InitialValueType = {
   amount: "",
@@ -29,17 +32,17 @@ const initialValues: InitialValueType = {
 const WithdrawForm = () => {
   const [isLoadingWithdraw, setIsLoadingWithdraw] = useState(false);
   const [isLoadingWithdrawAll, setIsLoadingWithdrawAll] = useState(false);
-  const [isGetting, setIsGetting] = useState(false);
+  const [isGettingWithdraw, setIsGettingWithdraw] = useState(false);
   const [status, setStatus] = useState<"success" | "error" | undefined>(
     undefined
   );
   const [amountStru, setAmountStru] = useState("");
 
-  const stakeBalance = useStakeBalance();
+  const stakeBalance = useContext(AppContext)?.stakeBalance;
 
   const handleClick = async () => {
     setStatus(undefined);
-    setAmountStru("")
+    setAmountStru("");
     setIsLoadingWithdrawAll(true);
     const exitHash = await exit();
     if (!exitHash) {
@@ -47,16 +50,16 @@ const WithdrawForm = () => {
       setStatus("error");
       return;
     }
-    setIsGetting(true);
+    setIsGettingWithdraw(true);
     const isSuccess = await waitForOperation(exitHash);
     if (!isSuccess) {
       setIsLoadingWithdrawAll(false);
-      setIsGetting(false);
+      setIsGettingWithdraw(false);
       setStatus("error");
       return;
     }
-    setIsGetting(false);
-    setStatus("success"); 
+    setIsGettingWithdraw(false);
+    setStatus("success");
     setIsLoadingWithdrawAll(false);
   };
 
@@ -75,23 +78,64 @@ const WithdrawForm = () => {
       setStatus("error");
       return;
     }
-    setIsGetting(true);
+    setIsGettingWithdraw(true);
     const isSuccess = await waitForOperation(withdrawHash);
     if (!isSuccess) {
       setIsLoadingWithdraw(false);
-      setIsGetting(false);
+      setIsGettingWithdraw(false);
       setStatus("error");
       return;
     }
     setSubmitting(false);
     setIsLoadingWithdraw(false);
-    setIsGetting(false);
+    setIsGettingWithdraw(false);
     setStatus("success");
     resetForm();
   };
   return (
     <>
-      <Formik
+      <CommonForm
+        initialValues={initialValues}
+        handleSubmit={handleSubmit}
+        validationForm={validationWithdrawForm}
+        text={"withdraw"}
+        struBalance={stakeBalance ? formatEther(stakeBalance) : undefined}
+        isLoading={isLoadingWithdraw}
+        isDisable={isLoadingWithdraw || isLoadingWithdrawAll || !stakeBalance}
+        isShowInput={true}
+        children={
+          <MainButton
+            children={
+              <ButtonLoader
+                text={"withdraw all & Claim rewards"}
+                isLoading={isLoadingWithdrawAll}
+              />
+            }
+            type="button"
+            disabled={
+              isLoadingWithdraw ||
+              isLoadingWithdrawAll ||
+              !stakeBalance ||
+              stakeBalance === 0n
+            }
+            globalClassName={"linkButton"}
+            localClassName={"form__aditionalButton"}
+            additionalClassName={"form__buttonTextWrap"}
+            onClick={handleClick}
+          />
+        }
+      />
+      <OperationFeedbackSection
+        title={"Withdrawing"}
+        amount={amountStru ? `${amountStru} STRU` : "all STRU"}
+        text={"without Stake"}
+        isVisible={isGettingWithdraw}
+        titleStatus={amountStru ? `${amountStru} STRU` : "All STRU"}
+        textStatus={"successfully withdrawed"}
+        status={status}
+      />
+
+      {/* <Formik
         initialValues={initialValues}
         validationSchema={validationWithdrawForm}
         onSubmit={handleSubmit}
@@ -156,12 +200,12 @@ const WithdrawForm = () => {
             </div>
           </Form>
         )}
-      </Formik>
-      <MessageModal
+      </Formik> */}
+      {/* <MessageModal
         text={
           <TextMessageModall
             title={"Withdrawing"}
-            amount={amountStru? `${amountStru} STRU`: "all STRU"}
+            amount={amountStru ? `${amountStru} STRU` : "all STRU"}
             text={"without Stake"}
           />
         }
@@ -171,9 +215,7 @@ const WithdrawForm = () => {
             width={32}
             color="#20FE51"
             wrapperStyle={{ marginRight: "8px" }}
-            wrapperClass={
-              isGetting ? "visibleSpinner" : "hiddenSpinner"
-            }
+            wrapperClass={isGetting ? "visibleSpinner" : "hiddenSpinner"}
             visible={true}
             ariaLabel="oval-loading"
             secondaryColor="#6E758B"
@@ -187,7 +229,7 @@ const WithdrawForm = () => {
         text={
           status === "success" ? (
             <TextMessageModall
-              title={amountStru ?`${amountStru} STRU`: "All STRU"}
+              title={amountStru ? `${amountStru} STRU` : "All STRU"}
               text={"successfully withdrawed"}
             />
           ) : (
@@ -205,7 +247,7 @@ const WithdrawForm = () => {
           )
         }
         status={status}
-      />
+      /> */}
     </>
   );
 };

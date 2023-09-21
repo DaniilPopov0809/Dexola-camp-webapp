@@ -1,6 +1,11 @@
 @import "../../../styles/common/variables";
 @import "../../../styles/common/mixins";
 
+.rateContainer {
+  display: inline-block;
+  cursor: pointer;
+}
+
 .label,
 .unitTitle {
   color: $secondLightGreyColor;

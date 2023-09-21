@@ -1,7 +1,7 @@
 @import "../../../styles/common/variables";
 @import "../../../styles/common/mixins";
 
-.customTooltrip {
+.infoBlock {
 font-family: 'Inter', sans-serif !important;
 font-size: 14px !important;
 line-height: 1.14 !important;
@@ -10,4 +10,8 @@ max-width: 200px !important;
 padding: 8px 12px !important;
 
 background-color: $whiteColor !important;
+}
+
+.fullAmmount {
+    max-width: auto !important;
 }
