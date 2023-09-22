@@ -63,7 +63,7 @@ const StakeForm = () => {
 
   const handleSubmit = async (
     values: InitialValueType,
-    { setSubmitting }: FormikHelpers<InitialValueType>
+    { setSubmitting, resetForm }: FormikHelpers<InitialValueType>
   ) => {
     setAmountStru(values.amount);
     setEndOperation(undefined);
@@ -114,11 +114,13 @@ const StakeForm = () => {
       handleError();
       return;
     }
+    setInputValue("");
     setIsSendingToken(false);
     setIsLoading(false);
     setStatus("success");
     setEndOperation("stake");
-    setInputValue("");
+    setSubmitting(false);
+    resetForm();
   };
   
   return (
@@ -136,7 +138,7 @@ const StakeForm = () => {
         formName="stake"
       />
       <OperationFeedbackSection
-        title={!isSendingToken ? "Approving" : "Adding"}
+        title={!isSendingToken ? "Approving operation" : "Adding"}
         amount={!isSendingToken ? "" : `${amountStru} STRU`}
         text={!isSendingToken ? "" : "to Staking"}
         isVisible={isSendingToken || isApproving}
