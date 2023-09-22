@@ -34,11 +34,10 @@
           // className={styles.infoBlock__image}
           // data-tooltip-id={tooltipId}
           // />
-          <button
-            type="button"
-            className={styles.infoBlock__button}
+          <span
+            className={styles.infoBlock__help}
             data-tooltip-id={tooltipId}
-          ></button>
+          ></span>
         )}
         <ToolTipMes
           id={tooltipId}

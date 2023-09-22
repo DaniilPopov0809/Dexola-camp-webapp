@@ -32,7 +32,7 @@
 .rateForm {
   color: $whiteColor;
   font-family: "Roboto Mono", monospace;
-  @include fontStyle($subtitleMobileFontsize, $boldWeigh, 1.4, "normal");
+  @include fontStyle($subtitleMobileFontsize, $boldWeight, 1.4, "normal");
   margin-right: 4px;
 
   @media screen and (min-width: $tablet) {

@@ -52,7 +52,7 @@
 //   }
 // }
 
-.infoBlock__button {
+.infoBlock__help {
   grid-area: help;
   position: relative;
   padding: 0;
@@ -80,7 +80,7 @@
   }
 }
 
-.infoBlock__button::before {
+.infoBlock__help::before {
   content: "";
   position: absolute;
   top: 50%;
@@ -118,18 +118,18 @@
 .infoBlock__count {
   @include fontStyle(
     $infoCountMobileFontsize,
-    $boldWeigh,
+    $boldWeight,
     "normal",
     -0.0225rem
   );
 
   @media screen and (min-width: $tablet) {
-    @include fontStyle($infoCountTabletFontsize, $boldWeigh, 1.71);
+    @include fontStyle($infoCountTabletFontsize, $boldWeight, 1.71);
   }
 
   @media screen and (min-width: $desktop) {
     // margin-right: 12px;
-    @include fontStyle($infoCountDesktopFontsize, $boldWeigh, 1.33);
+    @include fontStyle($infoCountDesktopFontsize, $boldWeight, 1.33);
   }
 }
 
