@@ -8,13 +8,13 @@
 
 
   font-family: $bodyFont;
-  @include fontStyle(11px, 400, "normal", -0.22px);
+  @include fontStyle(0.6875rem, $normalWeight, "normal", -0.01375rem);
   color: $lightGreyColor;
 
   border-top: 1px solid $accentBlueColor;
 
   @media screen and (min-width: $tablet) {
-    @include fontStyle(14px, $normalWeight, 1.4, -0.28px);
+    @include fontStyle(0.875rem, $normalWeight, 1.4, -0.0175rem);
   }
   @media screen and (min-width: $desktop) {
     // padding-bottom: 25px;
