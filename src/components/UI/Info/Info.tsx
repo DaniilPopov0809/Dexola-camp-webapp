@@ -1,5 +1,3 @@
-import { useContext } from "react";
-import { AppContext } from "../../../context/AppContext";
 import Title from "../Title/Title";
 import InfoBlock from "../InfoBlock/InfoBlock";
 import {
@@ -9,10 +7,11 @@ import {
   calculateStakeBalance,
 } from "../../../helpers/utils";
 import { useForwardsDuration } from "../../../hooks/Abi";
+import { useContextValue } from "../../../hooks/useContextValue";
 import styles from "./Info.module.scss";
 
 const Info = () => {
-  const context = useContext(AppContext);
+  const context = useContextValue();
   const isConnected = context?.account?.isConnected;
   const stakeBalance = context?.stakeBalance;
   const totalSupply = context?.totalSupply;

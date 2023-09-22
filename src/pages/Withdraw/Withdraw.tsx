@@ -1,12 +1,11 @@
-import { useContext } from "react";
-import { AppContext } from "../../context/AppContext";
+import { useContextValue } from "../../hooks/useContextValue";
 import NoWalletConnect from "../../components/UI/NoWalletConnect/NoWalletConnect";
 import WithdrawForm from "../../components/UI/WithdrawForm/WithdrawForm";
 import Title from "../../components/UI/Title/Title";
 // import styles from "./Withdraw.module.scss";
 
 const Withdraw = () => {
-  const context = useContext(AppContext);
+  const context = useContextValue();
   const isConnected = context?.account?.isConnected;
     return(
         <section className="container mainSection">

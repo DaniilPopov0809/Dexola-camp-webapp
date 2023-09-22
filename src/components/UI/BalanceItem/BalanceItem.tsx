@@ -1,5 +1,4 @@
-import { useContext } from "react";
-import { AppContext } from "../../../context/AppContext";
+import { useContextValue } from "../../../hooks/useContextValue";
 import useViewportWidth from "../../../hooks/useViewportWidth";
 import { reduceDecimals, shortAddress } from "../../../helpers/utils";
 import styles from "./BalanceItem.module.scss";
@@ -9,7 +8,7 @@ import ethLogo from "../../../images/ethLogo.svg";
 const BalanceItem = () => {
   const viewportWidth = useViewportWidth();
 
-  const context = useContext(AppContext);
+  const context = useContextValue();
   const struBalance = context?.struBalance;
   const ethBalance = context?.ethBalance;
 

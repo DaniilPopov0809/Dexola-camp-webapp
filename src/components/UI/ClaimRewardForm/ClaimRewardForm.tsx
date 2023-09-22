@@ -1,8 +1,8 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 // import { Formik, Form, FormikHelpers } from "formik";
 import { FormikHelpers } from "formik";
 import { formatEther } from "viem";
-import { AppContext } from "../../../context/AppContext";
+import { useContextValue } from "../../../hooks/useContextValue";
 // import Rate from "../Rate/Rate";
 // import MainButton from "../MainButton/MainButton";
 // import ButtonLoader from "../ButtonLoader/ButtonLoader";
@@ -31,7 +31,7 @@ const ClaimRewardForm = () => {
   );
   const [isGettingReward, setIsGettingReward] = useState(false);
 
-  const earned = useContext(AppContext)?.earned;
+  const earned = useContextValue().earned;
 
   const handleSubmit = async (
     _values: InitialValueType,

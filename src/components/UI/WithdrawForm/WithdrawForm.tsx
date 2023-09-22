@@ -1,8 +1,8 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 // import { Formik, Form, Field, FormikHelpers, FieldProps } from "formik";
 import { FormikHelpers } from "formik";
 import { formatEther } from "viem";
-import { AppContext } from "../../../context/AppContext";
+
 // import Rate from "../Rate/Rate";
 import MainButton from "../MainButton/MainButton";
 import ButtonLoader from "../ButtonLoader/ButtonLoader";
@@ -12,6 +12,7 @@ import OperationFeedbackSection from "../OperationFeedbackSection/OperationFeedb
 // import TextMessageModall from "../TextMessageModal/TextMessageModal";
 // import MessageIcon from "../MessageIcon/MessageIcon";
 // import FieldInput from "../FieldInput/FieldInput";
+import { useContextValue } from "../../../hooks/useContextValue";
 import {
   withdrawTokens,
   waitForOperation,
@@ -38,7 +39,7 @@ const WithdrawForm = () => {
   );
   const [amountStru, setAmountStru] = useState("");
 
-  const stakeBalance = useContext(AppContext)?.stakeBalance;
+  const stakeBalance =  useContextValue().stakeBalance;
 
   const handleClick = async () => {
     setStatus(undefined);

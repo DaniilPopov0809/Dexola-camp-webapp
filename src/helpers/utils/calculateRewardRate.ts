@@ -8,7 +8,7 @@ const calculateRewardRate = (
   totalSupply: bigint,
   userInputValue: string | undefined
 ): string => {
-  console.log("🚀 ~ file: calculateRewardRate.ts:11 ~ userInputValue:", userInputValue)
+  
   if (!userInputValue) {
     return "0.00"
   }
@@ -18,7 +18,6 @@ const calculateRewardRate = (
     ((stakedBalance * totalAvailbleRewards) / totalSupply) +
       parseEther(userInputValue)
   );
-  console.log("🚀 ~ file: calculateRewardRate.ts:20 ~ formatted:", formatted)
 
   return reduceDecimals(formatted, 2);
 };
