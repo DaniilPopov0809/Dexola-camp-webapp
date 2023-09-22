@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import { useContextValue } from "../../hooks/useContextValue";
 import { useRewardRate } from "../../hooks/Abi";
 import { calculateRewardRate } from "../../helpers/utils";
+import { reduceDecimals } from "../../helpers/utils";
 import NoWalletConnect from "../../components/UI/NoWalletConnect/NoWalletConnect";
 import StakeForm from "../../components/UI/StakeForm/StakeForm";
 import Title from "../../components/UI/Title/Title";
 import Rate from "../../components/UI/Rate/Rate";
+import ToolTipMes from "../../components/UI/ToolTipMes/ToolTipMes";
 
 const Stake = () => {
   const context = useContextValue();
@@ -48,13 +50,19 @@ const Stake = () => {
             number={
               <Rate
                 label={"Reward rate:"}
-                rate={`${rate}`}
+                rate={`${reduceDecimals(rate, 2)}`}
                 unit={"STRU/WEEK"}
                 isTitle={true}
+                tooltipId={"fullRewardRate"}
               />
             }
           />
           <StakeForm />
+          <ToolTipMes
+              id={"fullRewardRate"}
+              position={"bottom"}
+              content={`Full reward rate: ${rate} STRU`}
+            />
         </div>
       ) : (
         <NoWalletConnect />

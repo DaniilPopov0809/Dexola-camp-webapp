@@ -1,7 +1,8 @@
 @import "../../../styles/common/variables";
 @import "../../../styles/common/mixins";
 
-.infoBlock {
+.infoBlock,
+.form {
 font-family: 'Inter', sans-serif !important;
 font-size: 14px !important;
 line-height: 1.14 !important;
@@ -12,6 +13,10 @@ padding: 8px 12px !important;
 background-color: $whiteColor !important;
 }
 
-.fullAmmount {
-    max-width: auto !important;
+.form {
+    max-width: 220px !important;
+
+    @media screen and (min-width: $tablet) {
+        max-width: inherit !important;
+    }
 }

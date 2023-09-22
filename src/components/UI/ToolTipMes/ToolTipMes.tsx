@@ -9,7 +9,12 @@ interface ToolTipMesProps {
 
 const ToolTipMes = ({ id, position, content }: ToolTipMesProps) => {
   return (
-    <Tooltip id={id} place={position} variant={"light"} className={id=== "fullAmount"? "" :styles.infoBlock}>
+    <Tooltip
+      id={id}
+      place={position}
+      variant={"light"}
+      className={id === "fullAmount" || id === "fullRewardRate" ? styles.form : styles.infoBlock}
+    >
       {content}
     </Tooltip>
   );

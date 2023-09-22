@@ -1,5 +1,5 @@
 import { formatEther, parseEther } from "viem/utils";
-import { timeStamp, reduceDecimals } from ".";
+import { timeStamp} from ".";
 
 const calculateRewardRate = (
   stakedBalance: bigint,
@@ -8,7 +8,7 @@ const calculateRewardRate = (
   totalSupply: bigint,
   userInputValue: string | undefined
 ): string => {
-  
+
   if (!userInputValue) {
     return "0.00"
   }
@@ -19,7 +19,7 @@ const calculateRewardRate = (
       parseEther(userInputValue)
   );
 
-  return reduceDecimals(formatted, 2);
+  return formatted;
 };
 
 export default calculateRewardRate;
