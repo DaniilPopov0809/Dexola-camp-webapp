@@ -1,3 +1,4 @@
+import  { useMemo } from "react";
 import MessageModal from "../MessageModal/MessageModal";
 import TextMessageModall from "../TextMessageModal/TextMessageModal";
 import MessageIcon from "../MessageIcon/MessageIcon";
@@ -28,6 +29,7 @@ const OperationFeedbackSection = ({
   errorMes,
   status,
 }: OperationFeedbackSectionProps) => {
+  const isErrorMessage = useMemo(() => findTextError(errorMes), [errorMes]);
   return (
     <>
       <MessageModal
@@ -54,9 +56,9 @@ const OperationFeedbackSection = ({
             <TextMessageModall title={titleStatus} text={textStatus} />
           ) : (
             <TextMessageModall
-              title={findTextError(errorMes) ? "Failed." : "Connection Error."}
+              title={isErrorMessage ? "Failed." : "Connection Error."}
               text={
-                findTextError(errorMes)
+                isErrorMessage
                   ? "User rejected the request"
                   : "Please try again"
               }

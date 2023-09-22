@@ -14,7 +14,7 @@ const claimReward = async(): Promise<errorType | TypeHash> => {
     return hash;
      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      console.log("🚀 ~ file: approveTransaction.ts:25 ~ approveTransaction ~ error:", error)
+      console.log(error)
       return {error: error.message}
       }
 };

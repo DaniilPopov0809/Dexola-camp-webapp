@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState} from "react";
 // import { Formik, Form, FormikHelpers } from "formik";
 import { FormikHelpers } from "formik";
 import { formatEther } from "viem";
@@ -12,9 +12,10 @@ import OperationFeedbackSection from "../OperationFeedbackSection/OperationFeedb
 // import TextMessageModall from "../TextMessageModal/TextMessageModal";
 // import MessageIcon from "../MessageIcon/MessageIcon";
 import { claimReward, waitForOperation } from "../../../helpers/operations";
-// import { reduceDecimals } from "../../../helpers/utils";
+import { reduceDecimals } from "../../../helpers/utils";
 // import { Oval } from "react-loader-spinner";
 import { InitialValueType } from "../../../types";
+// import { reduceDecimals } from "../../../helpers/utils";
 // import styles from "./ClaimRewardForm.module.scss";
 
 // import errorCross from "../../../images/errorCross.svg";
@@ -33,6 +34,9 @@ const ClaimRewardForm = () => {
   const [errorMes, setErrorMes] = useState("");
 
   const earned = useContextValue().earned;
+
+  const formattedEarned = earned? formatEther(earned) : "0.00";
+  const reducedEarned =  reduceDecimals(formattedEarned, 2);
 
   const handleSubmit = async (
     _values: InitialValueType,
@@ -72,7 +76,8 @@ const ClaimRewardForm = () => {
         handleSubmit={handleSubmit}
         validationForm={false}
         text={"claim rewards"}
-        struBalance={earned ? formatEther(earned) : undefined}
+        struBalance={reducedEarned}
+        fullStruBalance={formattedEarned}
         isLoading={isLoading}
         isDisable={!earned || +formatEther(earned) === 0}
         isShowInput={false}

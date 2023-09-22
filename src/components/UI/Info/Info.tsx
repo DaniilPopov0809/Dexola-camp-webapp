@@ -15,7 +15,6 @@ const Info = () => {
   const context = useContextValue();
   const isConnected = context?.account?.isConnected;
   const stakeBalance = context?.stakeBalance;
-  console.log("🚀 ~ file: Info.tsx:17 ~ Info ~ stakeBalance:", stakeBalance)
   const totalSupply = context?.totalSupply;
   const periodFinish = context?.periodFinish;
   const earned = context?.earned;

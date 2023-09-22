@@ -21,7 +21,7 @@ import {
 import { validationWithdrawForm } from "../../../helpers/validation";
 // import { Oval } from "react-loader-spinner";
 import { InitialValueType } from "../../../types";
-// import { reduceDecimals } from "../../../helpers/utils";
+import { reduceDecimals } from "../../../helpers/utils";
 
 // import errorCross from "../../../images/errorCross.svg";
 // import successCheck from "../../../images/successCheck.svg";
@@ -40,8 +40,11 @@ const WithdrawForm = () => {
   const [amountStru, setAmountStru] = useState("");
   const [errorMes, setErrorMes] = useState("");
 
-  const stakeBalance =  useContextValue().stakeBalance;
-
+  const stakeBalance = useContextValue().stakeBalance;
+  console.log("🚀 ~ file: WithdrawForm.tsx:44 ~ WithdrawForm ~ stakeBalance:", stakeBalance)
+    const formattedStakeBalance = stakeBalance ? formatEther(stakeBalance ): "0.00";
+   const reduceStakeBalance =  reduceDecimals(formattedStakeBalance, 2);
+ 
   const handleClick = async () => {
     setStatus(undefined);
     setAmountStru("");
@@ -49,8 +52,8 @@ const WithdrawForm = () => {
     setIsLoadingWithdrawAll(true);
 
     const exitHash = await exit();
-    if (typeof exitHash === "object"){
-      setErrorMes(exitHash.error); 
+    if (typeof exitHash === "object") {
+      setErrorMes(exitHash.error);
       setIsLoadingWithdrawAll(false);
       setStatus("error");
       return;
@@ -79,8 +82,8 @@ const WithdrawForm = () => {
     setSubmitting(true);
 
     const withdrawHash = await withdrawTokens(values.amount);
-    if (typeof withdrawHash === "object"){
-      setErrorMes(withdrawHash.error); 
+    if (typeof withdrawHash === "object") {
+      setErrorMes(withdrawHash.error);
       setIsLoadingWithdraw(false);
       setStatus("error");
       return;
@@ -106,7 +109,8 @@ const WithdrawForm = () => {
         handleSubmit={handleSubmit}
         validationForm={validationWithdrawForm}
         text={"withdraw"}
-        struBalance={stakeBalance ? formatEther(stakeBalance) : undefined}
+        struBalance={reduceStakeBalance}
+        fullStruBalance={formattedStakeBalance}
         isLoading={isLoadingWithdraw}
         isDisable={isLoadingWithdraw || isLoadingWithdrawAll || !stakeBalance}
         isShowInput={true}

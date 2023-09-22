@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useContextValue } from "../../hooks/useContextValue";
 import { useRewardRate } from "../../hooks/Abi";
 import { calculateRewardRate } from "../../helpers/utils";
@@ -38,6 +38,8 @@ const Stake = () => {
     }
   }, [stakedBalance, periodFinish, rewardRate, totalSupply, userInputValue]);
 
+  const reduceRate = useMemo(()=> reduceDecimals(rate, 2), [rate]);
+
   return (
     <section className="container mainSection">
       {isConnected ? (
@@ -50,7 +52,7 @@ const Stake = () => {
             number={
               <Rate
                 label={"Reward rate:"}
-                rate={`${reduceDecimals(rate, 2)}`}
+                rate={`${reduceRate}`}
                 unit={"STRU/WEEK"}
                 isTitle={true}
                 tooltipId={"fullRewardRate"}

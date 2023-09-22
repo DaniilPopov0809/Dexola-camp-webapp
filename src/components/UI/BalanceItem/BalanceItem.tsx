@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useContextValue } from "../../../hooks/useContextValue";
 import useViewportWidth from "../../../hooks/useViewportWidth";
 import { reduceDecimals, shortAddress } from "../../../helpers/utils";
@@ -12,7 +13,26 @@ const BalanceItem = () => {
   const struBalance = context?.struBalance;
   const ethBalance = context?.ethBalance;
 
-  const account = context?.account;
+  const address = context?.account?.address;
+
+  const { newAddress, reducedStruBalance, reducedEthBalance } = useMemo(() => {
+    const newAddress = shortAddress(address ? address : "0.000");
+    const reducedStruBalance = reduceDecimals(
+      struBalance ? struBalance.formatted : "",
+      3
+    );
+    const reducedEthBalance = reduceDecimals(
+      ethBalance ? ethBalance.formatted : "0.000",
+      3
+    );
+
+    return {
+      newAddress,
+      reducedStruBalance,
+      reducedEthBalance,
+    };
+  }, [address, struBalance, ethBalance]);
+
 
   return (
     <>
@@ -25,9 +45,7 @@ const BalanceItem = () => {
       />
 
       <span className={styles.struBalance}>
-        {struBalance
-          ? `${reduceDecimals(struBalance.formatted, 3)} STRU`
-          : "STRU not found"}
+        {struBalance ? `${reducedStruBalance} STRU` : "STRU not found"}
       </span>
       <img
         src={ethLogo}
@@ -37,16 +55,13 @@ const BalanceItem = () => {
         className={styles.ethLogo}
       />
       {ethBalance && (
-        <span className={styles.ethBalance}>{`${reduceDecimals(
-          ethBalance.formatted,
-          3
-        )} ${ethBalance ? ethBalance.symbol : "ETH"}`}</span>
+        <span className={styles.ethBalance}>{`${reducedEthBalance} ${
+          ethBalance ? ethBalance.symbol : "ETH"
+        }`}</span>
       )}
       {viewportWidth > 743 && <span className={styles.separator}>|</span>}
-      {viewportWidth > 743 && account?.address && (
-        <span className={styles.address}>{`${shortAddress(
-          account.address
-        )}`}</span>
+      {viewportWidth > 743 && address && (
+        <span className={styles.address}>{newAddress}</span>
       )}
     </>
   );

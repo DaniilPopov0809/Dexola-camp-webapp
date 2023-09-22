@@ -1,10 +1,10 @@
-import { ReactNode } from "react";
+import { ReactNode} from "react";
 import { Formik, Form, Field, FormikHelpers, FieldProps } from "formik";
 import FieldInput from "../FieldInput/FieldInput";
 import ToolTipMes from "../ToolTipMes/ToolTipMes";
 import Rate from "../Rate/Rate";
 import * as Yup from "yup";
-import { reduceDecimals } from "../../../helpers/utils";
+// import { reduceDecimals } from "../../../helpers/utils";
 import MainButton from "../MainButton/MainButton";
 import ButtonLoader from "../ButtonLoader/ButtonLoader";
 import { InitialValueType } from "../../../types";
@@ -18,7 +18,8 @@ interface CommonFormProps {
   ) => void | Promise<unknown>;
   validationForm: Yup.Schema<unknown> | boolean;
   text: string;
-  struBalance: string | undefined;
+  struBalance: string;
+  fullStruBalance: string | undefined;
   isLoading: boolean;
   isDisable: boolean;
   isShowInput: boolean;
@@ -33,6 +34,7 @@ const CommonForm = ({
   validationForm,
   text,
   struBalance,
+  fullStruBalance,
   isLoading,
   isDisable,
   isShowInput,
@@ -40,6 +42,7 @@ const CommonForm = ({
   cls,
   children,
 }: CommonFormProps) => {
+
   return (
     <Formik
       initialValues={initialValues}
@@ -67,7 +70,7 @@ const CommonForm = ({
           <div className={`form__rateWrap ${cls ? styles[cls] : ""}`}>
             <Rate
               label={"Available:"}
-              rate={struBalance ? reduceDecimals(struBalance, 2) : "0.00"}
+              rate={struBalance}
               unit={"STRU"}
               isTitle={false}
               tooltipId={"fullAmount"}
@@ -75,7 +78,7 @@ const CommonForm = ({
             <ToolTipMes
               id={"fullAmount"}
               position={"bottom"}
-              content={`Full amount: ${struBalance} STRU`}
+              content={`Full amount: ${fullStruBalance} STRU`}
             />
           </div>
           <div className="form__buttonWrap">

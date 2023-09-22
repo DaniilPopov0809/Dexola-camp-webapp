@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useContextValue } from "../../../hooks/useContextValue";
 // import { Formik, Form, Field, FormikHelpers, FieldProps } from "formik";
 import { FormikHelpers } from "formik";
@@ -12,7 +12,7 @@ import OperationFeedbackSection from "../OperationFeedbackSection/OperationFeedb
 // import TextMessageModall from "../TextMessageModal/TextMessageModal";
 // import MessageIcon from "../MessageIcon/MessageIcon";
 // import FieldInput from "../FieldInput/FieldInput";
-// import { reduceDecimals } from "../../../helpers/utils";
+import { reduceDecimals } from "../../../helpers/utils";
 import {
   approveTransaction,
   stakedTokens,
@@ -44,6 +44,9 @@ const StakeForm = () => {
   const struBalance = context?.struBalance;
   const setInputValue = context.setInputValue;
   const getAllowance = useAllowance();
+
+  const reducedStruBalance = useMemo(()=>  reduceDecimals(struBalance? struBalance.formatted : "0.00", 2),[struBalance])
+
 
   useEffect(() => {
     setAllowance(getAllowance);
@@ -125,7 +128,8 @@ const StakeForm = () => {
         handleSubmit={handleSubmit}
         validationForm={validationStakeForm}
         text={"stake"}
-        struBalance={struBalance?.formatted}
+        struBalance={reducedStruBalance}
+        fullStruBalance={struBalance?.formatted}
         isLoading={isLoading}
         isDisable={!struBalance || struBalance.value === 0n}
         isShowInput={true}
