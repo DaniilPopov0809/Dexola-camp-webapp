@@ -1,3 +1,4 @@
+import {useEffect, useState} from "react";
 import Title from "../Title/Title";
 import InfoBlock from "../InfoBlock/InfoBlock";
 import {
@@ -14,24 +15,33 @@ const Info = () => {
   const context = useContextValue();
   const isConnected = context?.account?.isConnected;
   const stakeBalance = context?.stakeBalance;
+  console.log("🚀 ~ file: Info.tsx:17 ~ Info ~ stakeBalance:", stakeBalance)
   const totalSupply = context?.totalSupply;
   const periodFinish = context?.periodFinish;
   const earned = context?.earned;
   const rewardsForDuration = useForwardsDuration();
 
-  let days = 0;
-  let apr = 0;
+  const [days, setDays] = useState(0);
+  const [apr, setApr] = useState(0);
 
-  if (
-    // stakeBalance &&
-    rewardsForDuration &&
-    totalSupply &&
-    periodFinish
-    //&& earned
-  ) {
-    apr = calculateApr(rewardsForDuration, totalSupply);
-    days = isConnected ? calculateDays(periodFinish) : 0;
-  }
+  useEffect(() => {
+    if (rewardsForDuration && totalSupply && periodFinish) {
+      setApr(calculateApr(rewardsForDuration, totalSupply));
+      setDays( isConnected ? calculateDays(periodFinish) : 0);
+    }
+  }, [rewardsForDuration, totalSupply, periodFinish, isConnected]);
+  // if (
+  //   // stakeBalance &&
+  //   rewardsForDuration &&
+  //   totalSupply &&
+  //   periodFinish
+  //   //&& earned
+  // ) {
+  //   apr = calculateApr(rewardsForDuration, totalSupply);
+  //   days = isConnected ? calculateDays(periodFinish) : 0;
+  // }
+
+ 
 
   return (
     <section className={`container ${styles.info}`}>

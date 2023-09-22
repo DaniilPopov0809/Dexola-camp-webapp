@@ -37,9 +37,10 @@ const StakeForm = () => {
   const [endOperation, setEndOperation] = useState<
     "stake" | "approve" | undefined
   >(undefined);
+  const [errorMes, setErrorMes] = useState("");
+ 
 
   const context = useContextValue();
-
   const struBalance = context?.struBalance;
   const setInputValue = context.setInputValue;
   const getAllowance = useAllowance();
@@ -67,6 +68,7 @@ const StakeForm = () => {
     setStatus(undefined);
     setIsApproving(false);
     setIsSendingToken(false);
+    setErrorMes("");
     setSubmitting(true);
 
     const allowanceToNumber = +formatEther(allowance);
@@ -74,7 +76,8 @@ const StakeForm = () => {
     if (allowanceToNumber < +values.amount) {
       const approveHash = await approveTransaction(values.amount);
 
-      if (!approveHash) {
+      if (typeof approveHash === "object") {
+        setErrorMes(approveHash.error);
         setIsSendingToken(false);
         handleError();
         return;
@@ -93,8 +96,10 @@ const StakeForm = () => {
     }
 
     const stakeHash = await stakedTokens(values.amount);
+    setErrorMes("");
     setStatus(undefined);
-    if (!stakeHash) {
+    if (typeof stakeHash === "object") {
+      setErrorMes(stakeHash.error);
       setIsSendingToken(false);
       handleError();
       return;
@@ -112,6 +117,7 @@ const StakeForm = () => {
     setEndOperation("stake");
     setInputValue("");
   };
+  
   return (
     <>
       <CommonForm
@@ -138,6 +144,7 @@ const StakeForm = () => {
             ? "successfully added to Staking"
             : "successfully"
         }
+        errorMes={errorMes}
         status={status}
       />
 

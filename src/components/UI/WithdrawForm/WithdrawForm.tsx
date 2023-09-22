@@ -38,15 +38,19 @@ const WithdrawForm = () => {
     undefined
   );
   const [amountStru, setAmountStru] = useState("");
+  const [errorMes, setErrorMes] = useState("");
 
   const stakeBalance =  useContextValue().stakeBalance;
 
   const handleClick = async () => {
     setStatus(undefined);
     setAmountStru("");
+    setErrorMes("");
     setIsLoadingWithdrawAll(true);
+
     const exitHash = await exit();
-    if (!exitHash) {
+    if (typeof exitHash === "object"){
+      setErrorMes(exitHash.error); 
       setIsLoadingWithdrawAll(false);
       setStatus("error");
       return;
@@ -71,10 +75,12 @@ const WithdrawForm = () => {
     setAmountStru(values.amount);
     setStatus(undefined);
     setIsLoadingWithdraw(true);
+    setErrorMes("");
     setSubmitting(true);
 
     const withdrawHash = await withdrawTokens(values.amount);
-    if (!withdrawHash) {
+    if (typeof withdrawHash === "object"){
+      setErrorMes(withdrawHash.error); 
       setIsLoadingWithdraw(false);
       setStatus("error");
       return;
@@ -133,6 +139,7 @@ const WithdrawForm = () => {
         isVisible={isGettingWithdraw}
         titleStatus={amountStru ? `${amountStru} STRU` : "All STRU"}
         textStatus={"successfully withdrawed"}
+        errorMes={errorMes}
         status={status}
       />
 

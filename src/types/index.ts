@@ -8,3 +8,7 @@ export type InitialValueType = {
   }
 
 export  type TypeHash = `0x${string}`;
+
+export type errorType = {
+  error: string
+}

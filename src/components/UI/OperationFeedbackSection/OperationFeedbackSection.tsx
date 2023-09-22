@@ -2,6 +2,7 @@ import MessageModal from "../MessageModal/MessageModal";
 import TextMessageModall from "../TextMessageModal/TextMessageModal";
 import MessageIcon from "../MessageIcon/MessageIcon";
 import { Oval } from "react-loader-spinner";
+import findTextError from "../../../helpers/utils/findTextError";
 
 import errorCross from "../../../images/errorCross.svg";
 import successCheck from "../../../images/successCheck.svg";
@@ -13,6 +14,7 @@ interface OperationFeedbackSectionProps {
   isVisible: boolean;
   titleStatus: string;
   textStatus: string;
+  errorMes: string;
   status: string | undefined;
 }
 
@@ -23,6 +25,7 @@ const OperationFeedbackSection = ({
   isVisible,
   titleStatus,
   textStatus,
+  errorMes,
   status,
 }: OperationFeedbackSectionProps) => {
   return (
@@ -51,8 +54,14 @@ const OperationFeedbackSection = ({
             <TextMessageModall title={titleStatus} text={textStatus} />
           ) : (
             <TextMessageModall
-              title={"Connection Error."}
-              text={"Please try again"}
+              title={findTextError(errorMes) ? "Failed." : "Connection Error."}
+              text={
+                findTextError(errorMes)
+                  ? "User rejected the request"
+                  : "Please try again"
+              }
+              // title={"Connection Error."}
+              // text={"Please try again"}
             />
           )
         }

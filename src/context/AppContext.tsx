@@ -40,6 +40,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const stakeBalance = useStakeBalance();
   const [inputValue, setInputValue] = useState<string>("");
 
+  
   return (
     <AppContext.Provider
       value={{

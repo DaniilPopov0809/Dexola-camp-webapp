@@ -30,6 +30,7 @@ const ClaimRewardForm = () => {
     undefined
   );
   const [isGettingReward, setIsGettingReward] = useState(false);
+  const [errorMes, setErrorMes] = useState("");
 
   const earned = useContextValue().earned;
 
@@ -39,12 +40,14 @@ const ClaimRewardForm = () => {
   ) => {
     setStatus(undefined);
     setIsLoading(true);
+    setErrorMes("");
     setSubmitting(true);
 
     const claimRewardsHash = await claimReward();
-    if (!claimRewardsHash) {
+    if (typeof claimRewardsHash === "object") {
       setIsLoading(false);
       setStatus("error");
+      setErrorMes(claimRewardsHash.error);
       return;
     }
     setIsGettingReward(true);
@@ -81,6 +84,7 @@ const ClaimRewardForm = () => {
         isVisible={isGettingReward}
         titleStatus={"Successfully"}
         textStatus={"climed reward"}
+        errorMes={errorMes}
         status={status}
       />
       {/* <Formik initialValues={initialValues} onSubmit={handleSubmit}>
