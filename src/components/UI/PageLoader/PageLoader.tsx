@@ -11,7 +11,6 @@ const PageLoader = () => {
         width="96"
         visible={true}
       />
-      <p>Loading...</p>
     </div>
   );
 };
