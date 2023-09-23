@@ -79,6 +79,7 @@ const CommonForm = ({
               id={"fullAmount"}
               position={"bottom"}
               content={`Full amount: ${fullStruBalance} STRU`}
+              title={text}
             />
           </div>
           <div className="form__buttonWrap">

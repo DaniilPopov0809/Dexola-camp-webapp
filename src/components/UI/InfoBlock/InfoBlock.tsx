@@ -36,6 +36,7 @@
           // />
           <span
             className={styles.infoBlock__help}
+            
             data-tooltip-id={tooltipId}
           ></span>
         )}
@@ -43,6 +44,7 @@
           id={tooltipId}
           position={"top"}
           content={`${messageToolTip}`}
+          title={title}
         />
         <p className={styles.infoBlock__title}>{title}</p>
       </li>

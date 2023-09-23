@@ -4,7 +4,7 @@
 .footer {
   min-width: 375px;
   margin-top: auto; //for footer to bottom
-  z-index: 2;
+  
 
 
   font-family: $bodyFont;
@@ -17,6 +17,7 @@
     @include fontStyle(0.875rem, $normalWeight, 1.4, -0.0175rem);
   }
   @media screen and (min-width: $desktop) {
+    z-index: 2;
     // padding-bottom: 25px;
     // padding: 16px 40px 25px 40px;
     // padding: 16px 0 25px 0;

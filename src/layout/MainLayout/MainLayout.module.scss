@@ -3,9 +3,12 @@
 .main {
   position: relative;
   background-color: $backgroundColor;
-  z-index: 1;
+  
   @media screen and (max-width: $mobileEnd) {
     border-radius: 16px 16px 0px 0px;
+  }
+  @media screen and (min-width: $desktop) {
+    z-index: 1;
   }
 }
 
