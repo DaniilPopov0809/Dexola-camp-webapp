@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import { useState, useMemo } from "react";
 import Title from "../Title/Title";
 import InfoBlock from "../InfoBlock/InfoBlock";
 import {
@@ -23,12 +23,20 @@ const Info = () => {
   const [days, setDays] = useState(0);
   const [apr, setApr] = useState(0);
 
-  useEffect(() => {
+  useMemo(() => {
     if (rewardsForDuration && totalSupply && periodFinish) {
       setApr(calculateApr(rewardsForDuration, totalSupply));
-      setDays( isConnected ? calculateDays(periodFinish) : 0);
+      setDays(isConnected ? calculateDays(periodFinish) : 0);
     }
   }, [rewardsForDuration, totalSupply, periodFinish, isConnected]);
+
+  // const reduceStakeBalance = useMemo(
+  //   () => reduceDecimals(stakeBalance ? calculateStakeBalance(stakeBalance): "0.00", 2),
+  //   [stakeBalance]
+  // );
+
+  // let apr = 0;
+  // let days = 0;
   // if (
   //   // stakeBalance &&
   //   rewardsForDuration &&
@@ -39,8 +47,6 @@ const Info = () => {
   //   apr = calculateApr(rewardsForDuration, totalSupply);
   //   days = isConnected ? calculateDays(periodFinish) : 0;
   // }
-
- 
 
   return (
     <section className={`container ${styles.info}`}>

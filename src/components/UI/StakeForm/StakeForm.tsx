@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+import {  useState, useMemo } from "react";
 import { useContextValue } from "../../../hooks/useContextValue";
 // import { Formik, Form, Field, FormikHelpers, FieldProps } from "formik";
 import { FormikHelpers } from "formik";
@@ -26,7 +26,7 @@ import { InitialValueType } from "../../../types";
 // import successCheck from "../../../images/successCheck.svg";
 
 const StakeForm = () => {
-  const [allowance, setAllowance] = useState(0n);
+  // const [allowance, setAllowance] = useState(0n);
   const [isLoading, setIsLoading] = useState(false);
   const [status, setStatus] = useState<"success" | "error" | undefined>(
     undefined
@@ -43,14 +43,9 @@ const StakeForm = () => {
   const context = useContextValue();
   const struBalance = context?.struBalance;
   const setInputValue = context.setInputValue;
-  const getAllowance = useAllowance();
-
+  const allowance = useAllowance();
+  
   const reducedStruBalance = useMemo(()=>  reduceDecimals(struBalance? struBalance.formatted : "0.00", 2),[struBalance])
-
-
-  useEffect(() => {
-    setAllowance(getAllowance);
-  }, [getAllowance]);
 
   const initialValues: InitialValueType = {
     amount: "",
@@ -65,6 +60,8 @@ const StakeForm = () => {
     values: InitialValueType,
     { setSubmitting, resetForm }: FormikHelpers<InitialValueType>
   ) => {
+   
+
     setAmountStru(values.amount);
     setEndOperation(undefined);
     setIsLoading(true);

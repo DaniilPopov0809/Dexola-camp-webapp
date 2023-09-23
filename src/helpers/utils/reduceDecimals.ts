@@ -1,11 +1,16 @@
-const reduceDecimals = (str: string, decimalPlaces: number):string => {
-  if (decimalPlaces <= 0) {
-    return str;
+const reduceDecimals = (str: string, decimalPlaces: number): string => {
+  const floatValue = parseFloat(str);
+  if (!isNaN(floatValue)) {
+    const fixedValue = floatValue.toFixed(decimalPlaces);
+    return fixedValue;
   }
-  const pattern = new RegExp(`(\\d+\\.\\d{${decimalPlaces}})`);
-  const match = str.match(pattern);
-
-  return match ? match[0] : str;
-}
+  return '0.00';
+};
 
 export default reduceDecimals;
+
+
+
+
+
+
