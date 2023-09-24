@@ -94,13 +94,13 @@ const WithdrawForm = () => {
 
   const handleSubmit = async (
     values: InitialValueType,
-    { resetForm, setSubmitting }: FormikHelpers<InitialValueType>
+    { resetForm }: FormikHelpers<InitialValueType>
   ) => {
     setAmountStru(values.amount);
     setStatus(undefined);
     setIsLoadingWithdraw(true);
     setErrorMes("");
-    setSubmitting(true);
+    // setSubmitting(true);
 
     const withdrawHash = await withdrawTokens(values.amount);
     if (typeof withdrawHash === "object") {
@@ -117,12 +117,18 @@ const WithdrawForm = () => {
       setStatus("error");
       return;
     }
-    setSubmitting(false);
+    // setSubmitting(false);
     setIsLoadingWithdraw(false);
     setIsGettingWithdraw(false);
     setStatus("success");
     resetForm();
   };
+
+  const isDisable =
+    isLoadingWithdraw ||
+    isLoadingWithdrawAll ||
+    !stakeBalance ||
+    stakeBalance === 0n;
   return (
     <>
       <CommonForm
@@ -133,7 +139,7 @@ const WithdrawForm = () => {
         struBalance={reduceStakeBalance}
         fullStruBalance={formattedStakeBalance}
         isLoading={isLoadingWithdraw}
-        isDisable={isLoadingWithdraw || isLoadingWithdrawAll || !stakeBalance}
+        isDisable={isDisable}
         isShowInput={true}
         children={
           <MainButton
@@ -144,12 +150,7 @@ const WithdrawForm = () => {
               />
             }
             type="button"
-            disabled={
-              isLoadingWithdraw ||
-              isLoadingWithdrawAll ||
-              !stakeBalance ||
-              stakeBalance === 0n
-            }
+            disabled={isDisable}
             globalClassName={"linkButton"}
             localClassName={"form__aditionalButton"}
             additionalClassName={"form__buttonTextWrap"}

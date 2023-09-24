@@ -78,7 +78,7 @@ const StakeForm = () => {
 
   const handleSubmit = async (
     values: InitialValueType,
-    { setSubmitting, resetForm }: FormikHelpers<InitialValueType>
+    { resetForm }: FormikHelpers<InitialValueType>
   ) => {
     // setCurrentTable(true);
     setAmountStru(values.amount);
@@ -88,7 +88,7 @@ const StakeForm = () => {
     setIsApproving(false);
     setIsSendingToken(false);
     setErrorMes("");
-    setSubmitting(true);
+    // setSubmitting(true);
 
     const allowanceToNumber = +formatEther(allowance);
 
@@ -140,7 +140,7 @@ const StakeForm = () => {
     setIsLoading(false);
     setStatus("success");
     setEndOperation("stake");
-    setSubmitting(false);
+    // setSubmitting(false);
     resetForm();
   };
 
@@ -154,7 +154,7 @@ const StakeForm = () => {
         struBalance={reducedStruBalance}
         fullStruBalance={struBalance?.formatted}
         isLoading={isLoading}
-        isDisable={!struBalance || struBalance.value === 0n}
+        isDisable={isLoading || !struBalance || struBalance.value === 0n}
         isShowInput={true}
         formName="stake"
       />

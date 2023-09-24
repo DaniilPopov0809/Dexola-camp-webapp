@@ -94,7 +94,7 @@ const ClaimRewardForm = () => {
         struBalance={reducedEarned}
         fullStruBalance={formattedEarned}
         isLoading={isLoading}
-        isDisable={!earned || +formatEther(earned) === 0}
+        isDisable={!earned || +formatEther(earned) === 0 || isLoading}
         isShowInput={false}
         cls={"rewards__reteWrap"}
       />

@@ -51,7 +51,7 @@ const CommonForm = ({
       validationSchema={validationForm}
       onSubmit={handleSubmit}
     >
-      {({ isSubmitting }) => (
+      {/* {({ isSubmitting }) => ( */}
         <Form autoComplete="off">
           {isShowInput && (
             <Field name="amount">
@@ -88,7 +88,7 @@ const CommonForm = ({
             <MainButton
               children={<ButtonLoader text={`${text}`} isLoading={isLoading} />}
               type="submit"
-              disabled={isSubmitting || isDisable}
+              disabled={ isDisable}
               globalClassName={"linkButton"}
               localClassName={"form__button"}
               additionalClassName={"form__buttonTextWrap"}
@@ -96,7 +96,7 @@ const CommonForm = ({
             {children}
           </div>
         </Form>
-      )}
+      {/* )} */}
     </Formik>
   );
 };
