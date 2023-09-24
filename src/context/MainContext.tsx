@@ -78,13 +78,20 @@ export const MainProvider = ({ children }: { children: ReactNode }) => {
     "success" | "error" | undefined
   >(undefined);
 
+  const closeMessage = (
+    setVisibleModalMes: Dispatch<SetStateAction<boolean>>,
+    setStatus: Dispatch<SetStateAction<"success" | "error" | undefined>>
+  ) => {
+    setVisibleModalMes(false);
+    setStatus(undefined);
+  };
+
   useEffect(() => {
     setVisibleModalMes(false);
     if (statusStake === "success" || statusStake === "error") {
       setVisibleModalMes(true);
       const timer = setTimeout(() => {
-        setVisibleModalMes(false);
-        setStatusStake(undefined);
+        closeMessage(setVisibleModalMes, setStatusStake);
       }, 5000);
 
       return () => clearTimeout(timer);
@@ -98,8 +105,7 @@ export const MainProvider = ({ children }: { children: ReactNode }) => {
       setVisibleModalMes(true);
 
       const timer = setTimeout(() => {
-        setVisibleModalMes(false);
-        setStatusReward(undefined);
+        closeMessage(setVisibleModalMes, setStatusReward);
       }, 5000);
 
       return () => clearTimeout(timer);
@@ -113,8 +119,7 @@ export const MainProvider = ({ children }: { children: ReactNode }) => {
       setVisibleModalMes(true);
 
       const timer = setTimeout(() => {
-        setVisibleModalMes(false);
-        setStatusWithdraw(undefined);
+        closeMessage(setVisibleModalMes, setStatusWithdraw);
       }, 5000);
 
       return () => clearTimeout(timer);
@@ -124,6 +129,12 @@ export const MainProvider = ({ children }: { children: ReactNode }) => {
   return (
     <MainContext.Provider
       value={{
+        errorMes,
+        setErrorMes,
+        statusStake,
+        setStatusStake,
+        amountStru,
+        setAmountStru,
         visibleModalMes,
         setVisibleModalMes,
         isSubmitting,
@@ -137,12 +148,6 @@ export const MainProvider = ({ children }: { children: ReactNode }) => {
         setIsApproving,
         endOperation,
         setEndOperation,
-        errorMes,
-        setErrorMes,
-        statusStake,
-        setStatusStake,
-        amountStru,
-        setAmountStru,
 
         isLoadingReward,
         setIsLoadingReward,

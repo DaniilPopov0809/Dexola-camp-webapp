@@ -2,10 +2,11 @@ import {
   createContext,
   ReactNode,
   useState,
-  // useEffect,
+  useEffect,
   Dispatch,
   SetStateAction,
 } from "react";
+import { useLocation } from "react-router-dom";
 import useWalletBalance from "../hooks/useWalletBalance";
 import {
   useEarned,
@@ -81,7 +82,16 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   //     return () => clearTimeout(timer);
   //   }
   // }, [status]);
+  
 
+  //clear input value
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname !== "/") {
+      setInputValue("");
+    }
+  }, [location.pathname, setInputValue]);
 
   return (
     <AppContext.Provider
