@@ -1,5 +1,6 @@
 import * as Yup from "yup";
 import { InitialValueType } from "../../types";
+import { fetchedBalance } from "../operations";
 import { checkMinValue, checkMaxValue, isValidDecimal } from "../utils";
 
 const validationStakeForm: Yup.Schema<InitialValueType> = Yup.object({
@@ -20,7 +21,7 @@ const validationStakeForm: Yup.Schema<InitialValueType> = Yup.object({
       "maxAmount",
       "The amount must not exceed the wallet balance",
       async (value) => {
-        return await checkMaxValue(value);
+        return await checkMaxValue(value, fetchedBalance);
       }
     ),
 });
