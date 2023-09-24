@@ -63,7 +63,6 @@ const StakeForm = () => {
    
 
     setAmountStru(values.amount);
-    console.log("🚀 ~ file: StakeForm.tsx:66 ~ StakeForm ~ values.amount:", values.amount)
     setEndOperation(undefined);
     setIsLoading(true);
     setStatus(undefined);

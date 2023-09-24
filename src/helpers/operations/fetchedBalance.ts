@@ -6,13 +6,12 @@ const { VITE_TOKEN_ADDRESS } = import.meta.env;
 const fetchedBalance = async () => {
 
   try {
-    const account = getAccount();
+    const {isConnected, address} = getAccount();
 
-    if (!account || !account.address) {
+    if (!isConnected || !address) {
         throw new Error("Account or address is undefined");
       }
-
-    const address = account.address;
+      
     const balance = await fetchBalance({
       address: address,
       token: VITE_TOKEN_ADDRESS,
