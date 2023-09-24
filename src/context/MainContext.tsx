@@ -80,7 +80,7 @@ export const MainProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     setVisibleModalMes(false);
-    if (status === "success" || status === "error") {
+    if (statusStake === "success" || statusStake === "error") {
       setVisibleModalMes(true);
       const timer = setTimeout(() => {
         setVisibleModalMes(false);
