@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useContextValue } from "../../../hooks/useContextValue";
+import { useAppContextValue } from "../../../hooks/useContextValue";
 import useViewportWidth from "../../../hooks/useViewportWidth";
 import { reduceDecimals, shortAddress } from "../../../helpers/utils";
 import styles from "./BalanceItem.module.scss";
@@ -9,10 +9,8 @@ import ethLogo from "../../../images/ethLogo.svg";
 const BalanceItem = () => {
   const viewportWidth = useViewportWidth();
 
-  const context = useContextValue();
-  const struBalance = context?.struBalance;
-  const ethBalance = context?.ethBalance;
-
+  const context = useAppContextValue();
+  const {struBalance, ethBalance} = context;
   const address = context?.account?.address;
 
   const { newAddress, reducedStruBalance, reducedEthBalance } = useMemo(() => {
@@ -32,7 +30,6 @@ const BalanceItem = () => {
       reducedEthBalance,
     };
   }, [address, struBalance, ethBalance]);
-
 
   return (
     <>

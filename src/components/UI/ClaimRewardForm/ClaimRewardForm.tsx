@@ -1,8 +1,11 @@
-import { useState} from "react";
+// import { useState } from "react";
 // import { Formik, Form, FormikHelpers } from "formik";
 import { FormikHelpers } from "formik";
 import { formatEther } from "viem";
-import { useContextValue } from "../../../hooks/useContextValue";
+import {
+  useAppContextValue,
+  useMainContextValue,
+} from "../../../hooks/useContextValue";
 // import Rate from "../Rate/Rate";
 // import MainButton from "../MainButton/MainButton";
 // import ButtonLoader from "../ButtonLoader/ButtonLoader";
@@ -26,17 +29,29 @@ const initialValues: InitialValueType = {
 };
 
 const ClaimRewardForm = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [status, setStatus] = useState<"success" | "error" | undefined>(
-    undefined
-  );
-  const [isGettingReward, setIsGettingReward] = useState(false);
-  const [errorMes, setErrorMes] = useState("");
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [status, setStatus] = useState<"success" | "error" | undefined>(
+  //   undefined
+  // );
+  // const [isGettingReward, setIsGettingReward] = useState(false);
+  // const [errorMes, setErrorMes] = useState("");
 
-  const earned = useContextValue().earned;
+  const { earned } = useAppContextValue();
 
-  const formattedEarned = earned? formatEther(earned) : "0.00";
-  const reducedEarned =  reduceDecimals(formattedEarned, 2);
+  const mainContext = useMainContextValue();
+  const {
+    isLoadingReward: isLoading,
+    setIsLoadingReward: setIsLoading,
+    isGettingReward,
+    setIsGettingReward,
+    errorMes,
+    setErrorMes,
+    statusReward: status,
+    setStatusReward: setStatus,
+  } = mainContext;
+
+  const formattedEarned = earned ? formatEther(earned) : "0.00";
+  const reducedEarned = reduceDecimals(formattedEarned, 2);
 
   const handleSubmit = async (
     _values: InitialValueType,

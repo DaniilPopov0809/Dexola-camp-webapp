@@ -4,6 +4,7 @@ import FieldInput from "../FieldInput/FieldInput";
 import ToolTipMes from "../ToolTipMes/ToolTipMes";
 import Rate from "../Rate/Rate";
 import * as Yup from "yup";
+// import { useMainContextValue } from "../../../hooks/useContextValue";
 // import { reduceDecimals } from "../../../helpers/utils";
 import MainButton from "../MainButton/MainButton";
 import ButtonLoader from "../ButtonLoader/ButtonLoader";
@@ -42,7 +43,8 @@ const CommonForm = ({
   cls,
   children,
 }: CommonFormProps) => {
-
+  // const mainContext = useMainContextValue();
+  // const isSubmitting = mainContext.isSubmitting;
   return (
     <Formik
       initialValues={initialValues}

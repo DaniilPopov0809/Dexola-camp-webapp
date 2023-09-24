@@ -1,4 +1,4 @@
-import { useState } from "react";
+// import { useState } from "react";
 // import { Formik, Form, Field, FormikHelpers, FieldProps } from "formik";
 import { FormikHelpers } from "formik";
 import { formatEther } from "viem";
@@ -12,7 +12,10 @@ import OperationFeedbackSection from "../OperationFeedbackSection/OperationFeedb
 // import TextMessageModall from "../TextMessageModal/TextMessageModal";
 // import MessageIcon from "../MessageIcon/MessageIcon";
 // import FieldInput from "../FieldInput/FieldInput";
-import { useContextValue } from "../../../hooks/useContextValue";
+import {
+  useAppContextValue,
+  useMainContextValue,
+} from "../../../hooks/useContextValue";
 import {
   withdrawTokens,
   waitForOperation,
@@ -31,16 +34,33 @@ const initialValues: InitialValueType = {
 };
 
 const WithdrawForm = () => {
-  const [isLoadingWithdraw, setIsLoadingWithdraw] = useState(false);
-  const [isLoadingWithdrawAll, setIsLoadingWithdrawAll] = useState(false);
-  const [isGettingWithdraw, setIsGettingWithdraw] = useState(false);
-  const [status, setStatus] = useState<"success" | "error" | undefined>(
-    undefined
-  );
-  const [amountStru, setAmountStru] = useState("");
-  const [errorMes, setErrorMes] = useState("");
+  // const [isLoadingWithdraw, setIsLoadingWithdraw] = useState(false);
+  // const [isLoadingWithdrawAll, setIsLoadingWithdrawAll] = useState(false);
+  // const [isGettingWithdraw, setIsGettingWithdraw] = useState(false);
+  // const [status, setStatus] = useState<"success" | "error" | undefined>(
+  //   undefined
+  // );
+  // const [amountStru, setAmountStru] = useState("");
+  // const [errorMes, setErrorMes] = useState("");
 
-  const stakeBalance = useContextValue().stakeBalance;  
+  const { stakeBalance } = useAppContextValue();
+
+  const mainContext = useMainContextValue();
+  const {
+    isLoadingWithdraw,
+    setIsLoadingWithdraw,
+    isLoadingWithdrawAll,
+    setIsLoadingWithdrawAll,
+    isGettingWithdraw,
+    setIsGettingWithdraw,
+    statusWithdraw: status,
+    setStatusWithdraw: setStatus,
+    amountStru,
+    setAmountStru,
+    errorMes,
+    setErrorMes,
+  } = mainContext;
+
   const formattedStakeBalance = stakeBalance
     ? formatEther(stakeBalance)
     : "0.00";

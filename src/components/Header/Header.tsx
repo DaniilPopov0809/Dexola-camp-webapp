@@ -1,5 +1,5 @@
 import { useWeb3Modal } from "@web3modal/react";
-import { useContextValue } from "../../hooks/useContextValue";
+import { useAppContextValue } from "../../hooks/useContextValue";
 import Info from "../UI/Info/Info";
 import ButtonLoader from "../UI/ButtonLoader/ButtonLoader";
 import BalanceItem from "../UI/BalanceItem/BalanceItem";
@@ -10,7 +10,7 @@ import styles from "./Header.module.scss";
 
 const Header = () => {
   const { open, isOpen } = useWeb3Modal();
-  const  isConnected  = useContextValue().account?.isConnected;
+  const isConnected = useAppContextValue().account?.isConnected;
 
   return (
     <header className={styles.header}>
