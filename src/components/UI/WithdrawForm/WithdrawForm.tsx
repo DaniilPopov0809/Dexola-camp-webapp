@@ -40,11 +40,12 @@ const WithdrawForm = () => {
   const [amountStru, setAmountStru] = useState("");
   const [errorMes, setErrorMes] = useState("");
 
-  const stakeBalance = useContextValue().stakeBalance;
-  console.log("🚀 ~ file: WithdrawForm.tsx:44 ~ WithdrawForm ~ stakeBalance:", stakeBalance)
-    const formattedStakeBalance = stakeBalance ? formatEther(stakeBalance ): "0.00";
-   const reduceStakeBalance =  reduceDecimals(formattedStakeBalance, 2);
- 
+  const stakeBalance = useContextValue().stakeBalance;  
+  const formattedStakeBalance = stakeBalance
+    ? formatEther(stakeBalance)
+    : "0.00";
+  const reduceStakeBalance = reduceDecimals(formattedStakeBalance, 2);
+
   const handleClick = async () => {
     setStatus(undefined);
     setAmountStru("");
