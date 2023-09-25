@@ -2,34 +2,40 @@
 @import "../../../styles/common/mixins";
 
 .messageModal {
-  position: absolute;
+  // position: absolute;
 
   display: flex;
   justify-content: center;
   align-items: center;
+ 
+
+  background-color: $backgroundColor;
+  border-radius: 8px;
   
-  padding: 8px 0;
+  
+  padding: 8px 16px;
+  margin-bottom: 10px;
 
   @media screen and (max-width: $mobileEnd) {
-    
-    width: 295px;
+ 
+    // width: 295px;
     // width: 100%;
-    left: 50%;
-    bottom: 104px;
-    transform: translate(-50%, 0);
+    // left: 50%;
+    // bottom: 104px;
+    // transform: translate(-50%, 0);
   }
 
   @media screen and (min-width: $tablet) {
     
-    width: inherit;
+    // width: inherit;
     // width: auto;
-    right: 48px;
+    // right: 48px;
     // bottom: 70px;
-    bottom: 0;
+    // bottom: 0;
   }
 
   @media screen and (min-width: $desktop) {
-    right: 0;
+    // right: 0;
     // bottom: 0;
   }
 }

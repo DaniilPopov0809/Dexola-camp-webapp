@@ -7,7 +7,7 @@ import { formatEther } from "viem";
 import MainButton from "../MainButton/MainButton";
 import ButtonLoader from "../ButtonLoader/ButtonLoader";
 import CommonForm from "../CommonForm/CommonForm";
-import OperationFeedbackSection from "../OperationFeedbackSection/OperationFeedbackSection";
+// import OperationFeedbackSection from "../OperationFeedbackSection/OperationFeedbackSection";
 // import MessageModal from "../MessageModal/MessageModal";
 // import TextMessageModall from "../TextMessageModal/TextMessageModal";
 // import MessageIcon from "../MessageIcon/MessageIcon";
@@ -51,13 +51,13 @@ const WithdrawForm = () => {
     setIsLoadingWithdraw,
     isLoadingWithdrawAll,
     setIsLoadingWithdrawAll,
-    isGettingWithdraw,
+    // isGettingWithdraw,
     setIsGettingWithdraw,
-    statusWithdraw: status,
+    // statusWithdraw: status,
     setStatusWithdraw: setStatus,
-    amountStru,
+    // amountStru,
     setAmountStru,
-    errorMes,
+    // errorMes,
     setErrorMes,
   } = mainContext;
 
@@ -158,7 +158,7 @@ const WithdrawForm = () => {
           />
         }
       />
-      <OperationFeedbackSection
+      {/* <OperationFeedbackSection
         title={"Withdrawing"}
         amount={amountStru ? `${amountStru} STRU` : "all STRU"}
         text={"without Stake"}
@@ -167,7 +167,7 @@ const WithdrawForm = () => {
         textStatus={"successfully withdrawed"}
         errorMes={errorMes}
         status={status}
-      />
+      /> */}
 
       {/* <Formik
         initialValues={initialValues}

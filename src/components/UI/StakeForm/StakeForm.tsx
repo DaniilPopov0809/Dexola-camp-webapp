@@ -7,7 +7,7 @@ import {
 import { FormikHelpers } from "formik";
 import { formatEther } from "viem";
 import CommonForm from "../CommonForm/CommonForm";
-import OperationFeedbackSection from "../OperationFeedbackSection/OperationFeedbackSection";
+// import OperationFeedbackSection from "../OperationFeedbackSection/OperationFeedbackSection";
 // import Rate from "../Rate/Rate";
 // import MainButton from "../MainButton/MainButton";
 // import ButtonLoader from "../ButtonLoader/ButtonLoader";
@@ -51,17 +51,17 @@ const StakeForm = () => {
   const {
     isLoadingStake: isLoading,
     setIsLoadingStake: setIsLoading,
-    isSendingToken,
+    // isSendingToken,
     setIsSendingToken,
-    isApproving,
+    // isApproving,
     setIsApproving,
-    endOperation,
+    // endOperation,
     setEndOperation,
-    errorMes,
+    // errorMes,
     setErrorMes,
-    statusStake: status,
+    // statusStake: status,
     setStatusStake: setStatus,
-    amountStru,
+    // amountStru,
     setAmountStru,
   } = mainContext;
 
@@ -158,7 +158,7 @@ const StakeForm = () => {
         isShowInput={true}
         formName="stake"
       />
-      <OperationFeedbackSection
+      {/* <OperationFeedbackSection
         title={!isSendingToken ? "Approving operation" : "Adding"}
         amount={!isSendingToken ? "" : `${amountStru} STRU`}
         text={!isSendingToken ? "" : "to Staking"}
@@ -173,7 +173,7 @@ const StakeForm = () => {
         }
         errorMes={errorMes}
         status={status}
-      />
+      /> */}
 
       {/* <Formik
         initialValues={initialValues}

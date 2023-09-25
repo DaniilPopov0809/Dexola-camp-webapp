@@ -1,20 +1,20 @@
 import { ReactNode } from "react";
-import styles from "./MessageModal.module.scss";
+import styles from "./MessageContainer.module.scss";
 import { useMainContextValue } from "../../../hooks/useContextValue";
 
-interface MessageModalProps {
+interface MessageContainerProps {
   text: ReactNode;
   children: ReactNode;
   isLoading?: boolean;
   status?: "error" | "success" | string | undefined;
 }
 
-const MessageModal = ({
+const MessageContainer = ({
   text,
   children,
   isLoading,
 }: // status,
-MessageModalProps) => {
+MessageContainerProps) => {
   // const [visible, setVisible] = useState(false);
 
   const mainContext = useMainContextValue();
@@ -46,7 +46,7 @@ MessageModalProps) => {
 
   return (
     <div
-      className={`${styles.messageModal} ${
+      className={`${styles.MessageContainer} ${
         visibleModalMesStake ||
         visibleModalMesWithdraw ||
         visibleModalMesReward ||
@@ -61,4 +61,4 @@ MessageModalProps) => {
   );
 };
 
-export default MessageModal;
+export default MessageContainer;

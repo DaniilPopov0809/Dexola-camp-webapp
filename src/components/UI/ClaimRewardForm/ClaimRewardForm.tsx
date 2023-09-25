@@ -10,7 +10,7 @@ import {
 // import MainButton from "../MainButton/MainButton";
 // import ButtonLoader from "../ButtonLoader/ButtonLoader";
 import CommonForm from "../CommonForm/CommonForm";
-import OperationFeedbackSection from "../OperationFeedbackSection/OperationFeedbackSection";
+// import OperationFeedbackSection from "../OperationFeedbackSection/OperationFeedbackSection";
 // import MessageModal from "../MessageModal/MessageModal";
 // import TextMessageModall from "../TextMessageModal/TextMessageModal";
 // import MessageIcon from "../MessageIcon/MessageIcon";
@@ -42,11 +42,11 @@ const ClaimRewardForm = () => {
   const {
     isLoadingReward: isLoading,
     setIsLoadingReward: setIsLoading,
-    isGettingReward,
+    // isGettingReward,
     setIsGettingReward,
-    errorMes,
+    // errorMes,
     setErrorMes,
-    statusReward: status,
+    // statusReward: status,
     setStatusReward: setStatus,
   } = mainContext;
 
@@ -98,7 +98,7 @@ const ClaimRewardForm = () => {
         isShowInput={false}
         cls={"rewards__reteWrap"}
       />
-      <OperationFeedbackSection
+      {/* <OperationFeedbackSection
         title={"Claiming"}
         text={"without Stake"}
         isVisible={isGettingReward}
@@ -106,7 +106,7 @@ const ClaimRewardForm = () => {
         textStatus={"climed reward"}
         errorMes={errorMes}
         status={status}
-      />
+      /> */}
       {/* <Formik initialValues={initialValues} onSubmit={handleSubmit}>
         {({ isSubmitting }) => (
           <Form autoComplete="off">
