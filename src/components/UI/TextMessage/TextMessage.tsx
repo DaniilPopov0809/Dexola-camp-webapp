@@ -6,10 +6,12 @@ interface TextMessageProps {
   text: string;
 }
 
-const TextMessage= ({ title, amount, text }: TextMessageProps) => {
+const TextMessage = ({ title, amount, text }: TextMessageProps) => {
   return (
     <div className={styles.message}>
-      <span className={amount? styles.message__title : styles.message__amount}>{title}</span>
+      <span className={amount ? styles.message__title : styles.message__amount}>
+        {title}
+      </span>
       {amount && <span className={styles.message__amount}>{amount}</span>}
       <span className={styles.message__text}>{text}</span>
     </div>

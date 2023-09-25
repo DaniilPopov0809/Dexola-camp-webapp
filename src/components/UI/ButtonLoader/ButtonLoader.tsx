@@ -8,18 +8,18 @@ interface ButtonLoaderProps {
 const ButtonLoader = ({ text, isLoading }: ButtonLoaderProps) => {
   return (
     <>
-        <Oval
-          height={20}
-          width={20}
-          color="#204FFE"
-          wrapperStyle={{ marginRight: "8px" }}
-          wrapperClass={isLoading? "visibleSpinner" : "hiddenSpinner"}
-          visible={true}
-          ariaLabel="oval-loading"
-          secondaryColor="#204FFE"
-          strokeWidth={8}
-          strokeWidthSecondary={8}
-        />
+      <Oval
+        height={20}
+        width={20}
+        color="#204FFE"
+        wrapperStyle={{ marginRight: "8px" }}
+        wrapperClass={isLoading ? "visibleSpinner" : "hiddenSpinner"}
+        visible={true}
+        ariaLabel="oval-loading"
+        secondaryColor="#204FFE"
+        strokeWidth={8}
+        strokeWidthSecondary={8}
+      />
       <span>{text}</span>
     </>
   );

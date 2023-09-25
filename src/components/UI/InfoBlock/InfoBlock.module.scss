@@ -30,28 +30,6 @@
   }
 }
 
-// .infoBlock__image {
-//   grid-area: help;
-
-//   align-self: center;
-//   justify-self: center;
-//   cursor: pointer;
-//   // margin-bottom: 3px;
-
-//   @media screen and (min-width: $tablet) {
-//     width: 16px;
-//     height: 16px;
-//     // margin-bottom: 9px;
-//   }
-
-//   @media screen and (min-width: $desktop) {
-//     width: 24px;
-//     height: 24px;
-//     margin-bottom: 5px;
-//     align-self: self-end;
-//   }
-// }
-
 .infoBlock__help {
   grid-area: help;
   position: relative;
@@ -90,7 +68,6 @@
   width: 11px;
   height: 11px;
   background-repeat: no-repeat;
-  // background-position: center;
   background-size: cover;
 
   @media screen and (min-width: $tablet) {
@@ -128,7 +105,6 @@
   }
 
   @media screen and (min-width: $desktop) {
-    // margin-right: 12px;
     @include fontStyle($infoCountDesktopFontsize, $boldWeight, 1.33);
   }
 }

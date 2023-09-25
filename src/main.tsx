@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "sanitize.css";
 import "./main.scss";
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from "react-router-dom";
 import { WagmiConfig } from "wagmi";
 import { wagmiConfig } from "./config/wagmiConfig.ts";
 import { AppProvider } from "./context/AppContext.tsx";
@@ -11,11 +11,11 @@ import { AppProvider } from "./context/AppContext.tsx";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
-    <WagmiConfig config={wagmiConfig}>
+      <WagmiConfig config={wagmiConfig}>
         <AppProvider>
-        <App />
+          <App />
         </AppProvider>
-    </WagmiConfig>
+      </WagmiConfig>
     </BrowserRouter>
   </React.StrictMode>
 );

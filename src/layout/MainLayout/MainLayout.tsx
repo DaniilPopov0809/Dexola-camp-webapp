@@ -4,11 +4,11 @@ import PageLoader from "../../components/UI/PageLoader/PageLoader";
 import { MainProvider } from "../../context/MainContext";
 import { Suspense, useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import NotificationThumb from "../../components/NotificarionThumb/NotificationThumb";
+import NotificationThumb from "../../components/UI/NotificarionThumb/NotificationThumb";
 import styles from "./MainLayout.module.scss";
 
 const MainLayout = () => {
-
+  
   //add timiout for PageLoader if good network connection
   const [isLoading, setIsLoading] = useState(false);
 

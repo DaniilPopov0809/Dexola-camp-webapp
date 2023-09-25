@@ -26,7 +26,7 @@ const FieldInput = ({
   const { form, ...inputProps } = props;
 
   const context = useAppContextValue();
-  const {setInputValue, inputValue} = context;
+  const { setInputValue, inputValue } = context;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!isNaN(+e.target.value)) {

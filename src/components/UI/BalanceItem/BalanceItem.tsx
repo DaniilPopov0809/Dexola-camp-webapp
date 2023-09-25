@@ -10,7 +10,7 @@ const BalanceItem = () => {
   const viewportWidth = useViewportWidth();
 
   const context = useAppContextValue();
-  const {struBalance, ethBalance} = context;
+  const { struBalance, ethBalance } = context;
   const address = context?.account?.address;
 
   const { newAddress, reducedStruBalance, reducedEthBalance } = useMemo(() => {

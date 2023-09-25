@@ -66,8 +66,6 @@ const Notification = ({
                     ? "User rejected the request"
                     : "Please try again"
                 }
-                // title={"Connection Error."}
-                // text={"Please try again"}
               />
             )
           }

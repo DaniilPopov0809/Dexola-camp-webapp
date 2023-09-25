@@ -1,0 +1,28 @@
+@import "../../../styles/common/variables";
+
+.thumb {
+  position: absolute;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  @media screen and (max-width: $mobileEnd) {
+    left: 50%;
+    bottom: 0;
+    bottom: 104px;
+    transform: translate(-50%, 0);
+  }
+
+  @media screen and (min-width: $tablet) {
+    align-items: self-start;
+
+    right: 48px;
+    bottom: 30px;
+  }
+
+  @media screen and (min-width: $desktop) {
+    right: 0px;
+  }
+}

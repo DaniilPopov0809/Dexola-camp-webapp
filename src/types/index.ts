@@ -4,11 +4,11 @@ export enum TokenStatus {
 }
 
 export type InitialValueType = {
-    amount: string;
-  }
+  amount: string;
+};
 
-export  type TypeHash = `0x${string}`;
+export type TypeHash = `0x${string}`;
 
 export type errorType = {
-  error: string
-}
+  error: string;
+};

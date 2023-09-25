@@ -5,7 +5,7 @@ const calculateApr = (
   totalSupply: bigint
 ): number => {
   const rewardsForDurationNumber = +formatEther(rewardsForDuration);
-  const totalSupplyNumber = +formatEther(totalSupply); 
+  const totalSupplyNumber = +formatEther(totalSupply);
   if (totalSupplyNumber === 0) {
     return 0;
   }

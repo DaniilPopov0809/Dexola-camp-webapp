@@ -5,7 +5,6 @@
   display: flex;
   flex-direction: row;
   align-items: baseline;
-  // min-width: 295px;
   margin-left: 16px;
   color: $whiteColor;
   @include fontStyle($bodyMobileFontsize, $normalWeight, 1.71);
@@ -14,7 +13,6 @@
     flex-direction: row;
     font-size: $bodyTabletFontsize;
     line-height: 1.5;
-    // max-width: inherit;
   }
 }
 
@@ -30,6 +28,6 @@
   white-space: nowrap;
 }
 
-.message__text{
+.message__text {
   white-space: nowrap;
 }

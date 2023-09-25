@@ -15,8 +15,10 @@ const reduceDecimals = (str: string, decimalPlaces: number): string => {
   } else {
     const parts = str.split(".");
     const beforeDot = parts[0];
-    const afterDot = parts[1]; 
-    const reduceAfterDot = afterDot.slice(0, decimalPlaces).padEnd(decimalPlaces, "0");
+    const afterDot = parts[1];
+    const reduceAfterDot = afterDot
+      .slice(0, decimalPlaces)
+      .padEnd(decimalPlaces, "0");
     return `${beforeDot}.${reduceAfterDot}`;
   }
 };

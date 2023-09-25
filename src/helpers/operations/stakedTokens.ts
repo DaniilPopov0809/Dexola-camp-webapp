@@ -1,16 +1,16 @@
 import { parseEther } from "viem";
-import { writeContract, prepareWriteContract, getAccount  } from "@wagmi/core";
+import { writeContract, prepareWriteContract, getAccount } from "@wagmi/core";
 import contractAbi from "../../data/contractABI.json";
 import { TypeHash, errorType } from "../../types";
 const { VITE_CONTRACT_ADDRESS } = import.meta.env;
 
 const stakedTokens = async (amount: string): Promise<errorType | TypeHash> => {
   try {
-    const {isConnected, address} = getAccount();
+    const { isConnected, address } = getAccount();
 
     if (!isConnected || !address) {
-        throw new Error("Connect error!");
-      }
+      throw new Error("Connect error!");
+    }
     const config = await prepareWriteContract({
       address: VITE_CONTRACT_ADDRESS,
       abi: contractAbi,

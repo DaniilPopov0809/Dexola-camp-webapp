@@ -10,7 +10,7 @@
 
 .title__h1 {
   @include fontStyle($titleMobileFontsize, $mediumWeight, 1.2);
-  
+
   @media screen and (min-width: $tablet) {
     @include fontStyle($titleTabletFontsize, $mediumWeight, 1.4);
   }
@@ -21,11 +21,20 @@
 }
 
 .title__h2 {
-
-  @include fontStyle($subtitleMobileFontsize, $mediumWeight, 'normal',  -0.0225rem);
+  @include fontStyle(
+    $subtitleMobileFontsize,
+    $mediumWeight,
+    "normal",
+    -0.0225rem
+  );
 
   @media screen and (min-width: $tablet) {
-    @include fontStyle($subtitleDesktopFontsize, $mediumWeight, 'normal', -0.03rem);
+    @include fontStyle(
+      $subtitleDesktopFontsize,
+      $mediumWeight,
+      "normal",
+      -0.03rem
+    );
   }
 }
 

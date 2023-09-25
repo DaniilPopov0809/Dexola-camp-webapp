@@ -8,7 +8,7 @@ import { configureChains, createConfig, mainnet } from "wagmi";
 import { sepolia } from "wagmi/chains";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 
-const {VITE_PROJECT_ID, VITE_API_KEY } = import.meta.env;
+const { VITE_PROJECT_ID, VITE_API_KEY } = import.meta.env;
 
 const chains = [sepolia, mainnet];
 export const projectId = VITE_PROJECT_ID;

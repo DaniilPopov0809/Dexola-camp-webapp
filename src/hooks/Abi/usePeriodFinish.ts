@@ -1,6 +1,6 @@
 import { useContractRead } from "wagmi";
 import contractAbi from "../../data/contractABI.json";
-const {VITE_CONTRACT_ADDRESS} = import.meta.env;
+const { VITE_CONTRACT_ADDRESS } = import.meta.env;
 
 const usePeriodFinish = (): bigint => {
   const { data: periodFinish } = useContractRead({

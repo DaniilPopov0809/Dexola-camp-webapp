@@ -3,7 +3,7 @@ import contractAbi from "../../data/contractABI.json";
 import { TypeHash, errorType } from "../../types";
 const { VITE_CONTRACT_ADDRESS } = import.meta.env;
 
-const claimReward = async(): Promise<errorType | TypeHash> => {
+const claimReward = async (): Promise<errorType | TypeHash> => {
   try {
     const { isConnected } = getAccount();
 
@@ -17,11 +17,11 @@ const claimReward = async(): Promise<errorType | TypeHash> => {
     });
     const { hash } = await writeContract(config);
     return hash;
-     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      console.log(error)
-      return {error: error.message}
-      }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    console.log(error);
+    return { error: error.message };
+  }
 };
 
 export default claimReward;

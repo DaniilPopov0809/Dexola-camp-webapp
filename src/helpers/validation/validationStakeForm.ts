@@ -13,8 +13,7 @@ const validationStakeForm: Yup.Schema<InitialValueType> = Yup.object({
         return checkMinValue(value);
       }
     )
-    .test("maxDemicalPlace", "Incorect value",
-    (value) => {
+    .test("maxDemicalPlace", "Incorect value", (value) => {
       return isValidDecimal(value);
     })
     .test(
