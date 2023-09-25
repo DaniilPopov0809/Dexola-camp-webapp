@@ -17,8 +17,12 @@ const MessageModal = ({
 MessageModalProps) => {
   // const [visible, setVisible] = useState(false);
 
-  const visible= useMainContextValue().visibleModalMes;
-  
+  const mainContext = useMainContextValue();
+  const {
+    visibleModalMesStake,
+    visibleModalMesWithdraw,
+    visibleModalMesReward,
+  } = mainContext;
   // const setVisible = contex.setVisibleModalMes;
 
   // useEffect(() => {
@@ -43,7 +47,12 @@ MessageModalProps) => {
   return (
     <div
       className={`${styles.messageModal} ${
-        visible || isLoading ? "visibleSpinner" : "hiddenSpinner"
+        visibleModalMesStake ||
+        visibleModalMesWithdraw ||
+        visibleModalMesReward ||
+        isLoading
+          ? "visibleSpinner"
+          : "hiddenSpinner"
       }`}
     >
       {children}

@@ -6,10 +6,10 @@ import {
   Dispatch,
   SetStateAction,
 } from "react";
-
+import { useLocation } from "react-router-dom";
 type MainContextType = {
-  visibleModalMes: boolean;
-  setVisibleModalMes: Dispatch<SetStateAction<boolean>>;
+  visibleModalMesStake: boolean;
+  setVisibleModalMesStake: Dispatch<SetStateAction<boolean>>;
   isSubmitting: boolean;
   setIsSubmitting: Dispatch<SetStateAction<boolean>>;
 
@@ -34,6 +34,8 @@ type MainContextType = {
   setIsGettingReward: Dispatch<SetStateAction<boolean>>;
   statusReward: "success" | "error" | undefined;
   setStatusReward: Dispatch<SetStateAction<"success" | "error" | undefined>>;
+  visibleModalMesReward: boolean;
+  setVisibleModalMesReward: Dispatch<SetStateAction<boolean>>;
 
   isLoadingWithdraw: boolean;
   setIsLoadingWithdraw: Dispatch<SetStateAction<boolean>>;
@@ -43,6 +45,8 @@ type MainContextType = {
   setIsGettingWithdraw: Dispatch<SetStateAction<boolean>>;
   statusWithdraw: "success" | "error" | undefined;
   setStatusWithdraw: Dispatch<SetStateAction<"success" | "error" | undefined>>;
+  visibleModalMesWithdraw: boolean;
+  setVisibleModalMesWithdraw: Dispatch<SetStateAction<boolean>>;
 };
 
 export const MainContext = createContext<MainContextType | undefined>(
@@ -50,7 +54,7 @@ export const MainContext = createContext<MainContextType | undefined>(
 );
 
 export const MainProvider = ({ children }: { children: ReactNode }) => {
-  const [visibleModalMes, setVisibleModalMes] = useState(false);
+  const [visibleModalMesStake, setVisibleModalMesStake] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [isLoadingStake, setIsLoadingStake] = useState(false);
@@ -70,6 +74,7 @@ export const MainProvider = ({ children }: { children: ReactNode }) => {
   const [statusReward, setStatusReward] = useState<
     "success" | "error" | undefined
   >(undefined);
+  const [visibleModalMesReward, setVisibleModalMesReward] = useState(false);
 
   const [isLoadingWithdraw, setIsLoadingWithdraw] = useState(false);
   const [isLoadingWithdrawAll, setIsLoadingWithdrawAll] = useState(false);
@@ -77,54 +82,58 @@ export const MainProvider = ({ children }: { children: ReactNode }) => {
   const [statusWithdraw, setStatusWithdraw] = useState<
     "success" | "error" | undefined
   >(undefined);
+  const [visibleModalMesWithdraw, setVisibleModalMesWithdraw] = useState(false);
 
-  const closeMessage = (
-    setVisibleModalMes: Dispatch<SetStateAction<boolean>>,
-    setStatus: Dispatch<SetStateAction<"success" | "error" | undefined>>
-  ) => {
-    setVisibleModalMes(false);
-    setStatus(undefined);
-  };
+  const location = useLocation();
 
   useEffect(() => {
-    setVisibleModalMes(false);
+    setVisibleModalMesStake(false);
+    let timer: NodeJS.Timeout | undefined;
+
     if (statusStake === "success" || statusStake === "error") {
-      setVisibleModalMes(true);
-      const timer = setTimeout(() => {
-        closeMessage(setVisibleModalMes, setStatusStake);
-      }, 5000);
-
-      return () => clearTimeout(timer);
+      setVisibleModalMesStake(true);
+      if (location.pathname === "/") {
+        timer = setTimeout(() => {
+          setVisibleModalMesStake(false);
+          setStatusStake(undefined);
+        }, 5000);
+      }
     }
-  }, [statusStake]);
+
+    return () => clearTimeout(timer);
+  }, [statusStake, location]);
 
   useEffect(() => {
-    setVisibleModalMes(false);
+    setVisibleModalMesReward(false);
+    let timer: NodeJS.Timeout | undefined;
 
     if (statusReward === "success" || statusReward === "error") {
-      setVisibleModalMes(true);
-
-      const timer = setTimeout(() => {
-        closeMessage(setVisibleModalMes, setStatusReward);
-      }, 5000);
-
+      setVisibleModalMesReward(true);
+      if (location.pathname === "/claim") {
+        timer = setTimeout(() => {
+          setVisibleModalMesReward(false);
+          setStatusReward(undefined);
+        }, 5000);
+      }
       return () => clearTimeout(timer);
     }
-  }, [statusReward]);
+  }, [statusReward, location]);
 
   useEffect(() => {
-    setVisibleModalMes(false);
+    setVisibleModalMesWithdraw(false);
 
     if (statusWithdraw === "success" || statusWithdraw === "error") {
-      setVisibleModalMes(true);
-
-      const timer = setTimeout(() => {
-        closeMessage(setVisibleModalMes, setStatusWithdraw);
+      setVisibleModalMesWithdraw(true);
+      let timer: NodeJS.Timeout | undefined;
+      if (location.pathname === "/withdraw") {
+     timer = setTimeout(() => {
+        setVisibleModalMesWithdraw(false);
+        setStatusWithdraw(undefined);
       }, 5000);
-
+    }
       return () => clearTimeout(timer);
     }
-  }, [statusWithdraw]);
+  }, [statusWithdraw, location]);
 
   return (
     <MainContext.Provider
@@ -135,8 +144,8 @@ export const MainProvider = ({ children }: { children: ReactNode }) => {
         setStatusStake,
         amountStru,
         setAmountStru,
-        visibleModalMes,
-        setVisibleModalMes,
+        visibleModalMesStake,
+        setVisibleModalMesStake,
         isSubmitting,
         setIsSubmitting,
 
@@ -155,6 +164,8 @@ export const MainProvider = ({ children }: { children: ReactNode }) => {
         setIsGettingReward,
         statusReward,
         setStatusReward,
+        visibleModalMesReward,
+        setVisibleModalMesReward,
 
         isLoadingWithdraw,
         setIsLoadingWithdraw,
@@ -164,6 +175,8 @@ export const MainProvider = ({ children }: { children: ReactNode }) => {
         setIsGettingWithdraw,
         statusWithdraw,
         setStatusWithdraw,
+        visibleModalMesWithdraw,
+        setVisibleModalMesWithdraw,
       }}
     >
       {children}
