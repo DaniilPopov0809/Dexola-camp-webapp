@@ -1,7 +1,9 @@
+import  { useMemo } from "react";
 import MessageModal from "../MessageModal/MessageModal";
 import TextMessageModall from "../TextMessageModal/TextMessageModal";
 import MessageIcon from "../MessageIcon/MessageIcon";
 import { Oval } from "react-loader-spinner";
+import findTextError from "../../../helpers/utils/findTextError";
 
 import errorCross from "../../../images/errorCross.svg";
 import successCheck from "../../../images/successCheck.svg";
@@ -13,7 +15,9 @@ interface OperationFeedbackSectionProps {
   isVisible: boolean;
   titleStatus: string;
   textStatus: string;
+  errorMes: string;
   status: string | undefined;
+  currentTable?: boolean;
 }
 
 const OperationFeedbackSection = ({
@@ -23,11 +27,13 @@ const OperationFeedbackSection = ({
   isVisible,
   titleStatus,
   textStatus,
+  errorMes,
   status,
 }: OperationFeedbackSectionProps) => {
+  const isErrorMessage = useMemo(() => findTextError(errorMes), [errorMes]);
   return (
     <>
-      <MessageModal
+      { !status && isVisible &&  <MessageModal
         text={<TextMessageModall title={title} amount={amount} text={text} />}
         children={
           <Oval
@@ -45,14 +51,21 @@ const OperationFeedbackSection = ({
         }
         isLoading={isVisible}
       />
-      <MessageModal
+}
+      {status  && <MessageModal
         text={
           status === "success" ? (
             <TextMessageModall title={titleStatus} text={textStatus} />
           ) : (
             <TextMessageModall
-              title={"Connection Error."}
-              text={"Please try again"}
+              title={isErrorMessage ? "Failed." : "Connection Error."}
+              text={
+                isErrorMessage
+                  ? "User rejected the request"
+                  : "Please try again"
+              }
+              // title={"Connection Error."}
+              // text={"Please try again"}
             />
           )
         }
@@ -64,7 +77,7 @@ const OperationFeedbackSection = ({
           )
         }
         status={status}
-      />
+      />}
     </>
   );
 };

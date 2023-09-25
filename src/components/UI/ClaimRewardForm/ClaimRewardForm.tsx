@@ -1,8 +1,11 @@
-import { useState, useContext } from "react";
+// import { useState } from "react";
 // import { Formik, Form, FormikHelpers } from "formik";
 import { FormikHelpers } from "formik";
 import { formatEther } from "viem";
-import { AppContext } from "../../../context/AppContext";
+import {
+  useAppContextValue,
+  useMainContextValue,
+} from "../../../hooks/useContextValue";
 // import Rate from "../Rate/Rate";
 // import MainButton from "../MainButton/MainButton";
 // import ButtonLoader from "../ButtonLoader/ButtonLoader";
@@ -12,9 +15,10 @@ import OperationFeedbackSection from "../OperationFeedbackSection/OperationFeedb
 // import TextMessageModall from "../TextMessageModal/TextMessageModal";
 // import MessageIcon from "../MessageIcon/MessageIcon";
 import { claimReward, waitForOperation } from "../../../helpers/operations";
-// import { reduceDecimals } from "../../../helpers/utils";
+import { reduceDecimals } from "../../../helpers/utils";
 // import { Oval } from "react-loader-spinner";
 import { InitialValueType } from "../../../types";
+// import { reduceDecimals } from "../../../helpers/utils";
 // import styles from "./ClaimRewardForm.module.scss";
 
 // import errorCross from "../../../images/errorCross.svg";
@@ -25,13 +29,29 @@ const initialValues: InitialValueType = {
 };
 
 const ClaimRewardForm = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [status, setStatus] = useState<"success" | "error" | undefined>(
-    undefined
-  );
-  const [isGettingReward, setIsGettingReward] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [status, setStatus] = useState<"success" | "error" | undefined>(
+  //   undefined
+  // );
+  // const [isGettingReward, setIsGettingReward] = useState(false);
+  // const [errorMes, setErrorMes] = useState("");
 
-  const earned = useContext(AppContext)?.earned;
+  const { earned } = useAppContextValue();
+
+  const mainContext = useMainContextValue();
+  const {
+    isLoadingReward: isLoading,
+    setIsLoadingReward: setIsLoading,
+    isGettingReward,
+    setIsGettingReward,
+    errorMes,
+    setErrorMes,
+    statusReward: status,
+    setStatusReward: setStatus,
+  } = mainContext;
+
+  const formattedEarned = earned ? formatEther(earned) : "0.00";
+  const reducedEarned = reduceDecimals(formattedEarned, 2);
 
   const handleSubmit = async (
     _values: InitialValueType,
@@ -39,12 +59,14 @@ const ClaimRewardForm = () => {
   ) => {
     setStatus(undefined);
     setIsLoading(true);
+    setErrorMes("");
     setSubmitting(true);
 
     const claimRewardsHash = await claimReward();
-    if (!claimRewardsHash) {
+    if (typeof claimRewardsHash === "object") {
       setIsLoading(false);
       setStatus("error");
+      setErrorMes(claimRewardsHash.error);
       return;
     }
     setIsGettingReward(true);
@@ -69,9 +91,10 @@ const ClaimRewardForm = () => {
         handleSubmit={handleSubmit}
         validationForm={false}
         text={"claim rewards"}
-        struBalance={earned ? formatEther(earned) : undefined}
+        struBalance={reducedEarned}
+        fullStruBalance={formattedEarned}
         isLoading={isLoading}
-        isDisable={!earned || +formatEther(earned) === 0}
+        isDisable={!earned || +formatEther(earned) === 0 || isLoading}
         isShowInput={false}
         cls={"rewards__reteWrap"}
       />
@@ -81,6 +104,7 @@ const ClaimRewardForm = () => {
         isVisible={isGettingReward}
         titleStatus={"Successfully"}
         textStatus={"climed reward"}
+        errorMes={errorMes}
         status={status}
       />
       {/* <Formik initialValues={initialValues} onSubmit={handleSubmit}>

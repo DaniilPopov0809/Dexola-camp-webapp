@@ -1,5 +1,5 @@
 import { useWeb3Modal } from "@web3modal/react";
-import { useAccount } from "wagmi";
+import { useAppContextValue } from "../../hooks/useContextValue";
 import Info from "../UI/Info/Info";
 import ButtonLoader from "../UI/ButtonLoader/ButtonLoader";
 import BalanceItem from "../UI/BalanceItem/BalanceItem";
@@ -10,11 +10,10 @@ import styles from "./Header.module.scss";
 
 const Header = () => {
   const { open, isOpen } = useWeb3Modal();
-  const { isConnected } = useAccount();
+  const isConnected = useAppContextValue().account?.isConnected;
 
   return (
     <header className={styles.header}>
-      {/* <div className={`container`}> */}
       <div className={`additionalСontainer ${styles.header__links}`}>
         <a className={styles.header__linkLogo} href="/">
           <img src={logo} alt="logo" width={35} height={20} />
@@ -40,7 +39,6 @@ const Header = () => {
       </div>
       <Info />
       <NavigationMenu />
-      {/* </div> */}
     </header>
   );
 };

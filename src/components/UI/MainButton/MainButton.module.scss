@@ -62,7 +62,7 @@ button.infoWallet {
   // border-radius: 4px;
 
   font-family: "Kanit", sans-serif;
-  @include fontStyle(12px, $mediumWeight, "normal", 0.0075rem);
+  @include fontStyle(0.75rem, $mediumWeight, "normal", 0.0075rem);
 
   background-color: transparent;
 
@@ -72,7 +72,7 @@ button.infoWallet {
 
   @media screen and (min-width: $tablet) {
     padding: 8px 0;
-    @include fontStyle(14px, 600, 1.14);
+    @include fontStyle(0.75rem, $semiboldWeight, 1.14);
   }
 }
 

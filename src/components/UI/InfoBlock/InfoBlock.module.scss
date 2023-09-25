@@ -52,7 +52,7 @@
 //   }
 // }
 
-.infoBlock__button {
+.infoBlock__help {
   grid-area: help;
   position: relative;
   padding: 0;
@@ -67,12 +67,11 @@
   background-color: transparent;
   cursor: pointer;
 
- @media screen and (min-width: $tablet) {
+  @media screen and (min-width: $tablet) {
     width: 16px;
     height: 16px;
     margin-bottom: 9px;
-    
-  } 
+  }
 
   @media screen and (min-width: $desktop) {
     width: 24px;
@@ -81,7 +80,7 @@
   }
 }
 
-.infoBlock__button::before {
+.infoBlock__help::before {
   content: "";
   position: absolute;
   top: 50%;
@@ -98,7 +97,6 @@
     background-image: url("../../../images/helpIconWhite.svg");
     width: 16px;
     height: 16px;
-    
   }
 
   @media screen and (min-width: $desktop) {
@@ -118,32 +116,37 @@
 }
 
 .infoBlock__count {
-  @include fontStyle(18px, 700, "normal", -0.36px);
+  @include fontStyle(
+    $infoCountMobileFontsize,
+    $boldWeight,
+    "normal",
+    -0.0225rem
+  );
 
   @media screen and (min-width: $tablet) {
-    @include fontStyle(28px, 700, 1.71);
+    @include fontStyle($infoCountTabletFontsize, $boldWeight, 1.71);
   }
 
   @media screen and (min-width: $desktop) {
     // margin-right: 12px;
-    @include fontStyle(36px, 700, 1.33);
+    @include fontStyle($infoCountDesktopFontsize, $boldWeight, 1.33);
   }
 }
 
 .infoBlock__stru {
   margin-left: 4px;
-  @include fontStyle(12px, $normalWeight, 1.66);
+  @include fontStyle($infoMobileFontsize, $normalWeight, 1.66);
   text-transform: uppercase;
   align-self: self-end;
 
   @media screen and (min-width: $tablet) {
     margin-left: 8px;
-    @include fontStyle(16px, $normalWeight, 1.25);
+    @include fontStyle($infoTabletFontsize, $normalWeight, 1.25);
     margin-bottom: 9px;
   }
 
   @media screen and (min-width: $desktop) {
-    @include fontStyle(16px, $normalWeight, 2);
+    @include fontStyle($infoDesktopFontsize, $normalWeight, 2);
     margin-bottom: 0;
   }
 }
@@ -151,11 +154,21 @@
 .infoBlock__title {
   grid-area: title;
 
-  @include fontStyle(12px, $normalWeight, "normal", -0.24px);
+  @include fontStyle(
+    $infoMobileFontsize,
+    $normalWeight,
+    "normal",
+    $infoLetterSpacingMobile
+  );
   white-space: nowrap;
 
   @media screen and (min-width: $tablet) {
-    @include fontStyle(16px, $normalWeight, "normal", -0.32px);
+    @include fontStyle(
+      $infoTabletFontsize,
+      $normalWeight,
+      "normal",
+      $infoLetterSpacingTablet
+    );
   }
 
   @media screen and (min-width: $tablet) {

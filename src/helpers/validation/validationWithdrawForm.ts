@@ -1,5 +1,6 @@
 import * as Yup from "yup";
 import { InitialValueType } from "../../types";
+import { fetchedStakeBalance } from "../operations";
 import { checkMinValue, checkMaxValue, isValidDecimal } from "../utils";
 
 const validationWithdrawForm: Yup.Schema<InitialValueType> = Yup.object({
@@ -16,7 +17,7 @@ const validationWithdrawForm: Yup.Schema<InitialValueType> = Yup.object({
       "maxAmount",
       "The amount must not exceed the staked balance",
       async (value) => {
-        return checkMaxValue(value);
+        return checkMaxValue(value, fetchedStakeBalance);
       }
     ),
 });

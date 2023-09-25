@@ -1,5 +1,8 @@
-import { useEffect, useState } from "react";
-import { useContextValue } from "../../../hooks/useContextValue";
+import { useMemo } from "react";
+import {
+  useAppContextValue,
+  useMainContextValue,
+} from "../../../hooks/useContextValue";
 // import { Formik, Form, Field, FormikHelpers, FieldProps } from "formik";
 import { FormikHelpers } from "formik";
 import { formatEther } from "viem";
@@ -12,7 +15,7 @@ import OperationFeedbackSection from "../OperationFeedbackSection/OperationFeedb
 // import TextMessageModall from "../TextMessageModal/TextMessageModal";
 // import MessageIcon from "../MessageIcon/MessageIcon";
 // import FieldInput from "../FieldInput/FieldInput";
-// import { reduceDecimals } from "../../../helpers/utils";
+import { reduceDecimals } from "../../../helpers/utils";
 import {
   approveTransaction,
   stakedTokens,
@@ -26,57 +29,77 @@ import { InitialValueType } from "../../../types";
 // import successCheck from "../../../images/successCheck.svg";
 
 const StakeForm = () => {
-  const [allowance, setAllowance] = useState(0n);
-  const [isLoading, setIsLoading] = useState(false);
-  const [status, setStatus] = useState<"success" | "error" | undefined>(
-    undefined
+  // const [allowance, setAllowance] = useState(0n);
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [status, setStatus] = useState<"success" | "error" | undefined>(
+  //   undefined
+  // );
+  // const [amountStru, setAmountStru] = useState("");
+  // const [isSendingToken, setIsSendingToken] = useState(false);
+  // const [isApproving, setIsApproving] = useState(false);
+  // const [endOperation, setEndOperation] = useState<
+  //   "stake" | "approve" | undefined
+  // >(undefined);
+  // const [errorMes, setErrorMes] = useState("");
+  const allowance = useAllowance();
+
+  const context = useAppContextValue();
+  const {struBalance} = context;
+  const {setInputValue} = context;
+
+  const mainContext = useMainContextValue();
+  const {
+    isLoadingStake: isLoading,
+    setIsLoadingStake: setIsLoading,
+    isSendingToken,
+    setIsSendingToken,
+    isApproving,
+    setIsApproving,
+    endOperation,
+    setEndOperation,
+    errorMes,
+    setErrorMes,
+    statusStake: status,
+    setStatusStake: setStatus,
+    amountStru,
+    setAmountStru,
+  } = mainContext;
+
+  // const setSubmitting = mainContext.setIsSubmitting
+
+  const reducedStruBalance = useMemo(
+    () => reduceDecimals(struBalance ? struBalance.formatted : "0.00", 2),
+    [struBalance]
   );
-  const [amountStru, setAmountStru] = useState("");
-  const [isSendingToken, setIsSendingToken] = useState(false);
-  const [isApproving, setIsApproving] = useState(false);
-  const [endOperation, setEndOperation] = useState<
-    "stake" | "approve" | undefined
-  >(undefined);
-
-  const context = useContextValue();
-
-  const struBalance = context?.struBalance;
-  const setInputValue = context.setInputValue;
-  const getAllowance = useAllowance();
-
-  useEffect(() => {
-    setAllowance(getAllowance);
-  }, [getAllowance]);
 
   const initialValues: InitialValueType = {
     amount: "",
   };
 
-  const handleError = () => {
-    setIsLoading(false);
-    setStatus("error");
-  };
-
   const handleSubmit = async (
     values: InitialValueType,
-    { setSubmitting }: FormikHelpers<InitialValueType>
+    { resetForm }: FormikHelpers<InitialValueType>
   ) => {
+    // setCurrentTable(true);
     setAmountStru(values.amount);
     setEndOperation(undefined);
     setIsLoading(true);
     setStatus(undefined);
     setIsApproving(false);
     setIsSendingToken(false);
-    setSubmitting(true);
+    setErrorMes("");
+    // setSubmitting(true);
 
     const allowanceToNumber = +formatEther(allowance);
 
     if (allowanceToNumber < +values.amount) {
       const approveHash = await approveTransaction(values.amount);
 
-      if (!approveHash) {
+      if (typeof approveHash === "object") {
+        setErrorMes(approveHash.error);
         setIsSendingToken(false);
-        handleError();
+        setIsLoading(false);
+        setStatus("error");
         return;
       }
       setIsApproving(true);
@@ -84,7 +107,8 @@ const StakeForm = () => {
 
       if (!isSuccessApprove) {
         setIsApproving(false);
-        handleError();
+        setIsLoading(false);
+        setStatus("error");
         return;
       }
       setStatus("success");
@@ -93,25 +117,33 @@ const StakeForm = () => {
     }
 
     const stakeHash = await stakedTokens(values.amount);
+    setEndOperation(undefined);
+    setErrorMes("");
     setStatus(undefined);
-    if (!stakeHash) {
+    if (typeof stakeHash === "object") {
+      setErrorMes(stakeHash.error);
       setIsSendingToken(false);
-      handleError();
+      setIsLoading(false);
+      setStatus("error");
       return;
     }
     setIsSendingToken(true);
     const isSuccessStake = await waitForOperation(stakeHash);
     if (!isSuccessStake) {
       setIsSendingToken(false);
-      handleError();
+      setIsLoading(false);
+      setStatus("error");
       return;
     }
+    setInputValue("");
     setIsSendingToken(false);
     setIsLoading(false);
     setStatus("success");
     setEndOperation("stake");
-    setInputValue("");
+    // setSubmitting(false);
+    resetForm();
   };
+
   return (
     <>
       <CommonForm
@@ -119,14 +151,15 @@ const StakeForm = () => {
         handleSubmit={handleSubmit}
         validationForm={validationStakeForm}
         text={"stake"}
-        struBalance={struBalance?.formatted}
+        struBalance={reducedStruBalance}
+        fullStruBalance={struBalance?.formatted}
         isLoading={isLoading}
-        isDisable={!struBalance || struBalance.value === 0n}
+        isDisable={isLoading || !struBalance || struBalance.value === 0n}
         isShowInput={true}
         formName="stake"
       />
       <OperationFeedbackSection
-        title={!isSendingToken ? "Approving" : "Adding"}
+        title={!isSendingToken ? "Approving operation" : "Adding"}
         amount={!isSendingToken ? "" : `${amountStru} STRU`}
         text={!isSendingToken ? "" : "to Staking"}
         isVisible={isSendingToken || isApproving}
@@ -138,6 +171,7 @@ const StakeForm = () => {
             ? "successfully added to Staking"
             : "successfully"
         }
+        errorMes={errorMes}
         status={status}
       />
 
