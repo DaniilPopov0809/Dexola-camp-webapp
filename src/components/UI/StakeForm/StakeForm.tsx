@@ -164,12 +164,12 @@ const StakeForm = () => {
         text={!isSendingToken ? "" : "to Staking"}
         isVisible={isSendingToken || isApproving}
         titleStatus={
-          endOperation === "stake" ? `${amountStru} STRU` : "Approve"
+          endOperation === "stake" ? `${amountStru} STRU` : "Successfully"
         }
         textStatus={
           endOperation === "stake"
             ? "successfully added to Staking"
-            : "successfully"
+            : "approve"
         }
         errorMes={errorMes}
         status={status}
