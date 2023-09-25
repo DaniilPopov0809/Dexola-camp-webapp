@@ -6,7 +6,7 @@
 
 ## Description of the project
 
-Decentralization of web applications with interaction with various contracts, at the Ethereum level.
+Decentralization of web applications with interaction with various contracts, at the Ethereum network.
 
 ## Implemented
 
