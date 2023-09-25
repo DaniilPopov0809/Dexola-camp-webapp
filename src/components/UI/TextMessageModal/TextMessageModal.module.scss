@@ -3,14 +3,17 @@
 
 .message {
   display: flex;
+  flex-direction: column;
   align-items: baseline;
-
+  // max-width: 295px;
   color: $whiteColor;
   @include fontStyle($bodyMobileFontsize, $normalWeight, 1.71);
 
   @media screen and (min-width: $tablet) {
+    flex-direction: row;
     font-size: $bodyTabletFontsize;
     line-height: 1.5;
+    // max-width: inherit;
   }
 }
 

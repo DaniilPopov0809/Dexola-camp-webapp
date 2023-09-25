@@ -1,4 +1,4 @@
-import { useState } from "react";
+// import { useState } from "react";
 // import { Formik, Form, Field, FormikHelpers, FieldProps } from "formik";
 import { FormikHelpers } from "formik";
 import { formatEther } from "viem";
@@ -12,7 +12,10 @@ import OperationFeedbackSection from "../OperationFeedbackSection/OperationFeedb
 // import TextMessageModall from "../TextMessageModal/TextMessageModal";
 // import MessageIcon from "../MessageIcon/MessageIcon";
 // import FieldInput from "../FieldInput/FieldInput";
-import { useContextValue } from "../../../hooks/useContextValue";
+import {
+  useAppContextValue,
+  useMainContextValue,
+} from "../../../hooks/useContextValue";
 import {
   withdrawTokens,
   waitForOperation,
@@ -31,20 +34,38 @@ const initialValues: InitialValueType = {
 };
 
 const WithdrawForm = () => {
-  const [isLoadingWithdraw, setIsLoadingWithdraw] = useState(false);
-  const [isLoadingWithdrawAll, setIsLoadingWithdrawAll] = useState(false);
-  const [isGettingWithdraw, setIsGettingWithdraw] = useState(false);
-  const [status, setStatus] = useState<"success" | "error" | undefined>(
-    undefined
-  );
-  const [amountStru, setAmountStru] = useState("");
-  const [errorMes, setErrorMes] = useState("");
+  // const [isLoadingWithdraw, setIsLoadingWithdraw] = useState(false);
+  // const [isLoadingWithdrawAll, setIsLoadingWithdrawAll] = useState(false);
+  // const [isGettingWithdraw, setIsGettingWithdraw] = useState(false);
+  // const [status, setStatus] = useState<"success" | "error" | undefined>(
+  //   undefined
+  // );
+  // const [amountStru, setAmountStru] = useState("");
+  // const [errorMes, setErrorMes] = useState("");
 
-  const stakeBalance = useContextValue().stakeBalance;
-  console.log("🚀 ~ file: WithdrawForm.tsx:44 ~ WithdrawForm ~ stakeBalance:", stakeBalance)
-    const formattedStakeBalance = stakeBalance ? formatEther(stakeBalance ): "0.00";
-   const reduceStakeBalance =  reduceDecimals(formattedStakeBalance, 2);
- 
+  const { stakeBalance } = useAppContextValue();
+
+  const mainContext = useMainContextValue();
+  const {
+    isLoadingWithdraw,
+    setIsLoadingWithdraw,
+    isLoadingWithdrawAll,
+    setIsLoadingWithdrawAll,
+    isGettingWithdraw,
+    setIsGettingWithdraw,
+    statusWithdraw: status,
+    setStatusWithdraw: setStatus,
+    amountStru,
+    setAmountStru,
+    errorMes,
+    setErrorMes,
+  } = mainContext;
+
+  const formattedStakeBalance = stakeBalance
+    ? formatEther(stakeBalance)
+    : "0.00";
+  const reduceStakeBalance = reduceDecimals(formattedStakeBalance, 2);
+
   const handleClick = async () => {
     setStatus(undefined);
     setAmountStru("");
@@ -73,13 +94,13 @@ const WithdrawForm = () => {
 
   const handleSubmit = async (
     values: InitialValueType,
-    { resetForm, setSubmitting }: FormikHelpers<InitialValueType>
+    { resetForm }: FormikHelpers<InitialValueType>
   ) => {
     setAmountStru(values.amount);
     setStatus(undefined);
     setIsLoadingWithdraw(true);
     setErrorMes("");
-    setSubmitting(true);
+    // setSubmitting(true);
 
     const withdrawHash = await withdrawTokens(values.amount);
     if (typeof withdrawHash === "object") {
@@ -96,12 +117,18 @@ const WithdrawForm = () => {
       setStatus("error");
       return;
     }
-    setSubmitting(false);
+    // setSubmitting(false);
     setIsLoadingWithdraw(false);
     setIsGettingWithdraw(false);
     setStatus("success");
     resetForm();
   };
+
+  const isDisable =
+    isLoadingWithdraw ||
+    isLoadingWithdrawAll ||
+    !stakeBalance ||
+    stakeBalance === 0n;
   return (
     <>
       <CommonForm
@@ -112,7 +139,7 @@ const WithdrawForm = () => {
         struBalance={reduceStakeBalance}
         fullStruBalance={formattedStakeBalance}
         isLoading={isLoadingWithdraw}
-        isDisable={isLoadingWithdraw || isLoadingWithdrawAll || !stakeBalance}
+        isDisable={isDisable}
         isShowInput={true}
         children={
           <MainButton
@@ -123,12 +150,7 @@ const WithdrawForm = () => {
               />
             }
             type="button"
-            disabled={
-              isLoadingWithdraw ||
-              isLoadingWithdrawAll ||
-              !stakeBalance ||
-              stakeBalance === 0n
-            }
+            disabled={isDisable}
             globalClassName={"linkButton"}
             localClassName={"form__aditionalButton"}
             additionalClassName={"form__buttonTextWrap"}

@@ -1,10 +1,21 @@
-import { fetchedBalance } from "../operations";
 import { parseEther } from "viem";
+import { FetchBalanceResult } from "@wagmi/core";
+import { checkMinValue } from ".";
 
-const checkMaxValue = async (value:string) :Promise<boolean>=> {
+const checkMaxValue = async (
+  value: string,
+  func: () => Promise<FetchBalanceResult | undefined>
+): Promise<boolean> => {
   try {
-    const balance = await fetchedBalance();
-    if (balance) {
+    if (!checkMinValue(value)) {
+      return false;
+    }
+    const balance = await func();
+    if (balance && +value > 0.000001) {
+      if (typeof balance === "bigint") {
+        const enteredValue = parseEther(value);
+        return enteredValue <= balance;
+      }
       const balanceValue = balance.value;
       const enteredValue = parseEther(value);
       return enteredValue <= balanceValue;
@@ -14,7 +25,6 @@ const checkMaxValue = async (value:string) :Promise<boolean>=> {
     console.error(error);
     return false;
   }
-
-}
+};
 
 export default checkMaxValue;

@@ -1,9 +1,10 @@
 import { getAccount } from '@wagmi/core';
-import { readContract } from '@wagmi/core'
+import { readContract } from '@wagmi/core';
+import { FetchBalanceResult } from "@wagmi/core";
 const {VITE_CONTRACT_ADDRESS} = import.meta.env;
 import contractAbi from "../../data/contractABI.json";
 
-const fetchedStakeBalance = async ():Promise<bigint|undefined> => {
+const fetchedStakeBalance = async ():Promise<FetchBalanceResult |undefined> => {
   try {
     const {isConnected, address} = getAccount();
 
@@ -16,7 +17,7 @@ const fetchedStakeBalance = async ():Promise<bigint|undefined> => {
       abi: contractAbi,
       functionName: 'balanceOf',
       args: [address],
-    }) as bigint
+    }) as FetchBalanceResult
    
     return data;
   } catch (error) {

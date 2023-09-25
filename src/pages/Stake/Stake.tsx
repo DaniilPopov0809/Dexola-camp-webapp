@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { useContextValue } from "../../hooks/useContextValue";
+import { useAppContextValue } from "../../hooks/useContextValue";
 import { useRewardRate } from "../../hooks/Abi";
 import { calculateRewardRate } from "../../helpers/utils";
 import { reduceDecimals } from "../../helpers/utils";
@@ -10,25 +10,27 @@ import Rate from "../../components/UI/Rate/Rate";
 import ToolTipMes from "../../components/UI/ToolTipMes/ToolTipMes";
 
 const Stake = () => {
-  const context = useContextValue();
-  const isConnected = context?.account?.isConnected;
-  const stakedBalance = context?.stakeBalance;
-  const periodFinish = context?.periodFinish;
-  const totalSupply = context?.totalSupply;
-  const userInputValue = context.inputValue;
   const rewardRate = useRewardRate();
+  const context = useAppContextValue();
+  const isConnected = context?.account?.isConnected;
+  const {
+    stakeBalance,
+    periodFinish,
+    totalSupply,
+    inputValue: userInputValue,
+  } = context;
 
   const [rate, setRate] = useState("0.00");
 
   useEffect(() => {
     if (
       totalSupply !== undefined &&
-      stakedBalance !== undefined &&
+      stakeBalance !== undefined &&
       periodFinish !== undefined &&
       rewardRate !== undefined
     ) {
       const currentRate = calculateRewardRate(
-        stakedBalance,
+        stakeBalance,
         periodFinish,
         rewardRate,
         totalSupply,
@@ -36,9 +38,9 @@ const Stake = () => {
       );
       setRate(currentRate);
     }
-  }, [stakedBalance, periodFinish, rewardRate, totalSupply, userInputValue]);
+  }, [stakeBalance, periodFinish, rewardRate, totalSupply, userInputValue]);
 
-  const reduceRate = useMemo(()=> reduceDecimals(rate, 2), [rate]);
+  const reduceRate = useMemo(() => reduceDecimals(rate, 2), [rate]);
 
   return (
     <section className="container mainSection">
@@ -61,10 +63,10 @@ const Stake = () => {
           />
           <StakeForm />
           <ToolTipMes
-              id={"fullRewardRate"}
-              position={"bottom"}
-              content={`Full reward rate: ${rate} STRU`}
-            />
+            id={"fullRewardRate"}
+            position={"bottom"}
+            content={`Full reward rate: ${rate} STRU`}
+          />
         </div>
       ) : (
         <NoWalletConnect />

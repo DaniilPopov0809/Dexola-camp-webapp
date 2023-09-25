@@ -17,6 +17,7 @@ interface OperationFeedbackSectionProps {
   textStatus: string;
   errorMes: string;
   status: string | undefined;
+  currentTable?: boolean;
 }
 
 const OperationFeedbackSection = ({
@@ -32,7 +33,7 @@ const OperationFeedbackSection = ({
   const isErrorMessage = useMemo(() => findTextError(errorMes), [errorMes]);
   return (
     <>
-      <MessageModal
+      { !status && isVisible &&  <MessageModal
         text={<TextMessageModall title={title} amount={amount} text={text} />}
         children={
           <Oval
@@ -50,7 +51,8 @@ const OperationFeedbackSection = ({
         }
         isLoading={isVisible}
       />
-      <MessageModal
+}
+      {status  && <MessageModal
         text={
           status === "success" ? (
             <TextMessageModall title={titleStatus} text={textStatus} />
@@ -75,7 +77,7 @@ const OperationFeedbackSection = ({
           )
         }
         status={status}
-      />
+      />}
     </>
   );
 };

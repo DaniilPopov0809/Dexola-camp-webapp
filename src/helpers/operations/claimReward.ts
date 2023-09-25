@@ -1,10 +1,15 @@
-import { writeContract, prepareWriteContract } from "@wagmi/core";
+import { writeContract, prepareWriteContract, getAccount } from "@wagmi/core";
 import contractAbi from "../../data/contractABI.json";
 import { TypeHash, errorType } from "../../types";
 const { VITE_CONTRACT_ADDRESS } = import.meta.env;
 
 const claimReward = async(): Promise<errorType | TypeHash> => {
   try {
+    const { isConnected } = getAccount();
+
+    if (!isConnected) {
+      throw new Error("Connect error!");
+    }
     const config = await prepareWriteContract({
       address: VITE_CONTRACT_ADDRESS,
       abi: contractAbi,

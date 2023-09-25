@@ -4,6 +4,7 @@ import FieldInput from "../FieldInput/FieldInput";
 import ToolTipMes from "../ToolTipMes/ToolTipMes";
 import Rate from "../Rate/Rate";
 import * as Yup from "yup";
+// import { useMainContextValue } from "../../../hooks/useContextValue";
 // import { reduceDecimals } from "../../../helpers/utils";
 import MainButton from "../MainButton/MainButton";
 import ButtonLoader from "../ButtonLoader/ButtonLoader";
@@ -42,14 +43,15 @@ const CommonForm = ({
   cls,
   children,
 }: CommonFormProps) => {
-
+  // const mainContext = useMainContextValue();
+  // const isSubmitting = mainContext.isSubmitting;
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={validationForm}
       onSubmit={handleSubmit}
     >
-      {({ isSubmitting }) => (
+      {/* {({ isSubmitting }) => ( */}
         <Form autoComplete="off">
           {isShowInput && (
             <Field name="amount">
@@ -86,7 +88,7 @@ const CommonForm = ({
             <MainButton
               children={<ButtonLoader text={`${text}`} isLoading={isLoading} />}
               type="submit"
-              disabled={isSubmitting || isDisable}
+              disabled={ isDisable}
               globalClassName={"linkButton"}
               localClassName={"form__button"}
               additionalClassName={"form__buttonTextWrap"}
@@ -94,7 +96,7 @@ const CommonForm = ({
             {children}
           </div>
         </Form>
-      )}
+      {/* )} */}
     </Formik>
   );
 };

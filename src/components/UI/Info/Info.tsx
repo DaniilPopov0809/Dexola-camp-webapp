@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import { useState, useMemo } from "react";
 import Title from "../Title/Title";
 import InfoBlock from "../InfoBlock/InfoBlock";
 import {
@@ -8,27 +8,32 @@ import {
   calculateStakeBalance,
 } from "../../../helpers/utils";
 import { useForwardsDuration } from "../../../hooks/Abi";
-import { useContextValue } from "../../../hooks/useContextValue";
+import { useAppContextValue } from "../../../hooks/useContextValue";
 import styles from "./Info.module.scss";
 
 const Info = () => {
-  const context = useContextValue();
-  const isConnected = context?.account?.isConnected;
-  const stakeBalance = context?.stakeBalance;
-  const totalSupply = context?.totalSupply;
-  const periodFinish = context?.periodFinish;
-  const earned = context?.earned;
   const rewardsForDuration = useForwardsDuration();
+  const context = useAppContextValue();
+  const isConnected = context?.account?.isConnected;
+  const {stakeBalance,totalSupply, periodFinish, earned}  = context;
 
   const [days, setDays] = useState(0);
   const [apr, setApr] = useState(0);
 
-  useEffect(() => {
+  useMemo(() => {
     if (rewardsForDuration && totalSupply && periodFinish) {
       setApr(calculateApr(rewardsForDuration, totalSupply));
-      setDays( isConnected ? calculateDays(periodFinish) : 0);
+      setDays(isConnected ? calculateDays(periodFinish) : 0);
     }
   }, [rewardsForDuration, totalSupply, periodFinish, isConnected]);
+
+  // const reduceStakeBalance = useMemo(
+  //   () => reduceDecimals(stakeBalance ? calculateStakeBalance(stakeBalance): "0.00", 2),
+  //   [stakeBalance]
+  // );
+
+  // let apr = 0;
+  // let days = 0;
   // if (
   //   // stakeBalance &&
   //   rewardsForDuration &&
@@ -39,8 +44,6 @@ const Info = () => {
   //   apr = calculateApr(rewardsForDuration, totalSupply);
   //   days = isConnected ? calculateDays(periodFinish) : 0;
   // }
-
- 
 
   return (
     <section className={`container ${styles.info}`}>
