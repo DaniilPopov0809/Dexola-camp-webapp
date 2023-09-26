@@ -88,15 +88,13 @@ export const MainProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     setVisibleModalMesStake(false);
-    // let timer: NodeJS.Timeout | undefined;
 
     if (statusStake === "success" || statusStake === "error") {
       setVisibleModalMesStake(true);
-      // if (location.pathname === "/") {
       const timer = setTimeout(() => {
         setVisibleModalMesStake(false);
         setStatusStake(undefined);
-      }, 20000);
+      }, 5000);
       // }
       return () => clearTimeout(timer);
     }
@@ -104,15 +102,13 @@ export const MainProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     setVisibleModalMesReward(false);
-    // let timer: NodeJS.Timeout | undefined;
 
     if (statusReward === "success" || statusReward === "error") {
       setVisibleModalMesReward(true);
-      // if (location.pathname === "/claim") {
       const timer = setTimeout(() => {
         setVisibleModalMesReward(false);
         setStatusReward(undefined);
-      }, 20000);
+      }, 5000);
       // }
       return () => clearTimeout(timer);
     }
@@ -123,12 +119,10 @@ export const MainProvider = ({ children }: { children: ReactNode }) => {
 
     if (statusWithdraw === "success" || statusWithdraw === "error") {
       setVisibleModalMesWithdraw(true);
-      // let timer: NodeJS.Timeout | undefined;
-      // if (location.pathname === "/withdraw") {
       const timer = setTimeout(() => {
         setVisibleModalMesWithdraw(false);
         setStatusWithdraw(undefined);
-      }, 20000);
+      }, 5000);
 
       return () => clearTimeout(timer);
     }
