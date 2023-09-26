@@ -15,35 +15,18 @@ const Info = () => {
   const rewardsForDuration = useForwardsDuration();
   const context = useAppContextValue();
   const isConnected = context?.account?.isConnected;
-  const {stakeBalance,totalSupply, periodFinish, earned}  = context;
+  const { stakeBalance, totalSupply, periodFinish, earned } = context;
 
   const [days, setDays] = useState(0);
   const [apr, setApr] = useState(0);
-
+  
+  //calculete if value change
   useMemo(() => {
     if (rewardsForDuration && totalSupply && periodFinish) {
       setApr(calculateApr(rewardsForDuration, totalSupply));
       setDays(isConnected ? calculateDays(periodFinish) : 0);
     }
   }, [rewardsForDuration, totalSupply, periodFinish, isConnected]);
-
-  // const reduceStakeBalance = useMemo(
-  //   () => reduceDecimals(stakeBalance ? calculateStakeBalance(stakeBalance): "0.00", 2),
-  //   [stakeBalance]
-  // );
-
-  // let apr = 0;
-  // let days = 0;
-  // if (
-  //   // stakeBalance &&
-  //   rewardsForDuration &&
-  //   totalSupply &&
-  //   periodFinish
-  //   //&& earned
-  // ) {
-  //   apr = calculateApr(rewardsForDuration, totalSupply);
-  //   days = isConnected ? calculateDays(periodFinish) : 0;
-  // }
 
   return (
     <section className={`container ${styles.info}`}>

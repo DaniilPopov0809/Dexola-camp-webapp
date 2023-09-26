@@ -8,11 +8,13 @@ import {
 } from "react";
 
 type MainContextType = {
-  visibleModalMes: boolean;
-  setVisibleModalMes: Dispatch<SetStateAction<boolean>>;
-  isSubmitting: boolean;
-  setIsSubmitting: Dispatch<SetStateAction<boolean>>;
+  amountStru: string;
+  setAmountStru: Dispatch<SetStateAction<string>>;
+  errorMes: string;
+  setErrorMes: Dispatch<SetStateAction<string>>;
 
+  visibleModalMesStake: boolean;
+  setVisibleModalMesStake: Dispatch<SetStateAction<boolean>>;
   isLoadingStake: boolean;
   setIsLoadingStake: Dispatch<SetStateAction<boolean>>;
   isSendingToken: boolean;
@@ -21,12 +23,8 @@ type MainContextType = {
   setIsApproving: Dispatch<SetStateAction<boolean>>;
   endOperation: "stake" | "approve" | undefined;
   setEndOperation: Dispatch<SetStateAction<"stake" | "approve" | undefined>>;
-  errorMes: string;
-  setErrorMes: Dispatch<SetStateAction<string>>;
   statusStake: "success" | "error" | undefined;
   setStatusStake: Dispatch<SetStateAction<"success" | "error" | undefined>>;
-  amountStru: string;
-  setAmountStru: Dispatch<SetStateAction<string>>;
 
   isLoadingReward: boolean;
   setIsLoadingReward: Dispatch<SetStateAction<boolean>>;
@@ -34,6 +32,8 @@ type MainContextType = {
   setIsGettingReward: Dispatch<SetStateAction<boolean>>;
   statusReward: "success" | "error" | undefined;
   setStatusReward: Dispatch<SetStateAction<"success" | "error" | undefined>>;
+  visibleModalMesReward: boolean;
+  setVisibleModalMesReward: Dispatch<SetStateAction<boolean>>;
 
   isLoadingWithdraw: boolean;
   setIsLoadingWithdraw: Dispatch<SetStateAction<boolean>>;
@@ -43,6 +43,8 @@ type MainContextType = {
   setIsGettingWithdraw: Dispatch<SetStateAction<boolean>>;
   statusWithdraw: "success" | "error" | undefined;
   setStatusWithdraw: Dispatch<SetStateAction<"success" | "error" | undefined>>;
+  visibleModalMesWithdraw: boolean;
+  setVisibleModalMesWithdraw: Dispatch<SetStateAction<boolean>>;
 };
 
 export const MainContext = createContext<MainContextType | undefined>(
@@ -50,9 +52,7 @@ export const MainContext = createContext<MainContextType | undefined>(
 );
 
 export const MainProvider = ({ children }: { children: ReactNode }) => {
-  const [visibleModalMes, setVisibleModalMes] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
+  const [visibleModalMesStake, setVisibleModalMesStake] = useState(false);
   const [isLoadingStake, setIsLoadingStake] = useState(false);
   const [isSendingToken, setIsSendingToken] = useState(false);
   const [isApproving, setIsApproving] = useState(false);
@@ -70,6 +70,7 @@ export const MainProvider = ({ children }: { children: ReactNode }) => {
   const [statusReward, setStatusReward] = useState<
     "success" | "error" | undefined
   >(undefined);
+  const [visibleModalMesReward, setVisibleModalMesReward] = useState(false);
 
   const [isLoadingWithdraw, setIsLoadingWithdraw] = useState(false);
   const [isLoadingWithdrawAll, setIsLoadingWithdrawAll] = useState(false);
@@ -77,69 +78,57 @@ export const MainProvider = ({ children }: { children: ReactNode }) => {
   const [statusWithdraw, setStatusWithdraw] = useState<
     "success" | "error" | undefined
   >(undefined);
+  const [visibleModalMesWithdraw, setVisibleModalMesWithdraw] = useState(false);
 
-  const closeMessage = (
-    setVisibleModalMes: Dispatch<SetStateAction<boolean>>,
-    setStatus: Dispatch<SetStateAction<"success" | "error" | undefined>>
-  ) => {
-    setVisibleModalMes(false);
-    setStatus(undefined);
-  };
-
+  //timeout for notification
   useEffect(() => {
-    setVisibleModalMes(false);
+    setVisibleModalMesStake(false);
+    setVisibleModalMesReward(false);
+    setVisibleModalMesWithdraw(false);
+
+    let timer: NodeJS.Timeout | undefined;
+
     if (statusStake === "success" || statusStake === "error") {
-      setVisibleModalMes(true);
-      const timer = setTimeout(() => {
-        closeMessage(setVisibleModalMes, setStatusStake);
+      setVisibleModalMesStake(true);
+      timer = setTimeout(() => {
+        setVisibleModalMesStake(false);
+        setStatusStake(undefined);
       }, 5000);
-
-      return () => clearTimeout(timer);
     }
-  }, [statusStake]);
-
-  useEffect(() => {
-    setVisibleModalMes(false);
 
     if (statusReward === "success" || statusReward === "error") {
-      setVisibleModalMes(true);
-
-      const timer = setTimeout(() => {
-        closeMessage(setVisibleModalMes, setStatusReward);
+      setVisibleModalMesReward(true);
+      timer = setTimeout(() => {
+        setVisibleModalMesReward(false);
+        setStatusReward(undefined);
       }, 5000);
-
-      return () => clearTimeout(timer);
     }
-  }, [statusReward]);
-
-  useEffect(() => {
-    setVisibleModalMes(false);
 
     if (statusWithdraw === "success" || statusWithdraw === "error") {
-      setVisibleModalMes(true);
-
-      const timer = setTimeout(() => {
-        closeMessage(setVisibleModalMes, setStatusWithdraw);
+      setVisibleModalMesWithdraw(true);
+      timer = setTimeout(() => {
+        setVisibleModalMesWithdraw(false);
+        setStatusWithdraw(undefined);
       }, 5000);
 
       return () => clearTimeout(timer);
     }
-  }, [statusWithdraw]);
+  }, [statusStake, statusReward, statusWithdraw]);
 
   return (
     <MainContext.Provider
       value={{
-        errorMes,
-        setErrorMes,
-        statusStake,
-        setStatusStake,
+        //common state
         amountStru,
         setAmountStru,
-        visibleModalMes,
-        setVisibleModalMes,
-        isSubmitting,
-        setIsSubmitting,
+        errorMes,
+        setErrorMes,
 
+        //state for stake operation
+        statusStake,
+        setStatusStake,
+        visibleModalMesStake,
+        setVisibleModalMesStake,
         isLoadingStake,
         setIsLoadingStake,
         isSendingToken,
@@ -149,13 +138,17 @@ export const MainProvider = ({ children }: { children: ReactNode }) => {
         endOperation,
         setEndOperation,
 
+        //state for claim reward operation
         isLoadingReward,
         setIsLoadingReward,
         isGettingReward,
         setIsGettingReward,
         statusReward,
         setStatusReward,
+        visibleModalMesReward,
+        setVisibleModalMesReward,
 
+        //state for withdraw operation
         isLoadingWithdraw,
         setIsLoadingWithdraw,
         isLoadingWithdrawAll,
@@ -164,6 +157,8 @@ export const MainProvider = ({ children }: { children: ReactNode }) => {
         setIsGettingWithdraw,
         statusWithdraw,
         setStatusWithdraw,
+        visibleModalMesWithdraw,
+        setVisibleModalMesWithdraw,
       }}
     >
       {children}

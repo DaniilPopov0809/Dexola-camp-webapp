@@ -38,13 +38,15 @@
 
     left: 0 !important;
     top: 100vh !important;
+    
+    min-width: 320px !important;
 
     width: 100vw !important;
     height: 275px !important;
 
     transform: translateY(-100%) !important;
     transition: transform 1s ease-out !important;
-    
+
     will-change: transform !important;
     background-color: $whiteColor !important;
 

@@ -20,9 +20,8 @@
   padding: 8px 0;
 
   color: $whiteColor;
-  font-family: 'Roboto Mono', monospace;
+  font-family: "Roboto Mono", monospace;
   @include fontStyle(0.875rem, $mediumWeight, 1.71, 0.0175rem);
-
 
   background-color: transparent;
   border: none;

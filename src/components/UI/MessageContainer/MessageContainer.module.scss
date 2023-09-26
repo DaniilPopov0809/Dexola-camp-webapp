@@ -1,0 +1,14 @@
+@import "../../../styles/common/variables";
+@import "../../../styles/common/mixins";
+
+.messageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: $backgroundColor;
+  border-radius: 8px;
+
+  padding: 8px 16px;
+  margin-bottom: 10px;
+}

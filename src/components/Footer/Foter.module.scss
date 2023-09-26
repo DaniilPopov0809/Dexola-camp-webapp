@@ -2,10 +2,8 @@
 @import "../../styles/common/mixins";
 
 .footer {
-  min-width: 375px;
+  // min-width: 375px;
   margin-top: auto; //for footer to bottom
-  
-
 
   font-family: $bodyFont;
   @include fontStyle(0.6875rem, $normalWeight, "normal", -0.01375rem);
@@ -18,9 +16,6 @@
   }
   @media screen and (min-width: $desktop) {
     z-index: 2;
-    // padding-bottom: 25px;
-    // padding: 16px 40px 25px 40px;
-    // padding: 16px 0 25px 0;
   }
 }
 

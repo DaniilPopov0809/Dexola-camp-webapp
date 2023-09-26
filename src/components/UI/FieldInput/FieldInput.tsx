@@ -26,12 +26,13 @@ const FieldInput = ({
   const { form, ...inputProps } = props;
 
   const context = useAppContextValue();
-  const {setInputValue, inputValue} = context;
+  const { setInputValue, inputValue } = context;
+  
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!isNaN(+e.target.value)) {
       if (formName === "stake") {
-        setInputValue(e.target.value);
+          setInputValue(e.target.value);
       }
       field.onChange(e);
     }

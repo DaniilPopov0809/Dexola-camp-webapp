@@ -5,7 +5,7 @@
   display: flex;
   flex-direction: column;
   align-items: baseline;
-  // max-width: 295px;
+  margin-left: 16px;
   color: $whiteColor;
   @include fontStyle($bodyMobileFontsize, $normalWeight, 1.71);
 
@@ -13,18 +13,28 @@
     flex-direction: row;
     font-size: $bodyTabletFontsize;
     line-height: 1.5;
-    // max-width: inherit;
+  }
+}
+
+.message__container {
+  display: flex;
+  @media screen and (min-width: $tablet) {
+    
   }
 }
 
 .message__title {
   margin-right: 8px;
+  white-space: nowrap;
 }
 
 .message__amount {
   margin-right: 8px;
   font-weight: $boldWeight;
   line-height: 1.5;
+  white-space: nowrap;
 }
 
-
+.message__text {
+  white-space: nowrap;
+}

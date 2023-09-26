@@ -28,7 +28,6 @@ const ToolTipMes = ({ id, position, content, title }: ToolTipMesProps) => {
         variant={"light"}
         className={styles.mobileToolTip}
         classNameArrow={styles.arrow}
-        
       >
         {title && <span className={styles.mobileTitle}>{title}</span>}
         {content}

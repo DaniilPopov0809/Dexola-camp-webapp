@@ -4,7 +4,7 @@ import { TypeHash } from "../../types";
 const waitForOperation = async (hash: TypeHash) => {
   try {
     const { isConnected } = getAccount();
-    
+
     if (!isConnected) {
       throw new Error("Connect error!");
     }

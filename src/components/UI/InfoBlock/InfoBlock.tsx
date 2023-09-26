@@ -1,6 +1,5 @@
   import styles from "./InfoBlock.module.scss";
   import ToolTipMes from "../ToolTipMes/ToolTipMes";
-  // import helpIcon from "../../../images/helpIcon.svg";
 
   interface InfoBlockProps {
     showInfo: boolean;
@@ -26,14 +25,6 @@
           {showStru && <p className={styles.infoBlock__stru}>stru</p>}
         </div>
         {showInfo && (
-          // <img
-          //   src={helpIcon}
-          //   width="11px"
-          //   height="11px"
-          //   alt="About"
-          // className={styles.infoBlock__image}
-          // data-tooltip-id={tooltipId}
-          // />
           <span
             className={styles.infoBlock__help}
             

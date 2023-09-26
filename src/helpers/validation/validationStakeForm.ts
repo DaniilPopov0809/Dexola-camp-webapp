@@ -13,15 +13,14 @@ const validationStakeForm: Yup.Schema<InitialValueType> = Yup.object({
         return checkMinValue(value);
       }
     )
-    .test("maxDemicalPlace", "Incorect value",
-    (value) => {
+    .test("maxDemicalPlace", "Incorect value", (value) => {
       return isValidDecimal(value);
     })
     .test(
       "maxAmount",
       "The amount must not exceed the wallet balance",
       async (value) => {
-        return await checkMaxValue(value, fetchedBalance);
+       return await checkMaxValue(value, fetchedBalance);
       }
     ),
 });

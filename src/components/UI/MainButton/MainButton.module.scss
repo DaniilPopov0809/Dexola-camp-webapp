@@ -12,8 +12,6 @@
     background-color: $buttonHoverColor;
   }
 
-  
-
   @media screen and (min-width: $tablet) {
     padding: 12px 40px;
   }
@@ -33,11 +31,7 @@ button.form__aditionalButton {
   background-color: transparent;
   color: $whiteColor;
 
-  // &:hover {
-  //   scale: 1.01;
-  // }
-
-  @media screen and (max-width: $mobileEnd) {
+  @media screen and (max-width: $tabletEnd) {
     display: none;
   }
 }
@@ -49,7 +43,7 @@ button.form__aditionalButton {
 
 .noConnectWallet {
   width: 100%;
-  
+
   @media screen and (min-width: $tablet) {
     width: auto;
   }
@@ -59,16 +53,11 @@ button.infoWallet {
   display: flex;
   color: $whiteColor;
   padding: 8px 0;
-  // border-radius: 4px;
 
   font-family: "Kanit", sans-serif;
   @include fontStyle(0.75rem, $mediumWeight, "normal", 0.0075rem);
 
   background-color: transparent;
-
-  // &:hover {
-  //   background-color: $darkGreyColor;
-  // }
 
   @media screen and (min-width: $tablet) {
     padding: 8px 0;
@@ -83,56 +72,3 @@ button.infoWallet {
   align-items: center;
 }
 
-// button.infoWallet::before {
-//   position: absolute;
-//   top: 50%;
-//   left: 0;
-//   transform: translate(0, -50%);
-//   content: "";
-//   background-image: url("../../../images/ethLogo.svg");
-//   background-repeat: no-repeat;
-//   width: 24px;
-//   height: 24px;
-//   border-radius: 50%;
-
-//   @media screen and (min-width: $tablet) {
-//     width: 32px;
-//     height: 32px;
-//     // left: 32px;
-//   }
-// }
-
-// button.infoWallet::after {
-//   position: absolute;
-//   top: 50%;
-//   left: 0;
-//   transform: translate(0, -50%);
-//   content: "";
-//   background-image: url("../../../images/ethLogo.svg");
-//   background-repeat: no-repeat;
-//   width: 24px;
-//   height: 24px;
-//   border-radius: 50%;
-
-//   @media screen and (min-width: $tablet) {
-//     width: 32px;
-//     height: 32px;
-//     // left: 32px;
-//   }
-// }
-
-
-// .form__buttonTextWrap {
-//   position: relative;
-//   display: inline-block;
-// }
-
-// .form__buttonTextWrap::before {
-//   content: "";
-//   position: absolute;
-//   width: 24px;
-//   height: 1.5px;
-//   top: 50%;
-//   left: -35px;
-//   background: $whiteColor;
-// }
