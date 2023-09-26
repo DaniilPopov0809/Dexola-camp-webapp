@@ -19,14 +19,35 @@ const Info = () => {
 
   const [days, setDays] = useState(0);
   const [apr, setApr] = useState(0);
-  
+  const [balanceMemo, setBalanceMemo] = useState("0.00");
+  const [earnedMemo, setEarnedMemo] = useState("0.00");
+
   //calculete if value change
   useMemo(() => {
     if (rewardsForDuration && totalSupply && periodFinish) {
       setApr(calculateApr(rewardsForDuration, totalSupply));
       setDays(isConnected ? calculateDays(periodFinish) : 0);
     }
-  }, [rewardsForDuration, totalSupply, periodFinish, isConnected]);
+
+    if (stakeBalance) {
+      const result = calculateRewards(stakeBalance);
+      setBalanceMemo(result);
+    }
+  }, [
+    rewardsForDuration,
+    totalSupply,
+    periodFinish,
+    isConnected,
+    stakeBalance,
+  ]);
+
+  //calculete if value change
+  useMemo(() => {
+    if (earned) {
+      const result = calculateStakeBalance(earned);
+      setEarnedMemo(result);
+    }
+  }, [earned]);
 
   return (
     <section className={`container ${styles.info}`}>
@@ -40,9 +61,7 @@ const Info = () => {
         <InfoBlock
           showInfo={true}
           showStru={true}
-          count={`${
-            stakeBalance ? calculateStakeBalance(stakeBalance) : "0.00"
-          }`}
+          count={`${balanceMemo}`}
           title={"Staked balance"}
           messageToolTip={"Staking rewards get allocated on this sum"}
           tooltipId={"toolTip1"}
@@ -66,7 +85,7 @@ const Info = () => {
         <InfoBlock
           showInfo={true}
           showStru={true}
-          count={`${earned ? calculateRewards(earned) : 0}`}
+          count={earnedMemo}
           title={"Rewards"}
           messageToolTip={"Rewards get allocated every second"}
           tooltipId={"toolTip3"}
