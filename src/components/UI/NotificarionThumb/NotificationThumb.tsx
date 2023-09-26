@@ -25,11 +25,11 @@ const NotificationThumb = () => {
         text={!isSendingToken ? "" : "to Staking"}
         isVisible={isSendingToken || isApproving}
         titleStatus={
-          endOperation === "stake" ? `${amountStru} STRU` : "Successfully"
+          endOperation === "stake" ? `${amountStru} STRU successfully` : "Successfully"
         }
         textStatus={
           endOperation === "stake"
-            ? "successfully added to Staking"
+            ? "added to Staking"
             : "approved"
         }
         errorMes={errorMes}

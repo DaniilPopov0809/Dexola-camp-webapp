@@ -23,7 +23,7 @@ const MessageContainer = ({
 
   return (
     <div
-      className={`${styles.MessageContainer} ${
+      className={`${styles.messageContainer} ${
         visibleModalMesStake ||
         visibleModalMesWithdraw ||
         visibleModalMesReward ||

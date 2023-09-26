@@ -96,7 +96,7 @@ export const MainProvider = ({ children }: { children: ReactNode }) => {
       const timer = setTimeout(() => {
         setVisibleModalMesStake(false);
         setStatusStake(undefined);
-      }, 5000);
+      }, 20000);
       // }
       return () => clearTimeout(timer);
     }
@@ -112,7 +112,7 @@ export const MainProvider = ({ children }: { children: ReactNode }) => {
       const timer = setTimeout(() => {
         setVisibleModalMesReward(false);
         setStatusReward(undefined);
-      }, 5000);
+      }, 20000);
       // }
       return () => clearTimeout(timer);
     }
@@ -128,7 +128,7 @@ export const MainProvider = ({ children }: { children: ReactNode }) => {
       const timer = setTimeout(() => {
         setVisibleModalMesWithdraw(false);
         setStatusWithdraw(undefined);
-      }, 5000);
+      }, 20000);
 
       return () => clearTimeout(timer);
     }
