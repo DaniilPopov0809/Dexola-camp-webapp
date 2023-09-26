@@ -2,7 +2,6 @@
 
 .thumb {
   position: absolute;
-  // z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -25,7 +24,6 @@
   }
 
   @media screen and (min-width: $desktop) {
-    // right: 0px;
     bottom: 93px;
   }
 }
