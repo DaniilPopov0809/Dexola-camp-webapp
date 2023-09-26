@@ -20,7 +20,7 @@ const validationStakeForm: Yup.Schema<InitialValueType> = Yup.object({
       "maxAmount",
       "The amount must not exceed the wallet balance",
       async (value) => {
-        return await checkMaxValue(value, fetchedBalance);
+       return await checkMaxValue(value, fetchedBalance);
       }
     ),
 });

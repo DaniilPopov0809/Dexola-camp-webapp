@@ -25,6 +25,8 @@ const checkMaxValue = async (
     console.error(error);
     return false;
   }
-};
+}
 
 export default checkMaxValue;
+
+

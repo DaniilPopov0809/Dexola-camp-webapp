@@ -20,7 +20,9 @@ const validationWithdrawForm: Yup.Schema<InitialValueType> = Yup.object({
       "maxAmount",
       "The amount must not exceed the staked balance",
       async (value) => {
-        return checkMaxValue(value, fetchedStakeBalance);
+        return  checkMaxValue(value, fetchedStakeBalance);
+
+        
       }
     ),
 });

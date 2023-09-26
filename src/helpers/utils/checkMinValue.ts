@@ -1,4 +1,6 @@
-const checkMinValue = (value: string): boolean => {
+import debounce from "lodash.debounce";
+
+const checkMinValue = debounce((value: string): boolean => {
   const valueToNumber = +value;
   if (
     isNaN(valueToNumber) ||
@@ -8,6 +10,6 @@ const checkMinValue = (value: string): boolean => {
     return false;
   }
   return true;
-};
+}, 300)
 
 export default checkMinValue;
