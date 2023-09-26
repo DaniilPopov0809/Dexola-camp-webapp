@@ -3,6 +3,7 @@ import { useAppContextValue } from "../../hooks/useContextValue";
 import { useRewardRate } from "../../hooks/Abi";
 import { calculateRewardRate } from "../../helpers/utils";
 import { reduceDecimals } from "../../helpers/utils";
+import { useDebouncedValue } from "@mantine/hooks";
 import NoWalletConnect from "../../components/UI/NoWalletConnect/NoWalletConnect";
 import StakeForm from "../../components/UI/StakeForm/StakeForm";
 import Title from "../../components/UI/Title/Title";
@@ -20,26 +21,32 @@ const Stake = () => {
     inputValue: userInputValue,
   } = context;
 
+  const [debounced] = useDebouncedValue(userInputValue, 200);
   const [rate, setRate] = useState("0.00");
 
   useEffect(() => {
-    if (
-      totalSupply !== undefined &&
-      stakeBalance !== undefined &&
-      periodFinish !== undefined &&
-      rewardRate !== undefined
-    ) {
-      const currentRate = calculateRewardRate(
-        stakeBalance,
-        periodFinish,
-        rewardRate,
-        totalSupply,
-        userInputValue
-      );
-      setRate(currentRate);
-    }
-  }, [stakeBalance, periodFinish, rewardRate, totalSupply, userInputValue]);
+    const currentRate = () => {
+      if (
+        totalSupply !== undefined &&
+        stakeBalance !== undefined &&
+        periodFinish !== undefined &&
+        rewardRate !== undefined
+      ) {
+        const result = calculateRewardRate(
+          stakeBalance,
+          periodFinish,
+          rewardRate,
+          totalSupply,
+          debounced
+        );
+        setRate(result);
+      }
+    };
 
+    currentRate();
+  }, [stakeBalance, periodFinish, rewardRate, totalSupply, debounced]);
+
+  //reduce if change value rate
   const reduceRate = useMemo(() => reduceDecimals(rate, 2), [rate]);
 
   return (

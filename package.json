@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mantine/core": "^7.0.2",
+    "@mantine/hooks": "^7.0.2",
     "@walletconnect/sign-client": "^2.9.2",
     "@web3modal/ethereum": "^2.7.1",
     "@web3modal/react": "^2.7.1",

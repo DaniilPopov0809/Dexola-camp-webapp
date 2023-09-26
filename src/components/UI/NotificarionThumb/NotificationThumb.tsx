@@ -47,7 +47,7 @@ const NotificationThumb = () => {
       />
 
       <Notification
-        title={"Claiming"}
+        title={"Claiming rewards"}
         text={"without Stake"}
         isVisible={isGettingReward}
         titleStatus={"Successfully"}
