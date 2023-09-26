@@ -31,12 +31,11 @@ const ClaimRewardForm = () => {
 
   const handleSubmit = async (
     _values: InitialValueType,
-    { resetForm, setSubmitting }: FormikHelpers<InitialValueType>
+    { resetForm}: FormikHelpers<InitialValueType>
   ) => {
     setStatus(undefined);
     setIsLoading(true);
     setErrorMes("");
-    setSubmitting(true);
 
     const claimRewardsHash = await claimReward();
     if (typeof claimRewardsHash === "object") {
@@ -53,7 +52,6 @@ const ClaimRewardForm = () => {
       setStatus("error");
       return;
     }
-    setSubmitting(false);
     setIsLoading(false);
     setIsGettingReward(false);
     setStatus("success");
