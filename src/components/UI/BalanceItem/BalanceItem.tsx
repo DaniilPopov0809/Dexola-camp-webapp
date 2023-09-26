@@ -13,6 +13,7 @@ const BalanceItem = () => {
   const { struBalance, ethBalance } = context;
   const address = context?.account?.address;
 
+  //to do if value balance change
   const { newAddress, reducedStruBalance, reducedEthBalance } = useMemo(() => {
     const newAddress = shortAddress(address ? address : "0.000");
     const reducedStruBalance = reduceDecimals(

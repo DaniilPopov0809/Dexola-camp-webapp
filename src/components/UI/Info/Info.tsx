@@ -19,7 +19,8 @@ const Info = () => {
 
   const [days, setDays] = useState(0);
   const [apr, setApr] = useState(0);
-
+  
+  //calculete if value change
   useMemo(() => {
     if (rewardsForDuration && totalSupply && periodFinish) {
       setApr(calculateApr(rewardsForDuration, totalSupply));

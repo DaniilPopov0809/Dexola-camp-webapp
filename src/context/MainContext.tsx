@@ -80,6 +80,7 @@ export const MainProvider = ({ children }: { children: ReactNode }) => {
   >(undefined);
   const [visibleModalMesWithdraw, setVisibleModalMesWithdraw] = useState(false);
 
+  //timeout for notification
   useEffect(() => {
     setVisibleModalMesStake(false);
     setVisibleModalMesReward(false);
@@ -92,7 +93,7 @@ export const MainProvider = ({ children }: { children: ReactNode }) => {
       timer = setTimeout(() => {
         setVisibleModalMesStake(false);
         setStatusStake(undefined);
-      }, 15000);
+      }, 5000);
     }
 
     if (statusReward === "success" || statusReward === "error") {
@@ -100,7 +101,7 @@ export const MainProvider = ({ children }: { children: ReactNode }) => {
       timer = setTimeout(() => {
         setVisibleModalMesReward(false);
         setStatusReward(undefined);
-      }, 15000);
+      }, 5000);
     }
 
     if (statusWithdraw === "success" || statusWithdraw === "error") {
@@ -108,7 +109,7 @@ export const MainProvider = ({ children }: { children: ReactNode }) => {
       timer = setTimeout(() => {
         setVisibleModalMesWithdraw(false);
         setStatusWithdraw(undefined);
-      }, 15000);
+      }, 5000);
 
       return () => clearTimeout(timer);
     }

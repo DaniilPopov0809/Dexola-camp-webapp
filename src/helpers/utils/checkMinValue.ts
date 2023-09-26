@@ -1,3 +1,4 @@
+//check min entered value in input
 const checkMinValue = (value: string): boolean => {
   const valueToNumber = +value;
   if (

@@ -1,3 +1,4 @@
+//checking the number of decimal placesk
 const isValidDecimal = (value: string): boolean => {
   const decimalPart = value.split(".")[1];
 

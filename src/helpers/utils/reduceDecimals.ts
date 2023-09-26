@@ -1,14 +1,4 @@
-// const reduceDecimals = (str: string, decimalPlaces: number): string => {
-//   const floatValue = parseFloat(str);
-//   if (!isNaN(floatValue)) {
-//     const fixedValue = floatValue.toFixed(decimalPlaces);
-//     return fixedValue;
-//   }
-//   return '0.00';
-// };
-
-// export default reduceDecimals;
-
+//balance conversions without rounding
 const reduceDecimals = (str: string, decimalPlaces: number): string => {
   if (str.indexOf(".") === -1) {
     return `${str}.00`;

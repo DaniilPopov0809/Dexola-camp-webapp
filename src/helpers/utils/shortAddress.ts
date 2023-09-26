@@ -1,3 +1,4 @@
+//short address wallet
 const shortAddress = (str: string): string => {
   return `${str.slice(0, 16)}...`;
 };
