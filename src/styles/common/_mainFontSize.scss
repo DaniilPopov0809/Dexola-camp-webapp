@@ -4,10 +4,8 @@
   line-height: normal;
   transition: font-size $animation;
 
-  @media screen and (min-width: $mobile) {
-    font-size: $bodyMobileFontsize;
-    letter-spacing: $letterSpacingMobile;
-  }
+  font-size: $bodyMobileFontsize;
+  letter-spacing: $letterSpacingMobile;
 
   @media screen and (min-width: $tablet) {
     font-size: $bodyTabletFontsize;

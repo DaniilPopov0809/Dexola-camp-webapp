@@ -31,7 +31,7 @@ button.form__aditionalButton {
   background-color: transparent;
   color: $whiteColor;
 
-  @media screen and (max-width: $mobileEnd) {
+  @media screen and (max-width: $tabletEnd) {
     display: none;
   }
 }
