@@ -14,9 +14,7 @@ const checkMaxValue = async (
     const balance = await func();
     if (balance || balance === 0n) {        //&& +value > 0.000001
       if (typeof balance === "bigint") {
-        console.log("🚀 ~ file: checkMaxValue.ts:17 ~ balance:", balance)
         const enteredValue = parseEther(value);
-        console.log("🚀 ~ file: checkMaxValue.ts:20 ~ enteredValue:", enteredValue)
         return enteredValue <= balance;
       }
       const balanceValue = balance.value;
