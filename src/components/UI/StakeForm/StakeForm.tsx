@@ -28,7 +28,7 @@ const StakeForm = () => {
     setIsSendingToken,
     setIsApproving,
     setEndOperation,
-    setErrorMes,
+    setErrorMesStake: setErrorMes,
     setStatusStake: setStatus,
     setAmountStru,
   } = mainContext;

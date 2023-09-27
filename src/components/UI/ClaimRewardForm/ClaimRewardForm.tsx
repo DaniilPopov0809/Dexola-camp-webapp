@@ -21,7 +21,7 @@ const ClaimRewardForm = () => {
     isLoadingReward: isLoading,
     setIsLoadingReward: setIsLoading,
     setIsGettingReward,
-    setErrorMes,
+    setErrorMesReward:setErrorMes,
     setStatusReward: setStatus,
   } = mainContext;
 

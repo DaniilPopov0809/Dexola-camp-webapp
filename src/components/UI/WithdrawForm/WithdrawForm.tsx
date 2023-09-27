@@ -31,7 +31,7 @@ const WithdrawForm = () => {
     setIsGettingWithdraw,
     setStatusWithdraw: setStatus,
     setAmountStru,
-    setErrorMes,
+    setErrorMesWithdraw:setErrorMes,
   } = mainContext;
 
   const formattedStakeBalance = stakeBalance
