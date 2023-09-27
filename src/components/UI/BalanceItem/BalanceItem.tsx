@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAppContextValue } from "../../../hooks/useContextValue";
 import useViewportWidth from "../../../hooks/useViewportWidth";
-import {
-  shortAddress,
-  convertTokens,
-} from "../../../helpers/utils";
+import { shortAddress, convertTokens } from "../../../helpers/utils";
 import styles from "./BalanceItem.module.scss";
 import struLogo from "../../../images/struLogo.jpg";
 import ethLogo from "../../../images/ethLogo.svg";
@@ -20,19 +17,13 @@ const BalanceItem = () => {
     context;
 
   const address = context?.account?.address;
-  const struBalaceValue = struBalance?.value;
-  const ethBalanceValue = ethBalance?.value;
 
   //to do if value balance change
   useEffect(() => {
     setNewAddress(shortAddress(address ? address : ""));
-    setStruBalanceMemo(
-      struBalaceValue ? convertTokens(struBalaceValue) : "0.00"
-    );
-    setReducedEthBalance(
-      ethBalanceValue ? convertTokens(ethBalanceValue) : "0.00"
-    );
-  }, [address, struBalaceValue, ethBalanceValue, setStruBalanceMemo]);
+    setStruBalanceMemo(struBalance ? convertTokens(struBalance.value) : "0.00");
+    setReducedEthBalance(ethBalance ? convertTokens(ethBalance.value) : "0.00");
+  }, [address, struBalance, ethBalance, setStruBalanceMemo]);
 
   return (
     <>

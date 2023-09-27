@@ -34,9 +34,7 @@ const Info = () => {
       setApr(calculateApr(rewardsForDuration, totalSupply));
       setDays(isConnected ? calculateDays(periodFinish) : 0);
     }
-    setStakeBalanceMemo(
-      stakeBalance || stakeBalance === 0n ? convertTokens(stakeBalance) : "0.00"
-    );
+    setStakeBalanceMemo(stakeBalance ? convertTokens(stakeBalance) : "0.00");
   }, [
     rewardsForDuration,
     totalSupply,
