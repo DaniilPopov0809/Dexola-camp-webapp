@@ -34,11 +34,9 @@ const Info = () => {
       setApr(calculateApr(rewardsForDuration, totalSupply));
       setDays(isConnected ? calculateDays(periodFinish) : 0);
     }
-
-    if (stakeBalance) {
-      const result = convertTokens(stakeBalance);
-      setStakeBalanceMemo(result);
-    }
+    setStakeBalanceMemo(
+      stakeBalance || stakeBalance === 0n ? convertTokens(stakeBalance) : "0.00"
+    );
   }, [
     rewardsForDuration,
     totalSupply,
@@ -49,8 +47,7 @@ const Info = () => {
   ]);
 
   useEffect(() => {
-    const result = earned ? convertTokens(earned) : "0.00";
-    setEarnedMemo(result);
+    setEarnedMemo(earned ? convertTokens(earned) : "0.00");
   }, [earned, setEarnedMemo]);
 
   return (
