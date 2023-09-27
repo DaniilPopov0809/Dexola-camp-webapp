@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useAppContextValue } from "../../../hooks/useContextValue";
 import useViewportWidth from "../../../hooks/useViewportWidth";
 import { reduceDecimals, shortAddress } from "../../../helpers/utils";
@@ -7,30 +7,41 @@ import struLogo from "../../../images/struLogo.jpg";
 import ethLogo from "../../../images/ethLogo.svg";
 
 const BalanceItem = () => {
+  const [newAddress, setNewAddress] = useState("");
+  const [reducedEthBalance, setReducedEthBalance] = useState("0.00");
+
   const viewportWidth = useViewportWidth();
 
   const context = useAppContextValue();
-  const { struBalance, ethBalance } = context;
+  const { struBalance, ethBalance, struBalanceMemo, setStruBalanceMemo } =
+    context;
   const address = context?.account?.address;
 
   //to do if value balance change
-  const { newAddress, reducedStruBalance, reducedEthBalance } = useMemo(() => {
-    const newAddress = shortAddress(address ? address : "0.000");
+  useMemo(() => {
+    const newAddress = shortAddress(address ? address : "");
+
+    setNewAddress(newAddress);
+
     const reducedStruBalance = reduceDecimals(
-      struBalance ? struBalance.formatted : "",
-      3
+      struBalance ? struBalance.formatted : "0.00",
+      2
     );
+
+    setStruBalanceMemo(reducedStruBalance);
+
     const reducedEthBalance = reduceDecimals(
-      ethBalance ? ethBalance.formatted : "0.000",
-      3
+      ethBalance ? ethBalance.formatted : "0.00",
+      2
     );
+    setReducedEthBalance(reducedEthBalance);
 
     return {
       newAddress,
       reducedStruBalance,
       reducedEthBalance,
     };
-  }, [address, struBalance, ethBalance]);
+  }, [address, struBalance, ethBalance, setStruBalanceMemo]);
 
   return (
     <>
@@ -43,7 +54,7 @@ const BalanceItem = () => {
       />
 
       <span className={styles.struBalance}>
-        {struBalance ? `${reducedStruBalance} STRU` : "STRU not found"}
+        {struBalance ? `${struBalanceMemo} STRU` : "STRU not found"}
       </span>
       <img
         src={ethLogo}

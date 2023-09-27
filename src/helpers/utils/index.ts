@@ -3,9 +3,8 @@ import calculateDays from "./calculateDays";
 import calculateRewardRate from "./calculateRewardRate";
 import reduceDecimals from "./reduceDecimals";
 import shortAddress from "./shortAddress";
-import calculateRewards from "./calculateRewards";
+import convertTokens from "./convertTokens";
 import timeStamp from "./timeStamp";
-import calculateStakeBalance from "./calculateStakeBalance";
 import checkMinValue from "./checkMinValue";
 import checkMaxValue from "./checkMaxValue";
 import isValidDecimal from "./isValidDecimal";
@@ -16,9 +15,8 @@ export {
   calculateRewardRate,
   reduceDecimals,
   shortAddress,
-  calculateRewards,
+  convertTokens,
   timeStamp,
-  calculateStakeBalance,
   checkMinValue,
   checkMaxValue,
   isValidDecimal,

@@ -4,8 +4,7 @@ import InfoBlock from "../InfoBlock/InfoBlock";
 import {
   calculateDays,
   calculateApr,
-  calculateRewards,
-  calculateStakeBalance,
+  convertTokens,
 } from "../../../helpers/utils";
 import { useForwardsDuration } from "../../../hooks/Abi";
 import { useAppContextValue } from "../../../hooks/useContextValue";
@@ -15,12 +14,19 @@ const Info = () => {
   const rewardsForDuration = useForwardsDuration();
   const context = useAppContextValue();
   const isConnected = context?.account?.isConnected;
-  const { stakeBalance, totalSupply, periodFinish, earned } = context;
+  const {
+    stakeBalance,
+    totalSupply,
+    periodFinish,
+    earned,
+    earnedMemo,
+    setEarnedMemo,
+    stakeBalanceMemo,
+    setStakeBalanceMemo,
+  } = context;
 
   const [days, setDays] = useState(0);
   const [apr, setApr] = useState(0);
-  const [balanceMemo, setBalanceMemo] = useState("0.00");
-  const [earnedMemo, setEarnedMemo] = useState("0.00");
 
   //calculete if value change
   useMemo(() => {
@@ -30,8 +36,8 @@ const Info = () => {
     }
 
     if (stakeBalance) {
-      const result = calculateRewards(stakeBalance);
-      setBalanceMemo(result);
+      const result = convertTokens(stakeBalance);
+      setStakeBalanceMemo(result);
     }
   }, [
     rewardsForDuration,
@@ -39,15 +45,14 @@ const Info = () => {
     periodFinish,
     isConnected,
     stakeBalance,
+    setStakeBalanceMemo,
   ]);
 
   //calculete if value change
   useMemo(() => {
-    if (earned) {
-      const result = calculateStakeBalance(earned);
-      setEarnedMemo(result);
-    }
-  }, [earned]);
+    const result = earned ? convertTokens(earned) : "0.00";
+    setEarnedMemo(result);
+  }, [earned, setEarnedMemo]);
 
   return (
     <section className={`container ${styles.info}`}>
@@ -61,7 +66,7 @@ const Info = () => {
         <InfoBlock
           showInfo={true}
           showStru={true}
-          count={`${balanceMemo}`}
+          count={`${stakeBalanceMemo}`}
           title={"Staked balance"}
           messageToolTip={"Staking rewards get allocated on this sum"}
           tooltipId={"toolTip1"}

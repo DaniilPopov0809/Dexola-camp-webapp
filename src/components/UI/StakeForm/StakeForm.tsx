@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import {
   useAppContextValue,
   useMainContextValue,
@@ -6,7 +5,6 @@ import {
 import { FormikHelpers } from "formik";
 import { formatEther } from "viem";
 import CommonForm from "../CommonForm/CommonForm";
-import { reduceDecimals } from "../../../helpers/utils";
 import {
   approveTransaction,
   stakedTokens,
@@ -20,7 +18,7 @@ const StakeForm = () => {
   const allowance = useAllowance();
 
   const context = useAppContextValue();
-  const { struBalance } = context;
+  const { struBalance, struBalanceMemo } = context;
   const { setInputValue } = context;
 
   const mainContext = useMainContextValue();
@@ -34,11 +32,6 @@ const StakeForm = () => {
     setStatusStake: setStatus,
     setAmountStru,
   } = mainContext;
-
-  const reducedStruBalance = useMemo(
-    () => reduceDecimals(struBalance ? struBalance.formatted : "0.00", 2),
-    [struBalance]
-  );
 
   const initialValues: InitialValueType = {
     amount: "",
@@ -116,7 +109,7 @@ const StakeForm = () => {
         handleSubmit={handleSubmit}
         validationForm={validationStakeForm}
         text={"stake"}
-        struBalance={reducedStruBalance}
+        struBalance={struBalanceMemo}
         fullStruBalance={struBalance?.formatted}
         isLoading={isLoading}
         isDisable={isLoading || !struBalance || struBalance.value === 0n}
