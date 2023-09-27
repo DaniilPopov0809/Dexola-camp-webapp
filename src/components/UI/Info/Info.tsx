@@ -1,11 +1,10 @@
-import { useState, useMemo } from "react";
+import { useState, useEffect } from "react";
 import Title from "../Title/Title";
 import InfoBlock from "../InfoBlock/InfoBlock";
 import {
   calculateDays,
   calculateApr,
-  calculateRewards,
-  calculateStakeBalance,
+  convertTokens,
 } from "../../../helpers/utils";
 import { useForwardsDuration } from "../../../hooks/Abi";
 import { useAppContextValue } from "../../../hooks/useContextValue";
@@ -15,18 +14,39 @@ const Info = () => {
   const rewardsForDuration = useForwardsDuration();
   const context = useAppContextValue();
   const isConnected = context?.account?.isConnected;
-  const { stakeBalance, totalSupply, periodFinish, earned } = context;
+  const {
+    stakeBalance,
+    totalSupply,
+    periodFinish,
+    earned,
+    earnedMemo,
+    setEarnedMemo,
+    stakeBalanceMemo,
+    setStakeBalanceMemo,
+  } = context;
 
   const [days, setDays] = useState(0);
   const [apr, setApr] = useState(0);
-  
+
   //calculete if value change
-  useMemo(() => {
+  useEffect(() => {
     if (rewardsForDuration && totalSupply && periodFinish) {
       setApr(calculateApr(rewardsForDuration, totalSupply));
       setDays(isConnected ? calculateDays(periodFinish) : 0);
     }
-  }, [rewardsForDuration, totalSupply, periodFinish, isConnected]);
+    setStakeBalanceMemo(stakeBalance ? convertTokens(stakeBalance) : "0.00");
+  }, [
+    rewardsForDuration,
+    totalSupply,
+    periodFinish,
+    isConnected,
+    stakeBalance,
+    setStakeBalanceMemo,
+  ]);
+
+  useEffect(() => {
+    setEarnedMemo(earned ? convertTokens(earned) : "0.00");
+  }, [earned, setEarnedMemo]);
 
   return (
     <section className={`container ${styles.info}`}>
@@ -40,9 +60,7 @@ const Info = () => {
         <InfoBlock
           showInfo={true}
           showStru={true}
-          count={`${
-            stakeBalance ? calculateStakeBalance(stakeBalance) : "0.00"
-          }`}
+          count={`${stakeBalanceMemo}`}
           title={"Staked balance"}
           messageToolTip={"Staking rewards get allocated on this sum"}
           tooltipId={"toolTip1"}
@@ -66,7 +84,7 @@ const Info = () => {
         <InfoBlock
           showInfo={true}
           showStru={true}
-          count={`${earned ? calculateRewards(earned) : 0}`}
+          count={earnedMemo}
           title={"Rewards"}
           messageToolTip={"Rewards get allocated every second"}
           tooltipId={"toolTip3"}

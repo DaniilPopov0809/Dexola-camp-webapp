@@ -3,16 +3,8 @@ html {
   @include customScrollbar($accentBlueColor, $backgroundColor);
 }
 
-
-
 body {
   background-color: $backgroundColor;
-//  @media screen and (max-width: $mobileEnd) {
-//   background-image: url("/src/images/background_mob.jpg");
-//   background-size: cover;
-//   background-repeat: no-repeat;
-//  }
-
 }
 
 h1,

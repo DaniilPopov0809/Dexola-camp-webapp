@@ -7,7 +7,6 @@ import {
 
 import CommonForm from "../CommonForm/CommonForm";
 import { claimReward, waitForOperation } from "../../../helpers/operations";
-import { reduceDecimals } from "../../../helpers/utils";
 import { InitialValueType } from "../../../types";
 
 const initialValues: InitialValueType = {
@@ -15,19 +14,18 @@ const initialValues: InitialValueType = {
 };
 
 const ClaimRewardForm = () => {
-  const { earned } = useAppContextValue();
+  const { earned, earnedMemo } = useAppContextValue();
 
   const mainContext = useMainContextValue();
   const {
     isLoadingReward: isLoading,
     setIsLoadingReward: setIsLoading,
     setIsGettingReward,
-    setErrorMes,
+    setErrorMesReward:setErrorMes,
     setStatusReward: setStatus,
   } = mainContext;
 
   const formattedEarned = earned ? formatEther(earned) : "0.00";
-  const reducedEarned = reduceDecimals(formattedEarned, 2);
 
   const handleSubmit = async (
     _values: InitialValueType,
@@ -65,10 +63,10 @@ const ClaimRewardForm = () => {
         handleSubmit={handleSubmit}
         validationForm={false}
         text={"claim rewards"}
-        struBalance={reducedEarned}
+        struBalance={earnedMemo}
         fullStruBalance={formattedEarned}
         isLoading={isLoading}
-        isDisable={!earned || +formatEther(earned) === 0 || isLoading}
+        isDisable={!earned || earned === 0n || isLoading}
         isShowInput={false}
         cls={"rewards__reteWrap"}
       />

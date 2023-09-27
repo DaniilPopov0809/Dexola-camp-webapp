@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { FormikHelpers } from "formik";
 import { formatEther } from "viem";
 import MainButton from "../MainButton/MainButton";
@@ -14,14 +15,13 @@ import {
 } from "../../../helpers/operations";
 import { validationWithdrawForm } from "../../../helpers/validation";
 import { InitialValueType } from "../../../types";
-import { reduceDecimals } from "../../../helpers/utils";
 
 const initialValues: InitialValueType = {
   amount: "",
 };
 
 const WithdrawForm = () => {
-  const { stakeBalance } = useAppContextValue();
+  const { stakeBalance, stakeBalanceMemo } = useAppContextValue();
 
   const mainContext = useMainContextValue();
   const {
@@ -32,13 +32,13 @@ const WithdrawForm = () => {
     setIsGettingWithdraw,
     setStatusWithdraw: setStatus,
     setAmountStru,
-    setErrorMes,
+    setErrorMesWithdraw: setErrorMes,
   } = mainContext;
 
-  const formattedStakeBalance = stakeBalance
-    ? formatEther(stakeBalance)
-    : "0.00";
-  const reduceStakeBalance = reduceDecimals(formattedStakeBalance, 2);
+  const formattedStakeBalance = useMemo(
+    () => (stakeBalance ? formatEther(stakeBalance) : "0.00"),
+    [stakeBalance]
+  );
 
   const handleClick = async () => {
     setStatus(undefined);
@@ -108,7 +108,7 @@ const WithdrawForm = () => {
         handleSubmit={handleSubmit}
         validationForm={validationWithdrawForm}
         text={"withdraw"}
-        struBalance={reduceStakeBalance}
+        struBalance={stakeBalanceMemo}
         fullStruBalance={formattedStakeBalance}
         isLoading={isLoadingWithdraw}
         isDisable={isDisable}

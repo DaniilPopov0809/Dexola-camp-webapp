@@ -12,7 +12,7 @@ const checkMaxValue = async (
       return false;
     }
     const balance = await func();
-    if (balance) {        //&& +value > 0.000001
+    if (balance || balance === 0n) {        //&& +value > 0.000001
       if (typeof balance === "bigint") {
         const enteredValue = parseEther(value);
         return enteredValue <= balance;

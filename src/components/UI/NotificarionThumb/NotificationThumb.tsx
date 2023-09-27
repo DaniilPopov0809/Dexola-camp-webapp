@@ -8,7 +8,9 @@ const NotificationThumb = () => {
     isSendingToken,
     isApproving,
     endOperation,
-    errorMes,
+    errorMesStake,
+    errorMesReward,
+    errorMesWithdraw,
     statusStake,
     statusReward,
     statusWithdraw,
@@ -32,7 +34,7 @@ const NotificationThumb = () => {
             ? "added to Staking"
             : "approved"
         }
-        errorMes={errorMes}
+        errorMes={errorMesStake}
         status={statusStake}
       />
       <Notification
@@ -42,17 +44,17 @@ const NotificationThumb = () => {
         isVisible={isGettingWithdraw}
         titleStatus={amountStru ? `${amountStru} STRU` : "All STRU"}
         textStatus={"successfully withdrawed"}
-        errorMes={errorMes}
+        errorMes={errorMesWithdraw}
         status={statusWithdraw}
       />
 
       <Notification
-        title={"Claiming"}
+        title={"Claiming rewards"}
         text={"without Stake"}
         isVisible={isGettingReward}
         titleStatus={"Successfully"}
         textStatus={"climed reward"}
-        errorMes={errorMes}
+        errorMes={errorMesReward}
         status={statusReward}
       />
     </div>

@@ -1,36 +1,29 @@
-import { useMemo } from "react";
+import { useEffect, useState } from "react";
 import { useAppContextValue } from "../../../hooks/useContextValue";
 import useViewportWidth from "../../../hooks/useViewportWidth";
-import { reduceDecimals, shortAddress } from "../../../helpers/utils";
+import { shortAddress, convertTokens } from "../../../helpers/utils";
 import styles from "./BalanceItem.module.scss";
 import struLogo from "../../../images/struLogo.jpg";
 import ethLogo from "../../../images/ethLogo.svg";
 
 const BalanceItem = () => {
+  const [newAddress, setNewAddress] = useState("");
+  const [reducedEthBalance, setReducedEthBalance] = useState("0.00");
+
   const viewportWidth = useViewportWidth();
 
   const context = useAppContextValue();
-  const { struBalance, ethBalance } = context;
+  const { struBalance, ethBalance, struBalanceMemo, setStruBalanceMemo } =
+    context;
+
   const address = context?.account?.address;
 
   //to do if value balance change
-  const { newAddress, reducedStruBalance, reducedEthBalance } = useMemo(() => {
-    const newAddress = shortAddress(address ? address : "0.000");
-    const reducedStruBalance = reduceDecimals(
-      struBalance ? struBalance.formatted : "",
-      3
-    );
-    const reducedEthBalance = reduceDecimals(
-      ethBalance ? ethBalance.formatted : "0.000",
-      3
-    );
-
-    return {
-      newAddress,
-      reducedStruBalance,
-      reducedEthBalance,
-    };
-  }, [address, struBalance, ethBalance]);
+  useEffect(() => {
+    setNewAddress(shortAddress(address ? address : ""));
+    setStruBalanceMemo(struBalance ? convertTokens(struBalance.value) : "0.00");
+    setReducedEthBalance(ethBalance ? convertTokens(ethBalance.value) : "0.00");
+  }, [address, struBalance, ethBalance, setStruBalanceMemo]);
 
   return (
     <>
@@ -43,7 +36,7 @@ const BalanceItem = () => {
       />
 
       <span className={styles.struBalance}>
-        {struBalance ? `${reducedStruBalance} STRU` : "STRU not found"}
+        {struBalance ? `${struBalanceMemo} STRU` : "STRU not found"}
       </span>
       <img
         src={ethLogo}

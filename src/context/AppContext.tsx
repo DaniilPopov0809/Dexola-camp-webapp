@@ -28,6 +28,12 @@ type AppContextType = {
   stakeBalance: bigint | undefined;
   inputValue: string | undefined;
   setInputValue: Dispatch<SetStateAction<string>>;
+  stakeBalanceMemo: string;
+  setStakeBalanceMemo: Dispatch<SetStateAction<string>>;
+  earnedMemo: string;
+  setEarnedMemo: Dispatch<SetStateAction<string>>;
+  struBalanceMemo: string;
+  setStruBalanceMemo: Dispatch<SetStateAction<string>>;
 };
 
 export const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -42,7 +48,11 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const stakeBalance = useStakeBalance();
 
   const [inputValue, setInputValue] = useState<string>("");
-  
+
+  const [stakeBalanceMemo, setStakeBalanceMemo] = useState("0.00");
+  const [earnedMemo, setEarnedMemo] = useState("0.00");
+  const [struBalanceMemo, setStruBalanceMemo] = useState("0.000");
+
   //clear input value
   const location = useLocation();
 
@@ -64,6 +74,12 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         stakeBalance,
         inputValue,
         setInputValue,
+        stakeBalanceMemo,
+        setStakeBalanceMemo,
+        earnedMemo,
+        setEarnedMemo,
+        struBalanceMemo,
+        setStruBalanceMemo,
       }}
     >
       {children}
