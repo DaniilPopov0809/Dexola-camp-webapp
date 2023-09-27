@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useEffect } from "react";
 import Title from "../Title/Title";
 import InfoBlock from "../InfoBlock/InfoBlock";
 import {
@@ -29,7 +29,7 @@ const Info = () => {
   const [apr, setApr] = useState(0);
 
   //calculete if value change
-  useMemo(() => {
+  useEffect(() => {
     if (rewardsForDuration && totalSupply && periodFinish) {
       setApr(calculateApr(rewardsForDuration, totalSupply));
       setDays(isConnected ? calculateDays(periodFinish) : 0);
@@ -48,8 +48,7 @@ const Info = () => {
     setStakeBalanceMemo,
   ]);
 
-  //calculete if value change
-  useMemo(() => {
+  useEffect(() => {
     const result = earned ? convertTokens(earned) : "0.00";
     setEarnedMemo(result);
   }, [earned, setEarnedMemo]);

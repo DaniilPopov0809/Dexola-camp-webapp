@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppContextValue } from "../../../hooks/useContextValue";
 import useViewportWidth from "../../../hooks/useViewportWidth";
 import { reduceDecimals, shortAddress } from "../../../helpers/utils";
@@ -18,7 +18,7 @@ const BalanceItem = () => {
   const address = context?.account?.address;
 
   //to do if value balance change
-  useMemo(() => {
+  useEffect(() => {
     const newAddress = shortAddress(address ? address : "");
 
     setNewAddress(newAddress);
@@ -36,11 +36,6 @@ const BalanceItem = () => {
     );
     setReducedEthBalance(reducedEthBalance);
 
-    return {
-      newAddress,
-      reducedStruBalance,
-      reducedEthBalance,
-    };
   }, [address, struBalance, ethBalance, setStruBalanceMemo]);
 
   return (
