@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { FormikHelpers } from "formik";
 import { formatEther } from "viem";
 import MainButton from "../MainButton/MainButton";
@@ -31,12 +32,13 @@ const WithdrawForm = () => {
     setIsGettingWithdraw,
     setStatusWithdraw: setStatus,
     setAmountStru,
-    setErrorMesWithdraw:setErrorMes,
+    setErrorMesWithdraw: setErrorMes,
   } = mainContext;
 
-  const formattedStakeBalance = stakeBalance
-    ? formatEther(stakeBalance)
-    : "0.00";
+  const formattedStakeBalance = useMemo(
+    () => (stakeBalance ? formatEther(stakeBalance) : "0.00"),
+    [stakeBalance]
+  );
 
   const handleClick = async () => {
     setStatus(undefined);

@@ -20,6 +20,7 @@ const fetchedStakeBalance = async (): Promise<
       functionName: "balanceOf",
       args: [address],
     })) as FetchBalanceResult;
+  
 
     return data;
   } catch (error) {
